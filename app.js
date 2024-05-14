@@ -39,6 +39,11 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 
+app.get("*", (req, res) => {
+    res.status(404);
+    res.send("Page not found - 404");
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
