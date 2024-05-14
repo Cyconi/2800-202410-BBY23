@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
+const User = require("./modules/user.js");
 
 // EJS 
 app.set('view engine', 'ejs');
@@ -30,9 +31,31 @@ app.use(session({
 }));
 
 mongoose.connect(process.env.MONGO_URL)
-    .then(() => console.log("MongoDB connected successfully"))
-    .catch(err => console.error("Failed to connect to MongoDB:", err));
+    .then(async () => {
+        console.log("MongoDB connected successfully");
 
+        // List all indexes
+        const indexes = await User.collection.indexes();
+        console.log('Indexes before:', indexes);
+
+        // Drop the incorrect 'username' index if it exists
+        await User.collection.dropIndex('username_1').catch(err => {
+            if (err.message.includes('index not found with name')) {
+                console.log('No such index found, skipping drop.');
+            } else {
+                throw err;
+            }
+        });
+
+        // List all indexes after removal
+        const updatedIndexes = await User.collection.indexes();
+        console.log('Indexes after:', updatedIndexes);
+
+    })
+    .catch(err => {
+        console.error("Failed to connect to MongoDB:", err);
+        process.exit(1);
+    });
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -40,6 +63,13 @@ require('./modules/passport')(passport);
 
 // Routes
 app.use('/', require('./modules/home'));
+
+
+
+app.get("*", (req, res) => {
+    res.status(404);
+    res.render("404");
+});
 
 // Start the server
 app.listen(port, () => {
