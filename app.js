@@ -11,6 +11,8 @@ const session = require("express-session");
 const port = process.env.PORT || 3000;
 const MongoStore = require('connect-mongo');
 
+// EJS 
+app.set('view engine', 'ejs');
 const path = require('path');
 app.set('views', path.join(__dirname, 'webapp', 'views'));
 
@@ -124,6 +126,11 @@ app.get("/", function (req, res) {
 // Set up routes
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.get('*', (req,res) => {
+    res.status(404);
+    res.render('404');
 });
 
 // Start the server
