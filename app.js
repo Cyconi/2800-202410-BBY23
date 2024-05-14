@@ -11,6 +11,9 @@ const session = require("express-session");
 const port = process.env.PORT || 3000;
 const MongoStore = require('connect-mongo');
 
+const path = require('path');
+app.set('views', path.join(__dirname, 'webapp', 'views'));
+
 
 // Serve static files from the 'public' directory
 app.use(express.json());
