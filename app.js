@@ -39,6 +39,8 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 
+
+
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");
