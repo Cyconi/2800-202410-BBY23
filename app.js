@@ -33,24 +33,6 @@ app.use(session({
 mongoose.connect(process.env.MONGO_URL)
     .then(async () => {
         console.log("MongoDB connected successfully");
-
-        // List all indexes
-        const indexes = await User.collection.indexes();
-        console.log('Indexes before:', indexes);
-
-        // Drop the incorrect 'username' index if it exists
-        await User.collection.dropIndex('username_1').catch(err => {
-            if (err.message.includes('index not found with name')) {
-                console.log('No such index found, skipping drop.');
-            } else {
-                throw err;
-            }
-        });
-
-        // List all indexes after removal
-        const updatedIndexes = await User.collection.indexes();
-        console.log('Indexes after:', updatedIndexes);
-
     })
     .catch(err => {
         console.error("Failed to connect to MongoDB:", err);
