@@ -14,31 +14,28 @@ router.post('/login', (req, res, next) => {
             return res.status(500).send('Internal Server Error');
         }
         if (!user) {
-            return res.status(401).send(info.message);
+            return res.status(401).send(info.message); // Make sure the error messages are appropriate and informative
         }
         req.login(user, loginErr => {
             if (loginErr) {
                 return res.status(500).send('Error logging in');
             }
-            res.redirect('/index.html');
+            res.redirect('/index.html'); // Redirect to a dashboard or appropriate route after login
         });
     })(req, res, next);
 });
 
+
 router.post('/signup', async (req, res) => {
-    console.log("in signup");
-    const { username, password } = req.body;
+    const { name, email, password } = req.body;
     try {
-        console.log("Existing user");
-        console.log(User.schema.paths);
-        console.log(username);
-        const existingUser = await User.findOne({username});
-        console.log(existingUser);
+
+        const existingUser = await User.findOne({name});
         if (existingUser) {
             return res.status(400).send('Signup Failed: User already exists with that username.');
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword });
+        const newUser = new User({ name,email, password: hashedPassword });
         await newUser.save();
         req.login(newUser, loginErr => {
             if (loginErr) {
