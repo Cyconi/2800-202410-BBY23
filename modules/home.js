@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 
-router.get('/', (req, res) =>{
+router.get('/', (req, res) => {
     res.render('index');
 });
 
@@ -14,24 +14,32 @@ router.post('/login', (req, res, next) => {
             return res.status(500).send('Internal Server Error');
         }
         if (!user) {
-            return res.status(401).send(info.message); // Make sure the error messages are appropriate and informative
+            return res.status(401).send(info.message);
         }
         req.login(user, loginErr => {
             if (loginErr) {
                 return res.status(500).send('Error logging in');
             }
-            res.redirect('/index.html'); // Redirect to a dashboard or appropriate route after login
+            res.redirect('/index.html');
         });
     })(req, res, next);
 });
 
 router.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
-    try {
 
-        const existingUser = await User.findOne({name});
+    if (!name || !email || !password) {
+        return res.status(400).send('Signup Failed: All fields are required.');
+    }
+
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+        return res.status(400).send('Signup Failed: All fields must be non-empty strings.');
+    }
+
+    try {
+        const existingUser = await User.findOne({ $or: [{ email }, { name }] });
         if (existingUser) {
-            return res.status(400).send('Signup Failed: User already exists with that username.');
+            return res.status(400).send('Signup Failed: User already exists with that username or email.');
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, password: hashedPassword });
@@ -43,7 +51,7 @@ router.post('/signup', async (req, res) => {
             res.redirect('/index.html');
         });
     } catch (err) {
-        res.status(500).send('Error during signup process.');
+        res.status(500).send('Error during signup process: ' + err.message);
     }
 });
 
