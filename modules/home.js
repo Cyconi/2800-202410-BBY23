@@ -4,6 +4,10 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 
+router.get('/', (req, res) => {
+    res.render('login');
+});
+
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
