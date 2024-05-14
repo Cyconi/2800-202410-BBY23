@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 
-router.get('/', (req, res) => {
-    res.render('login');
+router.get('/', (req, res) =>{
+    res.render('index');
 });
 
 router.post('/login', (req, res, next) => {
@@ -26,9 +26,14 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/signup', async (req, res) => {
+    console.log("in signup");
     const { username, password } = req.body;
     try {
-        const existingUser = await User.findOne({ username });
+        console.log("Existing user");
+        console.log(User.schema.paths);
+        console.log(username);
+        const existingUser = await User.findOne({username});
+        console.log(existingUser);
         if (existingUser) {
             return res.status(400).send('Signup Failed: User already exists with that username.');
         }

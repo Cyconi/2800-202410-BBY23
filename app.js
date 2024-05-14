@@ -5,6 +5,7 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
 // EJS 
 app.set('view engine', 'ejs');
 const path = require('path');
@@ -25,6 +26,10 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
     cookie: { maxAge: 3600000 }
 }));
+
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log("MongoDB connected successfully"))
+    .catch(err => console.error("Failed to connect to MongoDB:", err));
 
 // Passport
 app.use(passport.initialize());
