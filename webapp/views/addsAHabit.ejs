@@ -1,40 +1,31 @@
 <%- include("template/header") %>
 
-<style>
-    .center-screen {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-    }
-    .large-input {
-        width: 100%;
-        height: 40px; /* Adjust height as needed */
-        font-size: 16px; /* Adjust font size as needed */
-    }
-</style>
-<div class="container text-center">
-    <h1>Add A Habit</h1>
-    <% if (good) { %>
-        <form action='/habit/goodAdd' method='POST'>
-    <% } else { %>
-        <form action='/habit/badAdd' method='POST'>
-    <% } %>
-        <div class="form-group">
-            <label for="habit">Your Habit e.g., "I smoke"</label>
-            <br><br>
-            <input type="text" id="habit" name="habit" class="large-input" placeholder="Enter a habit">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h1 class="text-center mb-4">Add A Habit</h1>
+            <% if (good) { %>
+                <form action='/habit/goodAdd' method='POST'>
+            <% } else { %>
+                <form action='/habit/badAdd' method='POST'>
+            <% } %>
+                <br><br>
+                <div class="mb-3">
+                    <label for="habit" class="form-label">Your Habit e.g., "I smoke"</label>
+                    <input type="text" id="habit" name="habit" class="form-control" placeholder="Enter a habit">
+                </div>
+                <br><br>
+                <div class="mb-3">
+                    <label for="question" class="form-label">Daily Question e.g., "Did you smoke today?"</label>
+                    <input type="text" id="question" name="question" class="form-control" placeholder="Daily question we ask you">
+                </div>
+                <br><br>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
-
-        <br><br><br>
-
-        <div class="form-group">
-            <label for="question">Daily Question e.g., "Did you smoke today?"</label>
-            <br><br>
-            <input type="text" id="question" name="question" class="large-input" placeholder="Daily question we ask you">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 </div>
 
 <%- include("template/footer") %>
