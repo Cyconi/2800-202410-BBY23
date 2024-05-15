@@ -19,6 +19,9 @@ router.post('/badHabitAdd', (req, res) => {
 router.post('/goodHabitAdd', (req, res) => {
     res.render('addsAHabit', { good: true });
 })
+router.post('/addAHabit', async (res, req) => {
+    const { habit, dailyQuestion } = req.body;
 
+});
 module.exports = router;
 
