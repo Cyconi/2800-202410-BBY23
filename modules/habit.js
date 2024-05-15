@@ -12,10 +12,10 @@ router.get('/', (req, res) => {
     res.render('habitIndex');
 });
 router.post('/goodHabit', (req, res) => {
-    res.render('habitLists', { good: true });
+    res.render('habitList', { good: true });
 })
 router.post('/badHabit', (req, res) => {
-    res.render('habitLists', { good: false });
+    res.render('habitList', { good: false });
 })
 router.post('/badHabitAdd', (req, res) => {
     res.render('addsAHabit', { good: false });
