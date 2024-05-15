@@ -1,0 +1,11 @@
+/* This is not routing */
+
+@media (max-width: 576px) {
+    .offcanvas {
+        --bs-offcanvas-width: 10%;
+    }
+}
+
+body {
+    background-color: blue;
+}
