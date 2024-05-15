@@ -11,13 +11,13 @@ router.post('/goodHabit', (req, res) => {
     res.render('habitLists', { good: true });
 })
 router.post('/badHabit', (req, res) => {
-    res.render('habitLists', { good: false});
+    res.render('habitLists', { good: false });
 })
 router.post('/badHabitAdd', (req, res) => {
-    res.render('addsAHabit', {good: false});
+    res.render('addsAHabit', { good: false });
 })
 router.post('/goodHabitAdd', (req, res) => {
-    res.render('addsAHabit', {good: true});
+    res.render('addsAHabit', { good: true });
 })
 
 module.exports = router;

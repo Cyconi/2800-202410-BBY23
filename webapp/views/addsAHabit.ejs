@@ -1,5 +1,12 @@
-<% if (good) { %>
-    good habits.
-<% } else { %>
-    bad habits.
-<% } %>
+<h1>Sign Up</h1>
+<form action="addHabit" method="post">
+    <div class="form-group">
+        <label for="habit">Your Habit</label>
+        <input type="text" name="habit" class="form-control" placeholder="Enter a habit" required>
+    </div>
+    <div class="form-group">
+        <label for="dailyQuestion">Daily Question</label>
+        <input type="text" name="dailyQuestion" class="form-control" placeholder="Daily question we ask you" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
