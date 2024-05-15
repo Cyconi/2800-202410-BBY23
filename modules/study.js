@@ -30,4 +30,7 @@ router.post("/log", (req, res) => {
 router.post("/pomodoro", (req, res) => {
     res.render("pomodoro");
 });
+router.post("/active-recall", (req, res) => {
+    res.render("act-recall");
+})
 module.exports = router;
