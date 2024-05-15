@@ -11,12 +11,23 @@ router.get('/', (req, res) => {
     }
     res.render('habitIndex');
 });
-router.post('/goodHabit', (req, res) => {
-    res.render('habitList', { good: true });
-})
-router.post('/badHabit', (req, res) => {
-    res.render('habitList', { good: false });
-})
+router.post('/goodHabit', async (req, res) => {
+    try {
+        const goodHabits = await Habit.find({ email: req.user.email, good: true });
+        res.render('habitList', { habits: goodHabits, good: true });
+    } catch (err) {
+        res.status(500).send("Error retrieving good habits");
+    }
+});
+
+router.post('/badHabit', async (req, res) => {
+    try {
+        const goodHabits = await Habit.find({ email: req.user.email, good: false });
+        res.render('habitList', { habits: goodHabits, good: false});
+    } catch (err) {
+        res.status(500).send("Error retrieving bad habits");
+    }
+});
 router.post('/badHabitAdd', (req, res) => {
     res.render('addHabit', { good: false });
 })
