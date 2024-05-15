@@ -1,12 +1,29 @@
-<h1>Sign Up</h1>
-<form action="addHabit" method="post">
-    <div class="form-group">
-        <label for="habit">Your Habit</label>
-        <input type="text" name="habit" class="form-control" placeholder="Enter a habit" required>
-    </div>
-    <div class="form-group">
-        <label for="dailyQuestion">Daily Question</label>
-        <input type="text" name="dailyQuestion" class="form-control" placeholder="Daily question we ask you" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<%- include("template/header") %>
+<style>
+    .center-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+    .large-input {
+        width: 100%;
+        height: 40px; /* Adjust height as needed */
+        font-size: 16px; /* Adjust font size as needed */
+    }
+</style>
+<div class="container text-center">
+    <h1>Add A Habit</h1>
+    <form action='/habit/add' method='POST'>
+        <div class="form-group">
+            <label for="habit">Your Habit e.g., "I smoke"</label>
+            <input type="text" id="habit" name="habit" class="large-input" placeholder="Enter a habit">
+        </div>
+        <div class="form-group">
+            <label for="question">Daily Question e.g., "Did you smoke today?"</label>
+            <input type="text" id="question" name="question" class="large-input" placeholder="Daily question we ask you">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<%- include("template/footer") %>
