@@ -1,8 +1,9 @@
 <%- include("template/header") %>
-
 <script>
+    const good = <%= JSON.stringify(good) %>;
+
     setTimeout(function() {
-        window.location.href = '/habit';
+        window.location.href = '/habit/habitList?good=' + good;
     }, 5000);
 </script>
 

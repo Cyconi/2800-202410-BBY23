@@ -11,7 +11,23 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/');
 }
+router.post('/editHabit', async (req, res) => {
+    const {habitID} = req.body;
 
+});
+router.post('/deleteHabit', async (req, res) => {
+    const {habitID, habitGood} = req.body;
+    const isGood = habitGood === 'true';
+    console.log("Habit id is = " + habitID);
+    console.log("Habit id is = " + isGood);
+    try{
+        const result = await Habit.findOneAndDelete({id: habitID});
+        console.log(result);
+        res.render('habitSuccess', {good: isGood});
+    } catch (Error ){
+        res.status(500).send("Internal server error. Could not delete habit. Try again later.");
+    }
+}); 
 router.get('/', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/');
@@ -78,7 +94,6 @@ router.post('/badAdd', async (req, res) => {
     await addAHabit(req, res, habit, question, false);
     
 })
-
 async function addAHabit(req, res, habit, question, goodOrBad){
     try{
         const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question });
@@ -87,11 +102,23 @@ async function addAHabit(req, res, habit, question, goodOrBad){
         }
         const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
         await newHabit.save();
-        res.render("habitSuccess");
+        res.render("habitSuccess", {good : goodOrBad});
     } catch (err) {
-        res.status(500).send("Failed to save habit");
+        res.status(500).send("Failed to save habit" + err.message);
     }
 }
+router.get('/habitList', async (req, res) => {
+    const good = req.query.good === 'true';
 
+    try {
+        const habits = await Habit.find({ email: req.user.email, good: good });
+        res.render('habitList', { habits: habits, good: good });
+    } catch (err) {
+        res.status(500).send("Error retrieving habits");
+    }
+});
+router.get('/habitSuccess', (req, res) =>{
+
+});
 module.exports = router;
 
