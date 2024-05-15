@@ -1,98 +1,51 @@
 <%- include("template/header") %>
 
-<!-- Temp -->
-<br><br><br><br> 
 
-    <div class="container my-4">
-        <div class="row">
-            <div class="col text-center">
-                <form action="/habit/goodHabit" method="POST">
-                    <button type="submit" class="btn btn-success btn-lg w-100">Good Habits</button>
-                </form>
-            </div>
-        </div>
 
-        <br><br><br><br><br><br><br>
-
-        <div class="row">
-            <div class="col">
-                <div class="progress" style="height: 2rem;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
-
-        <br><br><br><br><br><br><br>
-
-        <div class="row">
-            <div class="col text-center">
-                <form action="/habit/badHabit" method="POST">
-                    <button type="submit" class="btn btn-danger btn-lg w-100">Bad Habits</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-<!-- 
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
+        .horizontal-progress {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 48%;
+            /* height: 10px; */
+            height: 3%;
+            background: linear-gradient(to right, green 50%, red 50%);
         }
-        .container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around; /* This will distribute the spacing evenly */
+        .habit {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2em;
         }
-        .progress-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* This centers the progress bar vertically */
+        .good-habit {
+            top: 7%;
+            left: 5%;
+            right: 5%;
         }
-        .button-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around; /* This will place the buttons evenly */
+        .bad-habit {
+            bottom: 8%;
+            left: 5%;
+            right: 5%;
         }
     </style>
-    
-    <div class="container">
-        <div class="button-container">
-            <div class="row">
-                <div class="col text-center">
-                    <form action="/habit/goodHabit" method="POST">
-                        <button type="submit" class="btn btn-success btn-lg w-100">Good Habits</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    
-        <div class="progress-container">
-            <div class="row">
-                <div class="col">
-                    <div class="progress" style="height: 2rem;">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <div class="button-container">
-            <div class="row">
-                <div class="col text-center">
-                    <form action="/habit/badHabit" method="POST">
-                        <button type="submit" class="btn btn-danger btn-lg w-100">Bad Habits</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-     -->
+
+    <div class="horizontal-progress"></div>
+    <form action="/habit/goodHabit" method="POST">
+        <button style="height: 40%;" type="submit" class="btn btn-success h-49 habit good-habit">Good Habits</button>
+    </form>
+    <form action="/habit/badHabit" method="POST">
+        <button style="height: 40%;" type="submit" class="btn btn-danger h-49 habit bad-habit">Bad Habits</button>
+    </form>
+    <!-- <a href="/goodHabit" class="habit good-habit">Good Habit</a>
+    <a href="/badHabit" class="habit bad-habit">Bad Habit</a> -->
+
+
 
 <%- include("template/footer") %>
+
+
+
+
+
