@@ -8,4 +8,16 @@ router.get('/', (req, res) => {
     res.render('studypage');
 });
 
+router.post("/guides", (req, res) => {
+    res.render("studyguide");
+});
+
+router.post("/session", (req, res) => {
+    res.render("studysession");
+});
+
+router.post("/log", (req, res) => {
+    res.render("studylog");
+});
+
 module.exports = router;
