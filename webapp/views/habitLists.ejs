@@ -1,0 +1,11 @@
+<% if (good) { %>
+    good habits.
+    <form action="/habit/goodHabitAdd" method="POST">
+        <button type="submit" class="AddAHabit">+</button>
+    </form>
+<% } else { %>
+    bad habits.
+    <form action="/habit/badHabitAdd" method="POST">
+        <button type="submit" class="AddAHabit">+</button>
+    </form>
+<% } %>
