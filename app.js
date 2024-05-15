@@ -33,6 +33,8 @@ app.use(session({
 mongoose.connect(process.env.MONGO_URL)
     .then(async () => {
         console.log("MongoDB connected successfully");
+        const indexes = await User.collection.indexes();
+        console.log('Indexes before:', indexes);
     })
     .catch(err => {
         console.error("Failed to connect to MongoDB:", err);
