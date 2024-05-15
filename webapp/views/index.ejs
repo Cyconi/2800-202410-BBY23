@@ -12,7 +12,16 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Enter your Password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Login</button> 
+        </form>
+        <form action="/forgot" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Forgot Password?</button> 
+            </div>
         </form>
         
     </div>
@@ -20,8 +29,12 @@
         <h1>Sign Up</h1>
         <form action="/signup" method="post">
             <div class="form-group">
-                <label for="name">Username</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your Username" required>
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter your Username" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Your actual name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
