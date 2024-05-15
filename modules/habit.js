@@ -32,12 +32,21 @@ router.post('/goodAdd', async (req, res) => {
 router.post('/badAdd', async (req, res) => {
     const { habit, question } = req.body;
     await addAHabit(req, res, habit, question, false);
+    
 })
 
 async function addAHabit(req, res, habit, question, goodOrBad){
-    const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
-    await newHabit.save();
-    res.send("Thanks for completing this thingy");
+    try{
+        const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question });
+        if (existingHabit) {
+            return res.status(500).send("A habit with the same question and habit already exists.");
+        }
+        const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
+        await newHabit.save();
+        res.render("habitSuccess");
+    } catch (err) {
+        res.status(500).send("Failed to save habit");
+    }
 }
 
 module.exports = router;
