@@ -18,10 +18,10 @@ router.post('/badHabit', (req, res) => {
     res.render('habitList', { good: false });
 })
 router.post('/badHabitAdd', (req, res) => {
-    res.render('addsAHabit', { good: false });
+    res.render('addHabit', { good: false });
 })
 router.post('/goodHabitAdd', (req, res) => {
-    res.render('addsAHabit', { good: true });
+    res.render('addHabit', { good: true });
 })
 
 router.post('/goodAdd', async (req, res) => {
