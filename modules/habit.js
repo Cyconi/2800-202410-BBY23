@@ -5,6 +5,12 @@ const passport = require("passport");
 const User = require('./user');
 
 router.get('/', (req, res) => {
+    if(!req.isAuthenticated()){
+        console.log("Bye bye");
+        res.redirect('/');
+        return;
+    }
+    console.log("Hello");
     res.render('habitIndex');
 });
 router.post('/goodHabit', (req, res) => {
@@ -19,9 +25,14 @@ router.post('/badHabitAdd', (req, res) => {
 router.post('/goodHabitAdd', (req, res) => {
     res.render('addsAHabit', { good: true });
 })
-router.post('/addAHabit', async (res, req) => {
-    const { habit, dailyQuestion } = req.body;
 
-});
+router.post('/add', async (req, res) => {
+    console.log("Hello");
+    const { habit, question } = req.body;
+
+    console.log(habit);
+    console.log(question);
+    res.send("hhabit dick");
+})
 module.exports = router;
 
