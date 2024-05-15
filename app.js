@@ -44,7 +44,7 @@ app.use(passport.session());
 require('./modules/passport')(passport);
 
 // Routes
-app.use('/', require('./modules/home'));
+app.use('/habit', require('./modules/home'));
 
 app.use('/habit', require('./modules/habit.js'));
 

@@ -7,3 +7,6 @@ const User = require('./user');
 router.get('/habit', (req, res) => {
     res.render('habitIndex');
 });
+
+module.exports = router;
+
