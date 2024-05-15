@@ -5,19 +5,19 @@ const passport = require("passport");
 const User = require('./user');
 
 router.get('/', (req, res) => {
-    res.render('studypage');
+    res.render('study-page');
 });
 
 router.post("/guides", (req, res) => {
-    res.render("studyguide");
+    res.render("study-guide");
 });
 
 router.post("/session", (req, res) => {
-    res.render("studysession");
+    res.render("study-session");
 });
 
 router.post("/log", (req, res) => {
-    res.render("studylog");
+    res.render("study-log");
 });
 
 module.exports = router;
