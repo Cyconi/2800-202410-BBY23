@@ -23,10 +23,12 @@
                         <div>
                             <form action="/habit/editHabit" method="POST">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </form>
                             <form action="/habit/deleteHabit" method="POST">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </div>
