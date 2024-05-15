@@ -1,3 +1,37 @@
 <%- include("template/header") %>
-    Habit Index page
+
+<!-- Temp -->
+<br><br><br><br> 
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col text-center">
+                <form action="/habit/goodHabit" method="POST"></form>
+                    <button type="submit" class="btn btn-success btn-lg w-100">Good Habits</button>
+                </form>
+            </div>
+        </div>
+
+        <br><br><br><br><br><br><br>
+
+        <div class="row">
+            <div class="col">
+                <div class="progress" style="height: 2rem;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+        <br><br><br><br><br><br><br>
+
+        <div class="row">
+            <div class="col text-center">
+                <form action="/habit/badHabit" method="POST">
+                    <button type="submit" class="btn btn-danger btn-lg w-100">Bad Habits</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 <%- include("template/footer") %>
