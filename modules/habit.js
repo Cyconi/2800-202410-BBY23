@@ -87,7 +87,7 @@ async function addAHabit(req, res, habit, question, goodOrBad){
         }
         const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
         await newHabit.save();
-        res.render("habitSuccess");
+        res.render("habitSuccess", { redirectDelay: 5000, redirectUrl: '/habit' });
     } catch (err) {
         res.status(500).send("Failed to save habit");
     }
