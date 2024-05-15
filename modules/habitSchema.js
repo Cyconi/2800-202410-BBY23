@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const habitSchema = new mongoose.Schema({
     email: { type: String, unique: false, required: true },
@@ -8,6 +9,7 @@ const habitSchema = new mongoose.Schema({
     frequency: { type: Number, required: true },
 });
 
+habitSchema.plugin(AutoIncrement, { inc_field: 'id' });
 const Habit = mongoose.model('Habit', habitSchema);
 
 module.exports = Habit;

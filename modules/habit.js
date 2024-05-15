@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 router.post('/goodHabit', async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
+        console.log(goodHabits);
         res.render('habitList', { habits: goodHabits, good: true });
     } catch (err) {
         res.status(500).send("Error retrieving good habits");
@@ -40,6 +41,7 @@ router.get('/badHabit', ensureAuthenticated, async (req, res) => {
 router.get('/goodHabit', ensureAuthenticated, async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
+        console.log(goodHabits);
         res.render('habitList', { habits: goodHabits, good: true });
     } catch (err) {
         res.status(500).send("Error retrieving good habits");
@@ -78,6 +80,21 @@ router.post('/badAdd', async (req, res) => {
     await addAHabit(req, res, habit, question, false);
     
 })
+router.post('/editHabit', async (req, res) => {
+    const {habitID} = req.body;
+    
+});
+router.post('/deleteHabit', async (req, res) => {
+    const {habitID} = req.body;
+    console.log("Habit id is = " + habitID);
+    try{
+        const result = await Habit.findOneAndDelete({id: habitID});
+        console.log(result);
+        res.render('habitSuccess');
+    } catch (Error ){
+        res.status(500).send("Internal server error. Could not delete habit. Try again later.");
+    }
+}); 
 
 async function addAHabit(req, res, habit, question, goodOrBad){
     try{
