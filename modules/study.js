@@ -39,4 +39,25 @@ router.post("/feynman", (req, res) =>{
     res.render("feynman");
 });
 
+router.get('/study-session', (req, res) => {
+    res.render('study-session');
+});
+
+router.post('/log-study-session', async (req, res) => {
+    const { subject, duration, notes } = req.body;
+    const newSession = new StudySession({ subject, duration, notes, date: new Date() });
+    await newSession.save();
+    res.redirect('/study-log');
+});
+
+router.get('/study-log', async (req, res) => {
+    const sessions = await StudySession.find().sort({ date: -1 });
+    res.render('study-log', { sessions });
+});
+
+
+
+
+
+
 module.exports = router;

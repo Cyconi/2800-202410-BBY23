@@ -1,3 +1,27 @@
 <%- include("template/header") %>
-    Study Log
+<link rel="stylesheet" href="css/study-log.css">
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="mx-auto">Study Log</span>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <% sessions.forEach(session => { %>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= session.subject %></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><%= session.duration %> minutes</h6>
+                        <p class="card-text"><%= session.notes %></p>
+                        <p class="card-text"><small class="text-muted"><%= session.date.toLocaleString() %></small></p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
 <%- include("template/footer") %>
