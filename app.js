@@ -47,7 +47,17 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 
-
+app.post('/logout', (req, res) => {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send('Error logging out');
+            }
+            res.redirect('/'); 
+        });
+    });
+});
 
 app.get("*", (req, res) => {
     res.status(404);
