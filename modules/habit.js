@@ -5,9 +5,9 @@ const passport = require("passport");
 const User = require('./user');
 const Habit = require('./habitSchema');
 
-function authenticated(req, res, next){
-    if(req.isAuthenticated()){
-        next();
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
     }
     res.redirect('/');
 }
@@ -28,7 +28,7 @@ router.post('/goodHabit', async (req, res) => {
     }
 });
 
-router.get('/badHabit', authenticated, async (req, res) => {
+router.get('/badHabit', ensureAuthenticated, async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: false });
         res.render('habitList', { habits: goodHabits, good: false});
@@ -37,7 +37,7 @@ router.get('/badHabit', authenticated, async (req, res) => {
     }
 });
 
-router.get('/goodHabit', authenticated, async (req, res) => {
+router.get('/goodHabit', ensureAuthenticated, async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
         res.render('habitList', { habits: goodHabits, good: true });
@@ -58,10 +58,10 @@ router.post('/badHabitAdd', (req, res) => {
     res.render('addHabit', { good: false });
 })
 
-router.get('/badHabitAdd', authenticated, (req, res) => {
+router.get('/badHabitAdd', ensureAuthenticated, (req, res) => {
     res.render('addHabit', { good: false });
 });
-router.get('/goodHabitAdd', authenticated, (req, res) => {
+router.get('/goodHabitAdd', ensureAuthenticated, (req, res) => {
     res.render('addHabit', { good: true });
 });
 router.post('/goodHabitAdd', (req, res) => {
