@@ -1,4 +1,5 @@
 <%- include("template/header") %>
+
 <style>
     .center-screen {
         display: flex;
@@ -21,13 +22,19 @@
     <% } %>
         <div class="form-group">
             <label for="habit">Your Habit e.g., "I smoke"</label>
+            <br><br>
             <input type="text" id="habit" name="habit" class="large-input" placeholder="Enter a habit">
         </div>
+
+        <br><br><br>
+
         <div class="form-group">
             <label for="question">Daily Question e.g., "Did you smoke today?"</label>
+            <br><br>
             <input type="text" id="question" name="question" class="large-input" placeholder="Daily question we ask you">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
 <%- include("template/footer") %>
