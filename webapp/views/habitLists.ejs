@@ -1,11 +1,33 @@
+<%- include("template/header") %>
+
 <% if (good) { %>
-    good habits.
-    <form action="/habit/goodHabitAdd" method="POST">
-        <button type="submit" class="AddAHabit">+</button>
-    </form>
+    <div class="container mt-4">
+        <h2 class="text-center">Good Habits</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Habit 1</li>
+            <li class="list-group-item">Habit 2</li>
+            <li class="list-group-item">Habit 3</li>
+            <li class="list-group-item">Habit 4</li>
+            <li class="list-group-item">Habit 5</li>
+        </ul>
+        <form action="/habit/goodHabitAdd" method="POST" class="mt-3 text-center">
+            <button type="submit" class="btn btn-primary">Add a Habit</button>
+        </form>
+    </div>
 <% } else { %>
-    bad habits.
-    <form action="/habit/badHabitAdd" method="POST">
-        <button type="submit" class="AddAHabit">+</button>
-    </form>
+    <div class="container mt-4">
+        <h2 class="text-center">Bad Habits</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Habit 1</li>
+            <li class="list-group-item">Habit 2</li>
+            <li class="list-group-item">Habit 3</li>
+            <li class="list-group-item">Habit 4</li>
+            <li class="list-group-item">Habit 5</li>
+        </ul>
+        <form action="/habit/badHabitAdd" method="POST" class="mt-3 text-center">
+            <button type="submit" class="btn btn-primary">Add a Habit</button>
+        </form>
+    </div>
 <% } %>
+
+<%- include("template/footer") %>
