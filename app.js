@@ -44,9 +44,9 @@ app.use(passport.session());
 require('./modules/passport')(passport);
 
 // Routes
-app.use('/habit', require('./modules/home'));
+app.use('/habit', require('./modules/habit.js'))
 
-app.use('/habit', require('./modules/habit.js'));
+app.use('/', require('./modules/home.js'));
 
 app.get("*", (req, res) => {
     res.status(404);

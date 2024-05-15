@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 
-router.get('/habit', (req, res) => {
+router.get('/', (req, res) => {
     res.render('habitIndex');
 });
 
