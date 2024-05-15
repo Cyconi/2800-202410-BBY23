@@ -20,4 +20,7 @@ router.post("/log", (req, res) => {
     res.render("study-log");
 });
 
+router.post("/pomodoro", (req, res) => {
+    res.render("pomodoro");
+});
 module.exports = router;

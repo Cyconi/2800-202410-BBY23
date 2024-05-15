@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .guide-section {
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+        .guide-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .guide-section p {
+            text-align: justify;
+        }
+
+        .steps ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .steps ul li {
+            margin-bottom: 10px;
+        }
+
+        .navbar .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar .navbar-brand, .navbar .btn-outline-secondary {
+            position: absolute;
+        }
+
+        .navbar .navbar-brand {
+            left: 10px;
+        }
+
+        .navbar .btn-outline-secondary {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <img src="img/hamburg.png" alt="Sidebar" width="30" height="24" class="d-inline-block align-text-top">
+            </a>
+            <span class="mx-auto">Pomodoro Method</span>
+            
+        </div>
+    </nav>
+
+    <div class="guide-section">
+        <h2>Summary</h2>
+        <p>
+        The Pomodoro Method is a time-management technique that enhances focus and productivity by breaking study sessions into intervals, typically 25 minutes long, separated by short breaks. This method helps maintain high levels of concentration and prevents burnout.
+        </p>
+    </div>
+
+    <div class="guide-section steps">
+        <h2>Steps</h2>
+        <ul>
+            <li>Use our Timer in <a href="study-session.ejs">Study Session</a>: Choose a task to work on and set a timer for 25 minutes. Focus solely on this task without distractions.</li>
+            <li>Work: Work on the task until the timer rings. If you get distracted, write down the distraction and get back to the task immediately.</li>
+            <li>Short Break: Take a 5-minute break after the timer rings. Use this time to relax and clear your mind.</li>
+            <li>Repeat: After four Pomodoro sessions, take a longer break of 15-30 minutes to recharge.</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
