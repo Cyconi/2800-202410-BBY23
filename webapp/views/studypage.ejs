@@ -1,0 +1,25 @@
+<%- include("template/header") %>
+<style>
+    .center-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        /* This makes sure the container takes up the full height of the screen */
+    }
+</style>
+    <div class="container text-center">
+        <h1>Study Page.</h1>
+        <div class="row center-screen">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary">Study Guides</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary">Study Session</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary">Study Log</button>
+            </div>
+        </div>
+    </div>
+<%- include("template/footer") %>

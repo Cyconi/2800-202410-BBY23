@@ -46,7 +46,7 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 
-
+app.use('/study', require('./modules/study'));
 
 app.get("*", (req, res) => {
     res.status(404);
