@@ -15,7 +15,11 @@
 </style>
 <div class="container text-center">
     <h1>Add A Habit</h1>
-    <form action='/habit/add' method='POST'>
+    <% if (good) { %>
+        <form action='/habit/goodAdd' method='POST'>
+    <% } else { %>
+        <form action='/habit/badAdd' method='POST'>
+    <% } %>
         <div class="form-group">
             <label for="habit">Your Habit e.g., "I smoke"</label>
             <br><br>

@@ -3,14 +3,12 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
-
+const Habit = require('./habitSchema');
 router.get('/', (req, res) => {
     if(!req.isAuthenticated()){
-        console.log("Bye bye");
         res.redirect('/');
         return;
     }
-    console.log("Hello");
     res.render('habitIndex');
 });
 router.post('/goodHabit', (req, res) => {
@@ -26,13 +24,21 @@ router.post('/goodHabitAdd', (req, res) => {
     res.render('addsAHabit', { good: true });
 })
 
-router.post('/add', async (req, res) => {
-    console.log("Hello");
+router.post('/goodAdd', async (req, res) => {
     const { habit, question } = req.body;
-
-    console.log(habit);
-    console.log(question);
-    res.send("hhabit dick");
+    await addAHabit(req, res, habit, question, true);
 })
+
+router.post('/badAdd', async (req, res) => {
+    const { habit, question } = req.body;
+    await addAHabit(req, res, habit, question, false);
+})
+
+async function addAHabit(req, res, habit, question, goodOrBad){
+    const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
+    await newHabit.save();
+    res.send("Thanks for completing this thingy");
+}
+
 module.exports = router;
 
