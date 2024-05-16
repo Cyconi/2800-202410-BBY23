@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Add event listener to modal button to reload the page
     const modalButton = document.querySelector('#modalTour button[data-bs-dismiss="modal"]');
     modalButton.addEventListener('click', function () {
         location.reload();
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalSignin'));
                     modal.hide();
-                    location.reload(); // Reload the page to reflect the changes
+                    location.reload(); 
                 } else {
                     alert('Failed to edit habit. Please try again.');
                 }
