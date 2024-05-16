@@ -31,7 +31,7 @@ router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     try {
         const result = await Habit.findOneAndDelete({ id: habitID });
         console.log(result);
-        res.json({ success: true });
+        res.json({ success: true, habit: result.habit });
     } catch (error) {
         console.error('Error deleting habit:', error);
         res.status(500).json({ success: false, message: 'Internal server error. Could not delete habit. Try again later.' });

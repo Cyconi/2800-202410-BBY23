@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const habitID = form.querySelector('input[name="habitID"]').value;
             const habitGood = form.querySelector('input[name="habitGood"]').value;
-
+            
             fetch('/habit/deleteHabit', {
                 method: 'POST',
                 headers: {
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     const modal = new bootstrap.Modal(document.getElementById('modalTour'));
+                    document.querySelector('.habitName').textContent = data.habit;
                     modal.show();
                 } else {
                     alert('Failed to delete habit. Please try again.');
