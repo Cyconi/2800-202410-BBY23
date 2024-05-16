@@ -60,6 +60,8 @@ app.post('/logout', (req, res) => {
 });
 app.use('/study', require('./modules/study'));
 
+app.use('/chat', require('./modules/chat'));
+
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");
