@@ -4,11 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <h1 class="text-center mb-4">Add A Habit</h1>
-            <% if (good) { %>
-                <form action='/habit/goodAdd' method='POST'>
-            <% } else { %>
-                <form action='/habit/badAdd' method='POST'>
-            <% } %>
+            <form id="habitForm" method='POST'>
                 <br><br>
                 <div class="mb-3">
                     <label for="habit" class="form-label">Your Habit e.g., "I smoke"</label>
@@ -28,9 +24,8 @@
     </div>
 </div>
 
-
-<!-- Duplicated Habit in database  -->
-<div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
+<!-- Duplicate Habit Modal -->
+<div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="duplicateModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
@@ -38,15 +33,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
-                <p>You already have a Habit with the same name/Question. You sure you want to add this Habit?</p>
+                <p id="duplicateModalBody">You already have a Habit with the same name/Question. Are you sure you want to add this Habit?</p>
             </div>
             <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                <button type="button" class="btn btn-lg btn-primary">Save changes</button>
+                <button type="button" class="btn btn-lg btn-primary" id="addAnywayButton">Add Anyway</button>
                 <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    var goodOrBad = <%= good ? 'true' : 'false' %>;
+</script>
+<script src="/js/habitC.js"></script>
 
 <%- include("template/footer") %>

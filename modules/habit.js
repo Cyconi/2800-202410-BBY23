@@ -18,7 +18,7 @@ router.post('/editHabit', async (req, res) => {
         const result = await Habit.findOneAndUpdate(
             { id: habitID },
             { $set: { habit: habit, dailyQuestion: question, good: isGood } },
-            { new: true } // This option ensures that the updated document is returned
+            { new: true }
         );
         res.json({ success: true, habit: result });
     } catch (error) {
@@ -96,29 +96,40 @@ router.post('/goodHabitAdd', (req, res) => {
     res.render('addHabit', { good: true });
 })
 
-router.post('/goodAdd', async (req, res) => {
-    const { habit, question } = req.body;
-    await addAHabit(req, res, habit, question, true);
-})
+router.post("/existingHabitCheck", ensureAuthenticated, async (req, res) => {
+    const { goodOrBad, habit, question } = req.body;
+    const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, habit: habit });
+    const existingQuestion = await Habit.findOne({ email: req.user.email, good: goodOrBad, dailyQuestion: question });
 
-router.post('/badAdd', async (req, res) => {
-    const { habit, question } = req.body;
-    await addAHabit(req, res, habit, question, false);
-    
-})
-async function addAHabit(req, res, habit, question, goodOrBad){
-    try{
-        const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question });
-        if (existingHabit) {
-            return res.status(500).send("A habit with the same question and habit already exists.");
-        }
-        const newHabit = new Habit({email: req.user.email, good: goodOrBad, habit: habit, dailyQuestion: question, frequency: 1});
-        await newHabit.save();
-        res.render("habitSuccess", {good : goodOrBad});
-    } catch (err) {
-        res.status(500).send("Failed to save habit" + err.message);
+    if (existingHabit) {
+        return res.json({ error: true, message: "Habit with same name already exists!" });
     }
-}
+
+    if (existingQuestion) {
+        return res.json({ error: true, message: "Habit with the same question already exists!" });
+    }
+
+    res.json({ error: false });
+});
+
+// Add a habit
+router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
+    const { habit, question, goodOrBad } = req.body;
+    try {
+        const newHabit = new Habit({
+            email: req.user.email,
+            good: goodOrBad,
+            habit: habit,
+            dailyQuestion: question,
+            frequency: 1
+        });
+        await newHabit.save();
+        res.json({ success: true });
+    } catch (err) {
+        res.json({ success: false, error: err.message });
+    }
+});
+
 router.get('/habitList', async (req, res) => {
     const good = req.query.good === 'true';
 
