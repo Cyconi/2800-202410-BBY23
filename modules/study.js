@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 const StudySession = require('./studySession');
+const Timer = require("./timerSchema");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -27,8 +28,28 @@ router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
 
-router.post("/session", (req, res) => {
-    res.render("studySession");
+router.post("/session", ensureAuthenticated, async (req, res) => {
+    try {
+        const timer = await Timer.findOne({ email: req.user.email });
+        let timeLeft = 0;
+        let isPaused = false;
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
+                    timeLeft = 0; 
+                } else {
+                    timeLeft = timer.timer - elapsed; 
+                }
+            } else {
+                timeLeft = timer.timer; 
+                isPaused = true;
+            }
+        }
+        res.render('studySession', { timeLeft, isPaused });
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
 });
 
 router.post("/log", (req, res) => {
@@ -47,8 +68,28 @@ router.post("/feynman", (req, res) =>{
     res.render("feynman");
 });
 
-router.get('/studySession', (req, res) => {
-    res.render('studySession');
+router.get('/studySession', ensureAuthenticated, async (req, res) => {
+    try {
+        const timer = await Timer.findOne({ email: req.user.email });
+        let timeLeft = 0;
+        let isPaused = false;
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
+                    timeLeft = 0; 
+                } else {
+                    timeLeft = timer.timer - elapsed; 
+                }
+            } else {
+                timeLeft = timer.timer; 
+                isPaused = true;
+            }
+        }
+        res.render('studySession', { timeLeft, isPaused });
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
 });
 
 router.post('/logSession', ensureAuthenticated, async (req, res) => {
@@ -66,7 +107,33 @@ router.get('/studyLog', async (req, res) => {
 });
 
 
+router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
+    const { isPaused, timer } = req.body;
+    try {
+        const timerExists = await Timer.findOne({ email: req.user.email });
 
+        if (timerExists) {
+            const updateResult = await timerExists.updateOne({
+                timer: timer,
+                isPaused: isPaused,
+                timeNow: Date.now()
+            });
+          
+            const updatedTimer = await Timer.findOne({ email: req.user.email });
+        } else {
+            const newTimer = new Timer({
+                email: req.user.email,
+                timer: timer,
+                isPaused: isPaused,
+                timeNow: Date.now()
+            });
+            const saveResult = await newTimer.save();
+        }
+        res.status(200).send("Timer updated successfully");
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
+});
 
 
 

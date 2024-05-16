@@ -45,6 +45,10 @@
     </form>
 </div>
 
+<script>
+    var timeLeft = <%= timeLeft %>;
+    var isPaused = <%= isPaused %>; // Pass the isPaused state from the server
+</script>
 <script src="js/timer.js"></script>
 
 <%- include("template/footer") %>
