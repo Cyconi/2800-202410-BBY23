@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
+const StudySession = require('./StudySession');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -10,6 +11,13 @@ router.use(express.static('public'));
 router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 
 router.get('/', (req, res) => {
     res.render('study-page');
@@ -43,9 +51,11 @@ router.get('/study-session', (req, res) => {
     res.render('study-session');
 });
 
-router.post('/log-study-session', async (req, res) => {
+router.post('/logSession', ensureAuthenticated, async (req, res) => {
+    console.log("HELLO");
     const { subject, duration, notes } = req.body;
-    const newSession = new StudySession({ subject, duration, notes, date: new Date() });
+    const email = req.user.email;
+    const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
     res.redirect('/study-log');
 });

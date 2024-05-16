@@ -28,24 +28,20 @@
         <button onclick="resetTimer()">Reset</button>
     </div>
 
-    <form action="/log-study-session" method="POST" class="mt-4">
-        <div class="mb-3">
-            <label for="subject" class="form-label">Subject</label>
-            <input type="text" class="form-control" id="subject" name="subject" required>
+    <form action="/study/logSession" method="POST">
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" name="subject" class="form-control" placeholder="Enter your Subject" required>
         </div>
-        <div class="mb-3">
-            <label for="duration" class="form-label">Duration (in minutes)</label>
-            <input type="number" class="form-control" id="duration" name="duration" required>
+        <div class="form-group">
+            <label for="duration">Duration (in minutes)</label>
+            <input type="number" name="duration" class="form-control" required>
         </div>
-        <div class="mb-3">
-            <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <input type="text" name="notes" class="form-control" placeholder="Write some notes" required>
         </div>
         <button type="submit" class="btn btn-primary">Log Study Session</button>
-        <br>
-        <br>
-        <br>
-        <br>
     </form>
 </div>
 
