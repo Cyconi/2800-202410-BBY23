@@ -113,3 +113,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const habitForm = document.getElementById('habitForm');
+    let addHabitAnyway = false;
+
+    habitForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const habit = document.getElementById('habit').value;
+        const question = document.getElementById('question').value;
+
+        // Check for existing habit
+        const checkResponse = await fetch('/habit/existingHabitCheck', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ habit, question, goodOrBad })
+        });
+        const checkData = await checkResponse.json();
+
+        if (checkData.error && !addHabitAnyway) {
+            // Show the modal with the error message
+            const duplicateModalBody = document.getElementById('duplicateModalBody');
+            duplicateModalBody.textContent = checkData.message;
+            const duplicateModal = new bootstrap.Modal(document.getElementById('duplicateModal'));
+            duplicateModal.show();
+        } else {
+            // Proceed to add the habit
+            const addResponse = await fetch('/habit/addAHabit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ habit, question, goodOrBad })
+            });
+            const addData = await addResponse.json();
+
+            if (addData.success) {
+                alert('Habit added successfully!');
+                location.reload();
+            } else {
+                alert('Error adding habit. Please try again.');
+            }
+        }
+    });
+
+    document.getElementById('addAnywayButton').addEventListener('click', async function () {
+        addHabitAnyway = true;
+        document.getElementById('habitForm').dispatchEvent(new Event('submit'));
+    });
+});
+
