@@ -90,11 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const response = await fetch('/habit/name', { method: "POST" });
-    const userData = await response.json();
-    document.querySelector('.name').textContent = userData.name;
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-button');
@@ -136,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const checkData = await checkResponse.json();
 
         if (checkData.error && !addHabitAnyway) {
-            // Show the modal with the error message
+            // Show the duplicate modal with the error message
             const duplicateModalBody = document.getElementById('duplicateModalBody');
             duplicateModalBody.textContent = checkData.message;
             const duplicateModal = new bootstrap.Modal(document.getElementById('duplicateModal'));
@@ -153,17 +148,28 @@ document.addEventListener('DOMContentLoaded', function () {
             const addData = await addResponse.json();
 
             if (addData.success) {
-                alert('Habit added successfully!');
-                location.reload();
+                // Hide the duplicate modal if it is visible
+                const duplicateModalInstance = bootstrap.Modal.getInstance(document.getElementById('duplicateModal'));
+                if (duplicateModalInstance) {
+                    duplicateModalInstance.hide();
+                }
+
+                // Show the success modal
+                const successModal = new bootstrap.Modal(document.getElementById('modalSuccess'));
+                successModal.show();
             } else {
                 alert('Error adding habit. Please try again.');
             }
         }
     });
 
-    document.getElementById('addAnywayButton').addEventListener('click', async function () {
+    document.getElementById('addAnywayButton').addEventListener('click', function () {
         addHabitAnyway = true;
         document.getElementById('habitForm').dispatchEvent(new Event('submit'));
+    });
+
+    document.getElementById('successButton').addEventListener('click', function () {
+        window.location.href = `/habit/habitList?good=${goodOrBad}`;
     });
 });
 
