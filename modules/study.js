@@ -98,7 +98,8 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
-    res.redirect('/studyLog');
+    const sessions = await StudySession.find().sort({ date: -1 });
+    res.render('studyLog', { sessions });
 });
 
 router.get('/studyLog', async (req, res) => {
