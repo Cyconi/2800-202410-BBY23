@@ -54,3 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", async() => {
+    const response = await fetch('/habit/name', {method:"POST"});
+    const userData = await response.json();
+    document.querySelector('.name').textContent = userData.name;
+});

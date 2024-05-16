@@ -37,6 +37,9 @@ router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error. Could not delete habit. Try again later.' });
     }
 });
+router.post('/name', ensureAuthenticated, async (req, res) => {
+    res.json({name: req.user.name});
+});
 router.get('/', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/');
