@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-      const response = await fetch(`/profileElements`, {method:"POST"});
+      const response = await fetch(`/profile/profileElements`, {method:"POST"});
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

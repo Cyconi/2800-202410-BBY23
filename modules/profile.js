@@ -23,3 +23,5 @@ router.post('/profileElements', ensureAuthenticated, (req, res) => {
     const email = req.user.email;
     res.json({username: username, name: name, email: email});
 });
+
+module.exports = router;
