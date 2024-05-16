@@ -40,3 +40,17 @@ document.addEventListener('DOMContentLoaded', function () {
         location.reload();
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteForms = document.querySelectorAll('.me-1 me-sm-2');
+
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const habitID = form.querySelector('input[name="habitID"]').value;
+            const habitGood = form.querySelector('input[name="habitGood"]').value;
+
+            
+        });
+    });
+});

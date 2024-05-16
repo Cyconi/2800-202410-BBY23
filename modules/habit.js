@@ -12,14 +12,22 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 router.post('/editHabit', async (req, res) => {
-    const {habitID} = req.body;
-
+    const {habitID, habit, question, habitGood} = req.body;
+    const isGood = habitGood === 'true';
+    try{
+        const result = await Habit.findOneAndUpdate(
+            {id: habitID},
+            {$set: {habit:habit, dailyQuestion:question}},
+            );
+        res.json({success:true});
+    } catch (error){
+        console.error("error editting habit: ", error);
+        res.status(500).json({sucess: false, message: "internal server error. Could not update habit. Try again later."});
+    }
 });
 router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     const { habitID, habitGood } = req.body;
     const isGood = habitGood === 'true';
-    console.log("Habit id is = " + habitID);
-    console.log("Habit good is = " + isGood);
     try {
         const result = await Habit.findOneAndDelete({ id: habitID });
         console.log(result);
@@ -44,7 +52,6 @@ router.post('/goodHabit', async (req, res) => {
         res.status(500).send("Error retrieving good habits");
     }
 });
-
 router.get('/badHabit', ensureAuthenticated, async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: false });
