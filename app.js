@@ -58,6 +58,7 @@ app.post('/logout', (req, res) => {
         });
     });
 });
+app.use('/study', require('./modules/study'));
 
 app.get("*", (req, res) => {
     res.status(404);

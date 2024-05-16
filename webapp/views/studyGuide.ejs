@@ -1,0 +1,31 @@
+<%- include("template/header") %>
+<style>
+    .center-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        /* This makes sure the container takes up the full height of the screen */
+    }
+</style>
+<div class="container text-center">
+    <h1>Study Guides.</h1>
+    <div class="row center-screen">
+        <div class="col-md-4">
+            <form action='/study/pomodoro' method='POST'>
+                <button type="submit" class="btn btn-info">Podoromo Method</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action='/study/actRecall' method='POST'>
+                <button type="submit" class="btn btn-info">Active Recall</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action='/study/feynman' method='POST'>
+                <button type="submit" class="btn btn-info">Feynman Technique</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("template/footer") %>
