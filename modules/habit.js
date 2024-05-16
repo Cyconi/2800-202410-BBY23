@@ -12,17 +12,18 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 router.post('/editHabit', async (req, res) => {
-    const {habitID, habit, question, habitGood} = req.body;
+    const { habitID, habit, question, habitGood } = req.body;
     const isGood = habitGood === 'true';
-    try{
+    try {
         const result = await Habit.findOneAndUpdate(
-            {id: habitID},
-            {$set: {habit:habit, dailyQuestion:question}},
-            );
-        res.json({success:true});
-    } catch (error){
-        console.error("error editting habit: ", error);
-        res.status(500).json({sucess: false, message: "internal server error. Could not update habit. Try again later."});
+            { id: habitID },
+            { $set: { habit: habit, dailyQuestion: question, good: isGood } },
+            { new: true } // This option ensures that the updated document is returned
+        );
+        res.json({ success: true, habit: result });
+    } catch (error) {
+        console.error("Error editing habit:", error);
+        res.status(500).json({ success: false, message: "Internal server error. Could not update habit. Try again later." });
     }
 });
 router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
