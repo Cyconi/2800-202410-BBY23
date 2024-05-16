@@ -10,6 +10,6 @@ const studySessionSchema = new mongoose.Schema({
 });
 
 studySessionSchema.plugin(AutoIncrement, { inc_field: 'id' });
-const StudySession = mongoose.model('StudySession', studySessionSchema);
+const StudySession = mongoose.model('studySession', studySessionSchema);
 
 module.exports = StudySession;
