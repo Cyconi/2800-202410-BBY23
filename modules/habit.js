@@ -23,7 +23,8 @@ router.post('/deleteHabit', async (req, res) => {
     try{
         const result = await Habit.findOneAndDelete({id: habitID});
         console.log(result);
-        res.render('habitSuccess', {good: isGood});
+        const goodHabits = await Habit.find({ email: req.user.email, good: isGood });
+        res.render('habitList', { habits: goodHabits, good: isGood });
     } catch (Error ){
         res.status(500).send("Internal server error. Could not delete habit. Try again later.");
     }
