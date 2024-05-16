@@ -6,6 +6,9 @@
             font-size: 12px;
         }
     }
+    
+    
+
 </style>
 <% if (good) { %>
     <div class="container mt-4">
@@ -33,7 +36,7 @@
                                 <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </form>
-                            <form action="/habit/deleteHabit" method="POST">
+                            <form action="/habit/deleteHabit" method="POST" data-bs-toggle="modal" data-bs-target="#modalTour">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
                                 <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -70,12 +73,14 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <form action="/habit/editHabit" method="POST" class="me-1 me-sm-2">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </form>
-                            <form action="/habit/deleteHabit" method="POST">
+                            <form action="/habit/deleteHabit" method="POST" data-bs-toggle="modal" data-bs-target="#modalTour">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <input type="hidden" name="habitGood" value="<%= habit.good %>">
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form>                            
                         </div>                    
                     </li>
                 <% }); %>
@@ -87,5 +92,41 @@
     </div>
 <% } %>
 
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalTour">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-body p-5">
+          <h2 class="fw-bold mb-0">Success!</h2>
+  
+          <ul class="d-grid gap-4 my-5 list-unstyled small">
+            <li class="d-flex gap-4">
+              <svg class="bi text-body-secondary flex-shrink-0" width="48" height="48"><use xlink:href="#grid-fill"/></svg>
+              <div>
+                <h5 class="mb-0">Habit Deleted</h5>
+                You have Successfuly deleted this habit.
+              </div>
+            </li>
+            <!-- <li class="d-flex gap-4">
+              <svg class="bi text-warning flex-shrink-0" width="48" height="48"><use xlink:href="#bookmark-star"/></svg>
+              <div>
+                <h5 class="mb-0">Bookmarks</h5>
+                Save items you love for easy access later.
+              </div>
+            </li>
+            <li class="d-flex gap-4">
+              <svg class="bi text-primary flex-shrink-0" width="48" height="48"><use xlink:href="#film"/></svg>
+              <div>
+                <h5 class="mb-0">Video embeds</h5>
+                Share videos wherever you go.
+              </div>
+            </li> -->
+          </ul>
+          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script src="../public/js/habitC.js"></script>
 <%- include("template/footer") %>
+
