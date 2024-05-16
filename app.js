@@ -45,7 +45,7 @@ app.use(passport.session());
 require('./modules/passport')(passport);
 
 // Routes
-app.use('/', require('./modules/home'));
+app.use('/habit', require('./modules/habit.js'))
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
