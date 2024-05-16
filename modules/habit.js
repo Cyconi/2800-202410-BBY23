@@ -15,19 +15,20 @@ router.post('/editHabit', async (req, res) => {
     const {habitID} = req.body;
 
 });
-router.post('/deleteHabit', async (req, res) => {
-    const {habitID, habitGood} = req.body;
+router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
+    const { habitID, habitGood } = req.body;
     const isGood = habitGood === 'true';
     console.log("Habit id is = " + habitID);
-    console.log("Habit id is = " + isGood);
-    try{
-        const result = await Habit.findOneAndDelete({id: habitID});
+    console.log("Habit good is = " + isGood);
+    try {
+        const result = await Habit.findOneAndDelete({ id: habitID });
         console.log(result);
-        res.render('habitSuccess', {good: isGood});
-    } catch (Error ){
-        res.status(500).send("Internal server error. Could not delete habit. Try again later.");
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error deleting habit:', error);
+        res.status(500).json({ success: false, message: 'Internal server error. Could not delete habit. Try again later.' });
     }
-}); 
+});
 router.get('/', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/');
