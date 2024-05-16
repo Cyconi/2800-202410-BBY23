@@ -96,10 +96,18 @@ router.post('/goodHabitAdd', (req, res) => {
     res.render('addHabit', { good: true });
 })
 
+function normalizeText(text) {
+    return text.trim().toLowerCase();
+}
+
+// Check for existing habit
 router.post("/existingHabitCheck", ensureAuthenticated, async (req, res) => {
     const { goodOrBad, habit, question } = req.body;
-    const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, habit: habit });
-    const existingQuestion = await Habit.findOne({ email: req.user.email, good: goodOrBad, dailyQuestion: question });
+    const normalizedHabit = normalizeText(habit);
+    const normalizedQuestion = normalizeText(question);
+
+    const existingHabit = await Habit.findOne({ email: req.user.email, good: goodOrBad, normalizedHabit: normalizedHabit });
+    const existingQuestion = await Habit.findOne({ email: req.user.email, good: goodOrBad, normalizedQuestion: normalizedQuestion });
 
     if (existingHabit) {
         return res.json({ error: true, message: "Habit with same name already exists!" });
@@ -115,13 +123,18 @@ router.post("/existingHabitCheck", ensureAuthenticated, async (req, res) => {
 // Add a habit
 router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     const { habit, question, goodOrBad } = req.body;
+    const normalizedHabit = normalizeText(habit);
+    const normalizedQuestion = normalizeText(question);
+
     try {
         const newHabit = new Habit({
             email: req.user.email,
             good: goodOrBad,
             habit: habit,
             dailyQuestion: question,
-            frequency: 1
+            frequency: 1,
+            normalizedHabit: normalizedHabit,
+            normalizedQuestion: normalizedQuestion
         });
         await newHabit.save();
         res.json({ success: true });
@@ -129,6 +142,7 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
         res.json({ success: false, error: err.message });
     }
 });
+
 
 router.get('/habitList', async (req, res) => {
     const good = req.query.good === 'true';

@@ -7,6 +7,8 @@ const habitSchema = new mongoose.Schema({
     habit: { type: String, unique: false, required: true },
     dailyQuestion: { type: String, unique: false, required: true },
     frequency: { type: Number, required: true },
+    normalizedHabit: {type: String, unique: false, required: true },
+    normalizedQuestion: {type: String, unique: false, required: true }
 });
 
 habitSchema.plugin(AutoIncrement, { inc_field: 'id' });
