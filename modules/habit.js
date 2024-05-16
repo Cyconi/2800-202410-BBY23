@@ -11,6 +11,14 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/');
 }
+
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+router.use(express.static('public'));
+router.use("/js", express.static("./webapp/public/js"));
+router.use("/css", express.static("./webapp/public/css"));
+router.use("/img", express.static("./webapp/public/img"));
+
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;
     const isGood = habitGood === 'true';
