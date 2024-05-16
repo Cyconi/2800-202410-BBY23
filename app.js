@@ -47,6 +47,7 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 app.use('/habit', require('./modules/habit.js'))
+app.use('/profile', require('./modules/profile.js'));
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {

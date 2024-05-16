@@ -5,3 +5,46 @@ body {
   font-size: 14pt;
 }
 
+/* profile page styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+  color: #00bfff; /* Use a color from the logo */
+  font-size: 2.5rem;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-top: 1rem;
+  border: 3px solid #00bfff; /* Use a color from the logo */
+}
+
+.profile-info p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.profile-info strong {
+  color: #00bfff; /* Use a color from the logo */
+}
+/* end */
