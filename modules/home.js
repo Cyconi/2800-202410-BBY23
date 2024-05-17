@@ -49,6 +49,7 @@ router.post('/forgot', async (req, res) => {
 });
 
 router.get('/reset/:token', async (req, res) => {
+    
     const user = await User.findOne({
         resetPassword: req.params.token,
         resetPasswordDate: { $gt: Date.now() }
