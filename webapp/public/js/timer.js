@@ -158,7 +158,7 @@ function resetTimer() {
         },
         body: JSON.stringify({
             timer: 0,
-            isPaused: false
+            isPaused: true
         })
     })
     .catch(error => console.error('Error:', error));
