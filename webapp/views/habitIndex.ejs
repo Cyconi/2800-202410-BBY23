@@ -1,0 +1,51 @@
+<%- include("template/header") %>
+
+
+
+    <style>
+        .horizontal-progress {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 48%;
+            /* height: 10px; */
+            height: 3%;
+            background: linear-gradient(to right, green 50%, red 50%);
+        }
+        .habit {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2em;
+        }
+        .good-habit {
+            top: 7%;
+            left: 5%;
+            right: 5%;
+        }
+        .bad-habit {
+            bottom: 8%;
+            left: 5%;
+            right: 5%;
+        }
+    </style>
+
+    <div class="horizontal-progress"></div>
+    <form action="/habit/goodHabit" method="POST">
+        <button style="height: 40%;" type="submit" class="btn btn-success h-49 habit good-habit">Good Habits</button>
+    </form>
+    <form action="/habit/badHabit" method="POST">
+        <button style="height: 40%;" type="submit" class="btn btn-danger h-49 habit bad-habit">Bad Habits</button>
+    </form>
+    <!-- <a href="/goodHabit" class="habit good-habit">Good Habit</a>
+    <a href="/badHabit" class="habit bad-habit">Bad Habit</a> -->
+
+
+
+<%- include("template/footer") %>
+
+
+
+
+

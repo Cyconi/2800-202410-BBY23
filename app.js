@@ -51,6 +51,8 @@ app.use('/interpersonal', require('./modules/interpersonal'));
 app.get('/select-scenario', (req, res) => {
     res.render('select_scenario');
 });
+app.use('/habit', require('./modules/habit.js'))
+app.use('/profile', require('./modules/profile.js'));
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
@@ -63,6 +65,7 @@ app.post('/logout', (req, res) => {
         });
     });
 });
+app.use('/study', require('./modules/study'));
 
 app.get("*", (req, res) => {
     res.status(404);
