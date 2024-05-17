@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            forgotPasswordModal.hide();
             if (data.success) {
-                const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
-                forgotPasswordModal.hide();
                 const successModal = new bootstrap.Modal(document.getElementById('modalForgot'));
                 successModal.show();
             } else {
-                alert('Failed to send reset email. Please try again.');
+                alert(data.message || 'Failed to send reset email. Please try again.');
             }
         })
         .catch(error => {
@@ -64,3 +64,4 @@ document.addEventListener('DOMContentLoaded', function() {
         successModal.hide();
     });
 });
+
