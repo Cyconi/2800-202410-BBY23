@@ -1,52 +1,182 @@
 <%- include('template/header') %>
 
-<div class="row">
-    <div class="col-md-6">
-        <h1>Login</h1>
-        <form action="/login" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="/img/better_u_logo.png" style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Welcome to BetterYou.</h4>
+                </div>
+
+                <form action="/login" method="post">
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required />
+                    <label class="form-label" for="username">Username</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+
+                  <div class="text-center pt-1 mb-1 pb-1">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a class="text-muted" href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
+                  </div>
+                </form>
+
+                <div class="d-flex align-items-center justify-content-center pb-4">
+                  <p class="mb-0 me-2">Don't have an account?</p>
+                  <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#signupModal">Create new</button>
+                </div>
+
+              </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter your Password" required>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a self-help app</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button> 
-        </form>
-        <form action="/forgot" method="post">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Forgot Password?</button> 
-            </div>
-        </form>
-        
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-6">
-        <h1>Sign Up</h1>
-        <form action="/signup" method="post">
+  </div>
+</section>
+
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="forgot-password-form" action="/forgot" method="post">
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" class="form-control" placeholder="Enter your Username" required>
+              <label for="forgot-email">Email</label>
+              <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
             </div>
-            <div class="form-group">
-                <label for="name">Your actual name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your Email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Choose a Password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-        
+            <center><button type="submit" class="btn btn-primary mt-3">Submit</button></center>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  
+  <!-- Email Sent Success Modal
+  <div class="modal fade" id="modalForgot" tabindex="-1" aria-labelledby="modalForgotLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2 class="fw-bold mb-0">Check your email!</h2>
+          <ul class="d-grid gap-4 my-5 list-unstyled small">
+            <li class="d-flex gap-4">
+              <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+              <div>
+                <h5 class="mb-0">Email sent!</h5>
+                An Email has been sent to you with a password reset link.
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Great, thanks!</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+
+<!-- Habit Successfully Added Modal??????? --- Email Sent Success Modal -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Check your email!</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">Email sent!</h5>
+                          An Email has been sent to you with a password reset link.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Great, thanks!</button>
+          </div>
+      </div>
+  </div>
 </div>
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="signup-form" action="/signup" method="post">
+          <div class="form-group">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="username" class="form-control" placeholder="Enter your Username" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-name">Your actual name</label>
+            <input type="text" id="signup-name" name="name" class="form-control" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" name="email" class="form-control" placeholder="Enter your Email" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
+          </div>
+        <center><button type="submit" class="btn btn-primary mt-3">Sign Up</button></center>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<style>
+  .gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+  }
+
+  @media (min-width: 768px) {
+    .gradient-form {
+      height: 100vh !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+      border-top-right-radius: .3rem;
+      border-bottom-right-radius: .3rem;
+    }
+  }
+</style>
+<script src="/js/client.js"></script>
 <%- include('template/footer') %>

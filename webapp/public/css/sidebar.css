@@ -31,7 +31,8 @@
     top: 10px;
     right: 10px;
 }
-.hug-left {
-    padding: 10px;
-    float: left;
+.offcanvas-header .hug-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
