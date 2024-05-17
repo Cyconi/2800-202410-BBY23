@@ -19,6 +19,14 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+router.get('/home1', (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    res.render('home1', { user: req.user });
+});
+
+
 router.post('/forgot', async (req, res) => {
     console.log("Hello");
     const {email} = req.body;
@@ -93,7 +101,7 @@ router.post('/login', async (req, res, next) => {
             if (loginErr) {
                 return res.status(500).send('Error logging in');
             }
-            res.redirect('/index.html');
+            res.redirect('/home1');
         });
     })(req, res, next);
 });
@@ -121,7 +129,7 @@ router.post('/signup', async (req, res) => {
             if (loginErr) {
                 return res.status(500).send('Error during signup process.');
             }
-            res.redirect('/index.html');
+            res.redirect('/home1');
         });
     } catch (err) {
         res.status(500).send('Error during signup process: ' + err.message);
