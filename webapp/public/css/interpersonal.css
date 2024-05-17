@@ -1,0 +1,13 @@
+.hidden { display: none; }
+  .correct { background-color: green; color: white; }
+  .incorrect { background-color: red; color: white; }
+  #question { margin-bottom: 20px; }
+  .option-button { margin: 5px 0; padding: 10px; }
+  .narrator-box {
+    border: 2px solid #00bfff; /* Border color from the logo */
+    background-color: #addbf0; /* Background color to match the theme */
+    color: #000000; /* Text color */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
