@@ -90,6 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startGame(scenarioUrl);
   } else {
     alert('No scenario selected!');
-    window.location.href = '/select-scenario';
+    window.location.href = '/interpersonal/select-scenario';
   }
 });

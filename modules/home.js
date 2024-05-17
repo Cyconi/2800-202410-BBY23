@@ -5,6 +5,7 @@ const passport = require("passport");
 const User = require('./user');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const Timer = require('./timerSchema');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -80,7 +81,7 @@ router.post('/reset/:token', async (req, res) => {
     res.send("Password has been reset successfully");
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(500).send('Internal Server Error');

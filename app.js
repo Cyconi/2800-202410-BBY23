@@ -48,9 +48,6 @@ require('./modules/passport')(passport);
 // Routes
 app.use('/', require('./modules/home'));
 app.use('/interpersonal', require('./modules/interpersonal'));
-app.get('/select-scenario', (req, res) => {
-    res.render('select_scenario');
-});
 app.use('/habit', require('./modules/habit.js'))
 app.use('/profile', require('./modules/profile.js'));
 
