@@ -19,9 +19,10 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
-router.get('/habitQuestion', (req, res)){
+router.get('/habitQuestion', (req, res) =>{
     res.render('habitQuestion');
-}
+});
+
 
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;
