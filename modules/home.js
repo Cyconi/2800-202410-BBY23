@@ -27,6 +27,8 @@ router.post('/forgot', async (req, res) => {
         res.status('404').send("Couldn't find a user with that email!");
     }
     const resetToken = crypto.randomBytes(20).toString('hex');
+    console.log(user);
+    console.log(resetToken);
     user.resetPassword = resetToken;
     user.resetPasswordDate = Date.now() + 6000000;
     await user.save();
