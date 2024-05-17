@@ -19,7 +19,14 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
-
+router.post("/addFrequency", async(req, res) => {
+    const {habitID} = req.body;
+    const habit = await Habit.findOne({id: habitID});
+    if(habit){
+        habit.frequency = habit.frequency + 1;
+        await habit.save();
+    }
+});
 
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;

@@ -9,7 +9,10 @@
                         <h5 class="card-title">Habit: <%= habit.habit %>?<h5>
                         <p class="small text-muted">Habit Question: <%= habit.dailyQuestion %></p>
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-success">👍</button>
+                            <form action="addFrequency" method="POST">
+                                <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <button type="submit" class="btn btn-success">👍</button>
+                            </form>
                             <button type="button" class="btn btn-danger">👎</button>
                         </div>
                     </div>
