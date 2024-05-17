@@ -27,7 +27,9 @@ router.post("/addFrequency", async(req, res) => {
         await habit.save();
     }
 });
-
+router.post("/indexRedirect", (req, res) => {
+    res.redirect("/");
+});
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;
     const isGood = habitGood === 'true';
