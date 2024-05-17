@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="/img/betterU.ico" rel="icon" type="image/x-icon" />
+    <title>Better U</title>
 
     <!-- Google Icons/Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
@@ -31,24 +32,12 @@
             </a>
         </div>
     </nav>
-
-
-
-    <!-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-        aria-controls="offcanvasExample">
-        Link with href
-    </a>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-        aria-controls="offcanvasExample">
-        Button with data-bs-target
-    </button> -->
-
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <form class="hug-left" action='/habit/habitQuestion' method='POST'>
             <button type="submit" class="btn"><img src="./img/expl.png" alt="EXO" width="30" height="30"></button>
         </form>
         <div class="offcanvas-header">
-            <img src="./img/better_u_logo.png" alt="Better U Logo" width="250" height="150" class="mb-3"> 
+            <img src="./img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3"> 
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -70,6 +59,9 @@
                     <span class="material-symbols-outlined">account_circle</span>
                     Profile
                 </a>
+                <form action="/logout" method="post" class="nav-link">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
             </nav>
 
         </div>

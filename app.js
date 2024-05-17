@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const User = require("./modules/user.js");
 const Habit = require('./modules/user.js');
 
+const Timer = require('./modules/timerSchema.js');
 // EJS 
 app.set('view engine', 'ejs');
 const path = require('path');
@@ -76,7 +77,26 @@ app.post('/logout', (req, res) => {
         });
     });
 });
+app.post('/calculate', async (req, res) => {
+    try {
+        const timer = await Timer.findOne({email: req.user.email});
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
 
+                    timer.isPaused = true;
+                    timer.timer = 0;
+                    await timer.save();
+                    return res.json({ success: true });
+                }
+            }
+        }
+        res.json({success:false});
+    } catch (error) {   
+        res.status(500).json({ success: false});
+    }
+});
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");
