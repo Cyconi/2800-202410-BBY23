@@ -19,7 +19,35 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-    res.render('chatroom');
+    res.render('waitingQueue');
+});
+
+router.post("/waiting", ensureAuthenticated, async (req, res) => {
+    const email = req.user.email;
+    let userExists = await WaitQueue.findOne({ email: email });
+    if (userExists) {
+        userExists.inQueue = true;
+        userExists.time = Date.now();
+        await userExists.save();
+    } else {
+        userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
+        await userExists.save();
+    }
+    const queueCount = await WaitQueue.getQueueCount();
+    res.send({ message: "User has joined the WaitQueue", queueCount: queueCount });
+});
+
+router.post("/leave", ensureAuthenticated, async (req, res) => {
+    const email = req.user.email;
+    const userExists = await WaitQueue.findOne({ email: email });
+    if (userExists) {
+        userExists.inQueue = false;
+        await userExists.save();
+        const queueCount = await WaitQueue.getQueueCount();
+        res.send({ message: "User has left the WaitQueue", queueCount: queueCount });
+    } else {
+        res.send({ message: "User not found in the queue" });
+    }
 });
 
 module.exports = router;
