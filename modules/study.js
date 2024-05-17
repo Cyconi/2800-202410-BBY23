@@ -53,7 +53,7 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
 });
 
 router.post("/log", (req, res) => {
-    res.render("studyLog");
+    res.redirect("/study/studyLog");
 });
 
 router.post("/pomodoro", (req, res) => {
