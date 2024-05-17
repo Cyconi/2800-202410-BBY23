@@ -1,0 +1,22 @@
+<%- include('template/header', { title: 'Select Scenario' }) %>
+
+<div class="container mt-4">
+  <h1>Select a Category and Scenario</h1>
+  <div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario1.json')">Making Friends - Approaching Someone New</a>
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario2.json')">Dating and Romantic Relationships - Handling Rejection</a>
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario3.json')">Family and Close Relationships - Supporting a Loved One</a>
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario4.json')">Handling Public Situations - Dealing with Awkward Situations</a>
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario5.json')">Conflict Resolution - Apologizing Effectively</a>
+    <a href="#" class="list-group-item list-group-item-action" onclick="selectScenario('/scenario/scenario6.json')">Social Etiquette - Cultural Sensitivity</a>
+  </div>
+</div>
+
+<script>
+  function selectScenario(scenarioUrl) {
+    sessionStorage.setItem('scenarioUrl', scenarioUrl);
+    window.location.href = '/interpersonal';
+  }
+</script>
+
+<%- include('template/footer') %>

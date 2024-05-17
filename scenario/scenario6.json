@@ -1,0 +1,70 @@
+{
+    "scenarios": [
+      {
+        "id": 6,
+        "title": "Cultural Sensitivity",
+        "narrator": "You find yourself in a culturally diverse setting and want to ensure that you interact respectfully and sensitively with everyone. Understanding cultural differences is key to fostering positive interactions.",
+        "questions": [
+          {
+            "id": 1,
+            "text": "You are at a dinner party with people from various cultural backgrounds. How do you make sure your conversation is inclusive?",
+            "type": "text",
+            "options": [
+              { "text": "Ask open-ended questions about their cultures and listen actively.", "correct": true, "feedback": "Asking open-ended questions and listening actively shows respect and interest in their backgrounds." },
+              { "text": "Avoid talking about cultural differences altogether.", "correct": false, "feedback": "Avoiding cultural differences can make the conversation seem superficial and disinterested." },
+              { "text": "Make jokes about cultural stereotypes to break the ice.", "correct": false, "feedback": "Making jokes about cultural stereotypes is disrespectful and can be offensive." },
+              { "text": "Dominate the conversation with your own cultural experiences.", "correct": false, "feedback": "Dominating the conversation with your own experiences can come off as self-centered and dismissive." }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "During a conversation, someone shares a cultural practice that is unfamiliar to you. How do you respond?",
+            "type": "text",
+            "options": [
+              { "text": "Express curiosity and ask them to tell you more about it.", "correct": true, "feedback": "Expressing curiosity and asking for more information shows respect and a willingness to learn." },
+              { "text": "Laugh and say it's strange.", "correct": false, "feedback": "Laughing and calling it strange is disrespectful and dismissive." },
+              { "text": "Ignore it and change the subject.", "correct": false, "feedback": "Ignoring it can make the person feel unvalued and unheard." },
+              { "text": "Tell them that it doesn't make sense to you.", "correct": false, "feedback": "Telling them it doesn't make sense can come off as judgmental and closed-minded." }
+            ]
+          },
+          {
+            "id": 3,
+            "narrator": "You notice that some people are not participating in a group activity, possibly due to cultural differences.",
+            "text": "How do you address this?",
+            "type": "text",
+            "options": [
+              { "text": "Respect their choice and offer alternative ways for them to engage if they want to.", "correct": true, "feedback": "Respecting their choice and offering alternatives shows cultural sensitivity and inclusiveness." },
+              { "text": "Insist that they join in to be part of the group.", "correct": false, "feedback": "Insisting they join can be seen as disrespectful and forceful." },
+              { "text": "Ignore them and continue with the activity.", "correct": false, "feedback": "Ignoring them can make them feel excluded and unvalued." },
+              { "text": "Point out their lack of participation to the group.", "correct": false, "feedback": "Pointing out their lack of participation can embarrass them and make the situation worse." }
+            ]
+          },
+          {
+            "id": 4,
+            "narrator": "Someone uses a term you find culturally insensitive.",
+            "text": "What is the best way to handle this situation?",
+            "type": "text",
+            "options": [
+              { "text": "Privately explain why the term is insensitive and suggest a better alternative.", "correct": true, "feedback": "Privately explaining and suggesting an alternative shows respect and helps educate them without causing embarrassment." },
+              { "text": "Publicly call them out to show your disapproval.", "correct": false, "feedback": "Publicly calling them out can create defensiveness and hostility." },
+              { "text": "Ignore it and let it slide.", "correct": false, "feedback": "Ignoring it can perpetuate insensitivity and fail to address the issue." },
+              { "text": "Laugh along to avoid making things awkward.", "correct": false, "feedback": "Laughing along can seem like you are endorsing the insensitive term." }
+            ]
+          },
+          {
+            "id": 5,
+            "narrator": "You want to show respect for cultural practices that are different from your own.",
+            "text": "What is a good approach to take?",
+            "type": "text",
+            "options": [
+              { "text": "Learn about the practices in advance and participate respectfully.", "correct": true, "feedback": "Learning and participating respectfully shows that you value and respect their cultural practices." },
+              { "text": "Avoid participating to avoid doing something wrong.", "correct": false, "feedback": "Avoiding participation can seem like disinterest and a lack of respect." },
+              { "text": "Critique the practices to show your own perspective.", "correct": false, "feedback": "Critiquing the practices can be seen as disrespectful and dismissive." },
+              { "text": "Make jokes about the differences to lighten the mood.", "correct": false, "feedback": "Making jokes can be offensive and disrespectful." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

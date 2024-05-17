@@ -1,0 +1,19 @@
+<%- include('template/header', { title: 'Social Skills Game' }) %>
+
+<style>
+  .hidden { display: none; }
+  .correct { background-color: green; color: white; }
+  .incorrect { background-color: red; color: white; }
+  #question { margin-bottom: 20px; }
+  .option-button { margin: 5px 0; padding: 10px; }
+</style>
+
+<div id="game-container" class="container mt-4">
+  <div id="narrator" class="hidden"></div>
+  <div id="question" class="hidden"></div>
+  <div id="options" class="hidden"></div>
+  <div id="feedback" class="hidden"></div>
+  <button id="continue-button" class="hidden btn btn-primary mt-2">Continue</button>
+</div>
+
+<%- include('template/footer') %>

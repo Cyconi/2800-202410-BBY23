@@ -20,6 +20,7 @@ app.use(express.static('public'));
 app.use("/js", express.static("./webapp/public/js"));
 app.use("/css", express.static("./webapp/public/css"));
 app.use("/img", express.static("./webapp/public/img"));
+app.use("/scenario", express.static("./scenario"));
 
 // Session
 app.use(session({
@@ -46,6 +47,10 @@ require('./modules/passport')(passport);
 
 // Routes
 app.use('/', require('./modules/home'));
+app.use('/interpersonal', require('./modules/interpersonal'));
+app.get('/select-scenario', (req, res) => {
+    res.render('select_scenario');
+});
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
