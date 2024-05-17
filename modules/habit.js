@@ -19,9 +19,6 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
-router.get('/habitQuestion', (req, res) =>{
-    res.render('habitQuestion');
-});
 
 
 router.post('/editHabit', async (req, res) => {
@@ -39,6 +36,11 @@ router.post('/editHabit', async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error. Could not update habit. Try again later." });
     }
 });
+router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
+    const habits = await Habit.findAll({email: req.user.email});
+    res.render("habitQuestion", {habits: habits});
+});
+
 router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     const { habitID, habitGood } = req.body;
     const isGood = habitGood === 'true';
