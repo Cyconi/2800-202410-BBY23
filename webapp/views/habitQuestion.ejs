@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <% for(let i = 1; i <= 5; i++) { %>
+            <% habits.forEach(habit=> {  %>
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Did you do Habit <%= i %>?<h5>
@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-            <% } %>
+                <% }); %>
         </div>
     </div>
 </div>
