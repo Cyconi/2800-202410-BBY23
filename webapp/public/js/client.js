@@ -25,3 +25,43 @@ document.addEventListener('visibilitychange', () => {
 
 // Periodically check the timer every 30 seconds
 setInterval(checkTimer, 1000);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+
+    forgotPasswordForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('forgot-email').value;
+
+        fetch('/forgot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            forgotPasswordModal.hide();
+            if (data.success) {
+                const successModal = new bootstrap.Modal(document.getElementById('modalForgot'));
+                successModal.show();
+            } else {
+                alert(data.message || 'Failed to send reset email. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to send reset email. Please try again.');
+        });
+    });
+
+    const successButton = document.getElementById('successButton');
+    successButton.addEventListener('click', function() {
+        const successModal = bootstrap.Modal.getInstance(document.getElementById('modalForgot'));
+        successModal.hide();
+    });
+});
+
