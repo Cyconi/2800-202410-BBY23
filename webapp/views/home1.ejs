@@ -12,19 +12,21 @@
 
     .progress-vertical {
         position: relative;
-        width: 30px;
-        height: 200px;
+        width: 50px; 
+        height: 150px; 
         margin: 20px auto;
         background-color: #e9ecef;
-        border: 1px solid black; /* Black outline */
+        border: 3px solid black; 
+        border-radius: 20px; 
     }
 
     .progress-bar-vertical {
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 0%; /* Empty for now */
-        background-color: #007bff; /* Change the color as needed */
+        height: 0%;
+        background-color: #007bff; 
+        border-radius: 10px;
     }
 
     .text-center {
@@ -34,13 +36,17 @@
     .mt-4 {
         margin-top: 1.5rem;
     }
+
+    .progress-label {
+        margin-top: 10px;
+    }
 </style>
 
 <div class="container text-center">
     <div class="row">
         <div class="col-12">
             <h1><%= user.username %></h1>
-            <img src="/image.png" alt="User Avatar" class="img-fluid" style="max-width: 200px;">
+            <img src="/path/to/avatar-image.png" alt="User Avatar" class="img-fluid" style="max-width: 200px;">
         </div>
     </div>
     <div class="row mt-4">
@@ -48,19 +54,19 @@
             <div class="progress-vertical">
                 <div class="progress-bar-vertical" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <p>Discipline</p>
+            <p class="progress-label">Discipline</p>
         </div>
         <div class="col-4">
             <div class="progress-vertical">
                 <div class="progress-bar-vertical" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <p>Confidence</p>
+            <p class="progress-label">Confidence</p>
         </div>
         <div class="col-4">
             <div class="progress-vertical">
                 <div class="progress-bar-vertical" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <p>Knowledge</p>
+            <p class="progress-label">Knowledge</p>
         </div>
     </div>
 </div>
