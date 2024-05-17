@@ -37,7 +37,7 @@ router.post('/editHabit', async (req, res) => {
     }
 });
 router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
-    const habits = await Habit.findAll({email: req.user.email});
+    const habits = await Habit.find({email: req.user.email});
     res.render("habitQuestion", {habits: habits});
 });
 

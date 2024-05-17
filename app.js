@@ -60,10 +60,10 @@ app.use('/habit', require('./modules/habit.js'))
 app.use('/profile', require('./modules/profile.js'));
 app.use('/study', require('./modules/study'));
 
-app.post('habit/habitQuestion', ensureAuthenticated, async (req, res) => {
-    const habits = await Habit.findAll({email:req.user.email});
-    res.render('/habit/habitQuestion', {habits: habits});
+app.post('/habit/habitQuestion', ensureAuthenticated, async (req, res) => {
+    res.redirect('/habit/habitQuestion');
 });
+
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {

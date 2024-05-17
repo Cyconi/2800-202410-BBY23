@@ -4,10 +4,10 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <% habits.forEach(habit=> {  %>
-                <div class="card mb-3">
+                <div class="card mb-3 alert <%= habit.good ? 'alert-success' : 'alert-danger' %>" role="alert">
                     <div class="card-body">
-                        <h5 class="card-title">Did you do Habit <%= i %>?<h5>
-                        <p class="small text-muted">This is a smaller text below the question.</p>
+                        <h5 class="card-title">Habit: <%= habit.habit %>?<h5>
+                        <p class="small text-muted">Habit Question: <%= habit.dailyQuestion %></p>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-success">👍</button>
                             <button type="button" class="btn btn-danger">👎</button>
@@ -20,3 +20,5 @@
 </div>
 
 <%- include('template/footer') %>
+
+
