@@ -11,3 +11,19 @@
     border-radius: 10px;
     margin-bottom: 20px;
   }
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+    border: 2px solid red;
+    padding: 20px;
+  }
+  .image-grid img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid black;
+  }
