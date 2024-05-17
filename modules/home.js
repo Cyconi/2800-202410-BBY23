@@ -19,21 +19,22 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+
 router.post('/forgot', async (req, res) => {
-    console.log("Hello");
-    const {email} = req.body;
-    const user = await User.findOne({email: email});
-    if(!user){
-        res.status('404').send("Couldn't find a user with that email!");
+    const { email } = req.body;
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+        return res.status(404).json({ success: false, message: "Couldn't find a user with that email!" });
     }
+
     const resetToken = crypto.randomBytes(20).toString('hex');
-    console.log(user);
-    console.log(resetToken);
     user.resetPassword = resetToken;
-    user.resetPasswordDate = Date.now() + 6000000;
+    user.resetPasswordDate = Date.now() + 3600000; // 1 hour
     await user.save();
+
     const resetURL = `http://${req.headers.host}/reset/${resetToken}`;
-    let sendEmail = {
+    const sendEmail = {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Password Reset",
@@ -41,10 +42,10 @@ router.post('/forgot', async (req, res) => {
     };
 
     transporter.sendMail(sendEmail, (error, info) => {
-        if(error){
-            return res.status(500).send("Error sending email" + error.message);
+        if (error) {
+            return res.status(500).json({ success: false, message: "Error sending email: " + error.message });
         }
-        res.send("Password reset link sent to your email");
+        res.json({ success: true, message: "Password reset link sent to your email" });
     });
 });
 

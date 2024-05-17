@@ -59,57 +59,46 @@
 
 <!-- Forgot Password Modal -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="forgot-password-form" action="/forgot" method="post">
-          <div class="form-group">
-            <label for="forgot-email">Email</label>
-            <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
-          </div>
-          <center><button type="submit" class="btn btn-primary mt-3">Submit</button></center>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Sign Up Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="signup-form" action="/signup" method="post">
-          <div class="form-group">
-            <label for="signup-username">Username</label>
-            <input type="text" id="signup-username" name="username" class="form-control" placeholder="Enter your Username" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-name">Your actual name</label>
-            <input type="text" id="signup-name" name="name" class="form-control" placeholder="Enter your name" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" name="email" class="form-control" placeholder="Enter your Email" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
-          </div>
-        <center><button type="submit" class="btn btn-primary mt-3">Sign Up</button></center>
-        </form>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="forgot-password-form" action="/forgot" method="post">
+            <div class="form-group">
+              <label for="forgot-email">Email</label>
+              <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <center><button type="submit" class="btn btn-primary mt-3">Submit</button></center>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  
+  <!-- Email Sent Success Modal -->
+  <div class="modal fade" id="modalForgot" tabindex="-1" aria-labelledby="modalForgotLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2 class="fw-bold mb-0">Check your email!</h2>
+          <ul class="d-grid gap-4 my-5 list-unstyled small">
+            <li class="d-flex gap-4">
+              <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+              <div>
+                <h5 class="mb-0">Email sent!</h5>
+                An Email has been sent to you with a password reset link.
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Great, thanks!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 <!-- Habit Successfully Added Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
@@ -157,5 +146,5 @@
     }
   }
 </style>
-
+<script src="/js/client.js"></script>
 <%- include('template/footer') %>
