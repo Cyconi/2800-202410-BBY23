@@ -21,7 +21,7 @@
     flex-direction: column;
 }
 .offcanvas-body {
-    display: flex;
+    display: flex-start;
     flex-direction: column;
     justify-content: space-around;
     height: 100%;

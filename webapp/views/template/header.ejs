@@ -32,10 +32,9 @@
             </a>
         </div>
     </nav>
-
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <img src="./img/better_u_logo.png" alt="Better U Logo" width="250" height="150" class="mb-3"> 
+            <img src="./img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3"> 
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -57,6 +56,9 @@
                     <span class="material-symbols-outlined">account_circle</span>
                     Profile
                 </a>
+                <form action="/logout" method="post" class="nav-link">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
             </nav>
 
         </div>
