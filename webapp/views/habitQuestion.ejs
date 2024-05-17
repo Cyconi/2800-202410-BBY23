@@ -1,22 +1,38 @@
 <%- include('template/header') %>
-
+<style>
+    .custom-button {
+        font-size: 24px; /* Adjust as needed */
+        padding: 10px 20px; /* Adjust as needed */
+    }
+</style>
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            <h1 class="text-center">
+                Habit Questions
+            </h1>
+            <br>
             <% habits.forEach(habit=> {  %>
-                <div class="card mb-3">
+                <div class="card mb-3 alert <%= habit.good ? 'alert-success' : 'alert-danger' %>" role="alert">
                     <div class="card-body">
-                        <h5 class="card-title">Did you do Habit <%= i %>?<h5>
-                        <p class="small text-muted">This is a smaller text below the question.</p>
+                        <h5 class="card-title">Habit: <%= habit.habit %>?<h5>
+                        <p class="small text-muted">Habit Question: <%= habit.dailyQuestion %></p>
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-success">👍</button>
+                            <form action="addFrequency" method="POST">
+                                <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <button type="submit" class="btn btn-success">👍</button>
+                            </form>
                             <button type="button" class="btn btn-danger">👎</button>
                         </div>
                     </div>
                 </div>
-                <% }); %>
+            <% }); %>
+            <div class="d-flex justify-content-center">
+                <form action="/habit/indexRedirect" method="POST">
+                    <button type="submit" class="btn btn-primary mt-3 custom-button">Done</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 <%- include('template/footer') %>
