@@ -50,6 +50,7 @@ app.use('/', require('./modules/home'));
 app.use('/interpersonal', require('./modules/interpersonal'));
 app.use('/habit', require('./modules/habit.js'))
 app.use('/profile', require('./modules/profile.js'));
+app.use('/study', require('./modules/study'));
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
@@ -62,7 +63,6 @@ app.post('/logout', (req, res) => {
         });
     });
 });
-app.use('/study', require('./modules/study'));
 
 app.get("*", (req, res) => {
     res.status(404);
