@@ -49,7 +49,7 @@ router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
 });
 
 router.post("/indexRedirect", (req, res) => {
-    res.redirect("/");
+    res.redirect("/home1");
 });
 
 router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
