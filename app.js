@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 const User = require("./modules/user.js");
 const Timer = require('./modules/timerSchema.js');
+const Habit = require('./modules/user.js');
+
 // EJS 
 app.set('view engine', 'ejs');
 const path = require('path');
@@ -22,6 +24,13 @@ app.use("/css", express.static("./webapp/public/css"));
 app.use("/img", express.static("./webapp/public/img"));
 app.use("/scenario", express.static("./scenario"));
 
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 // Session
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -51,6 +60,11 @@ app.use('/interpersonal', require('./modules/interpersonal'));
 app.use('/habit', require('./modules/habit.js'))
 app.use('/profile', require('./modules/profile.js'));
 app.use('/study', require('./modules/study'));
+
+app.post('habit/habitQuestion', ensureAuthenticated, async (req, res) => {
+    const habits = await Habit.findAll({email:req.user.email});
+    res.render('/habit/habitQuestion', {habits: habits});
+});
 
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
