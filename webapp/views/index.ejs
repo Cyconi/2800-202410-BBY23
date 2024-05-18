@@ -6,23 +6,45 @@
     background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
   }
 
-  @media (min-width: 768px) {
+  /* Remove because cause overflow and does not affect mobile page */
+  /* @media (min-width: 768px) {
     .gradient-form {
       height: 100vh !important;
     }
-  }
+  } */
   
-  @media (min-width: 769px) {
+  /* Also removed because does not appear to do anything */
+  /* @media (min-width: 769px) {
     .gradient-custom-2 {
       border-top-right-radius: .3rem;
       border-bottom-right-radius: .3rem;
     }
+  } */
+
+  /* Apply rounded corners for screens smaller than large devices (992px) */
+  @media (max-width: 991.98px) {
+    .gradient-custom-2 {
+      border-radius: .3rem; /* Adjust this value as needed */
+    }
   }
+
+  /* For larger screens, apply rounded corners only on the right side */
+  @media (min-width: 992px) {
+    .gradient-custom-2 {
+      border-top-right-radius: .3rem;
+      border-bottom-right-radius: .3rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+  }
+}
 </style>
 
-<section class="h-100 gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+
+
+
+<section class="gradient-form" style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
