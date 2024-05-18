@@ -14,7 +14,9 @@ function checkTimer() {
                 });
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error =>{
+            setInterval(checkTimer, 30000);
+        });
 }
 
 document.addEventListener('visibilitychange', () => {

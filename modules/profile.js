@@ -36,11 +36,11 @@ router.post('/findDuplicate', ensureAuthenticated, async (req, res) => {
     try {
         const { username, email } = req.body;
         const existantUserName = await User.findOne({ username: username });
-        if (existantUserName) {
+        if (existantUserName && existantUserName._id.toString() != req.user._id.toString()) {
             return res.json({ success: false, message: "Username already exists" });
         }
         const existantEmail = await User.findOne({ email: email });
-        if (existantEmail) {
+        if (existantEmail && existantEmail._id.toString() != req.user._id.toString()) {
             return res.json({ success: false, message: "Email already exists" });
         }
         res.json({ success: true });
