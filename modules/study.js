@@ -27,7 +27,29 @@ router.get('/', (req, res) => {
 router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
-
+router.get('/session', ensureAuthenticated, async(req, res) => {
+    try {
+        const timer = await Timer.findOne({ email: req.user.email });
+        let timeLeft = 0;
+        let isPaused = false;
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
+                    timeLeft = 0; 
+                } else {
+                    timeLeft = timer.timer - elapsed; 
+                }
+            } else {
+                timeLeft = timer.timer; 
+                isPaused = true;
+            }
+        }
+        res.render('studySession', { timeLeft, isPaused });
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
+});
 router.post("/session", ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
