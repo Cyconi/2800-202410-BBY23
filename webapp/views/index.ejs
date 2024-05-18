@@ -1,4 +1,24 @@
 <%- include('template/header') %>
+<style>
+  .gradient-custom-2 {
+    background: #fccb90;
+    background: -webkit-linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+  }
+
+  @media (min-width: 768px) {
+    .gradient-form {
+      height: 100vh !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+      border-top-right-radius: .3rem;
+      border-bottom-right-radius: .3rem;
+    }
+  }
+</style>
 
 <section class="h-100 gradient-form" style="background-color: #eee;">
   <div class="container py-5 h-100">
@@ -55,21 +75,23 @@
 <!-- Forgot Password Modal -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="forgot-password-form">
-            <div class="form-group">
-              <label for="forgot-email">Email</label>
-              <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
+        <div class="modal-content rounded-4 shadow-lg"> 
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <center><button type="submit" class="btn btn-primary mt-3">Submit</button></center>
-          </form>
+            <div class="modal-body">
+                <form id="forgot-password-form">
+                    <div class="mb-3"> 
+                        <label for="forgot-email" class="form-label">Email</label> 
+                        <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
+                    </div>
+                    <div class="d-flex justify-content-center"> 
+                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 </div>
 
@@ -81,7 +103,7 @@
               <h2 class="fw-bold mb-0">Check your email!</h2>
               <ul class="d-grid gap-4 my-5 list-unstyled small">
                   <li class="d-flex gap-4">
-                      <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <img src="/img/email-sent.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
                       <div>
                           <h5 class="mb-0">Email sent!</h5>
                           An Email has been sent to you with a password reset link.
@@ -97,54 +119,36 @@
 <!-- Sign Up Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-content rounded-4 shadow-lg"> <!-- Use shadow-lg for a larger shadow -->
+          <div class="modal-header">
+              <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="signup-form" action="/signup" method="post">
+                  <div class="mb-3"> <!-- Use mb-3 for consistent spacing -->
+                      <label for="signup-username" class="form-label">Username</label> <!-- Use form-label for better accessibility -->
+                      <input type="text" id="signup-username" name="username" class="form-control" placeholder="Enter your Username" required />
+                  </div>
+                  <div class="mb-3">
+                      <label for="signup-name" class="form-label">Your actual name</label>
+                      <input type="text" id="signup-name" name="name" class="form-control" placeholder="Enter your name" required />
+                  </div>
+                  <div class="mb-3">
+                      <label for="signup-email" class="form-label">Email</label>
+                      <input type="email" id="signup-email" name="email" class="form-control" placeholder="Enter your Email" required />
+                  </div>
+                  <div class="mb-3">
+                      <label for="signup-password" class="form-label">Password</label>
+                      <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
+                  </div>
+                  <div class="d-flex justify-content-center"> <!-- Center align the button -->
+                      <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
+                  </div>
+              </form>
+          </div>
       </div>
-      <div class="modal-body">
-        <form id="signup-form" action="/signup" method="post">
-          <div class="form-group">
-            <label for="signup-username">Username</label>
-            <input type="text" id="signup-username" name="username" class="form-control" placeholder="Enter your Username" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-name">Your actual name</label>
-            <input type="text" id="signup-name" name="name" class="form-control" placeholder="Enter your name" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" name="email" class="form-control" placeholder="Enter your Email" required />
-          </div>
-          <div class="form-group">
-            <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
-          </div>
-        <center><button type="submit" class="btn btn-primary mt-3">Sign Up</button></center>
-        </form>
-      </div>
-    </div>
   </div>
 </div>
 
-<style>
-  .gradient-custom-2 {
-    background: #fccb90;
-    background: -webkit-linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-    background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-  }
-
-  @media (min-width: 768px) {
-    .gradient-form {
-      height: 100vh !important;
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .gradient-custom-2 {
-      border-top-right-radius: .3rem;
-      border-bottom-right-radius: .3rem;
-    }
-  }
-</style>
 <%- include('template/footer') %>
