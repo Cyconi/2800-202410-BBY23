@@ -109,17 +109,17 @@ router.post('/badHabit', async (req, res) => {
     }
 });
 router.post('/badHabitAdd', (req, res) => {
-    res.render('addHabit', { good: false });
+    res.render('habitAdd', { good: false });
 })
 
 router.get('/badHabitAdd', ensureAuthenticated, (req, res) => {
-    res.render('addHabit', { good: false });
+    res.render('habitAdd', { good: false });
 });
 router.get('/goodHabitAdd', ensureAuthenticated, (req, res) => {
-    res.render('addHabit', { good: true });
+    res.render('habitAdd', { good: true });
 });
 router.post('/goodHabitAdd', (req, res) => {
-    res.render('addHabit', { good: true });
+    res.render('habitAdd', { good: true });
 })
 
 function normalizeText(text) {
@@ -151,7 +151,9 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     const { habit, question, goodOrBad } = req.body;
     const normalizedHabit = normalizeText(habit);
     const normalizedQuestion = normalizeText(question);
-
+    const whenToAsk = new Date(Date.now());
+    whenToAsk.setHours(0, 0, 0, 0);
+    whenToAsk.setDate(whenToAsk.getDate() + 1);
     try {
         const newHabit = new Habit({
             email: req.user.email,
@@ -160,13 +162,14 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
             dailyQuestion: question,
             frequency: 1,
             normalizedHabit: normalizedHabit,
-            normalizedQuestion: normalizedQuestion
+            normalizedQuestion: normalizedQuestion,
+            whenToAsk: whenToAsk
         });
         await newHabit.save();
         res.json({ success: true });
     } catch (err) {
-        res.json({ success: false, error: err.message });
-    }
+            res.json({ success: false, error: err.message });
+        }
 });
 
 
