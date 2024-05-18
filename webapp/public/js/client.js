@@ -15,7 +15,7 @@ function checkTimer() {
             }
         })
         .catch(error =>{
-            setInterval(checkTimer, 30000);
+            setTimeout(checkTimer, 180000);
         });
 }
 
