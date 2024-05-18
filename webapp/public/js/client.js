@@ -97,3 +97,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+document.getElementById('resetPasswordForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {
+        password: formData.get('password'),
+        confirmPassword: formData.get('confirmPassword')
+    };
+    const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        const modal = new bootstrap.Modal(document.getElementById('modalTour'));
+        modal.show();
+    } else {
+        const errorData = await response.json();
+        alert('Error: ' + errorData.message);
+    }
+});
+
+document.getElementById('modalButton').addEventListener('click', function() {
+    window.location.href = '/';
+});

@@ -7,6 +7,13 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const Timer = require('./timerSchema');
 
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+router.use(express.static('public'));
+router.use("/js", express.static("./webapp/public/js"));
+router.use("/css", express.static("./webapp/public/css"));
+router.use("/img", express.static("./webapp/public/img"));
+
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -56,14 +63,16 @@ router.post('/forgot', async (req, res) => {
     });
 });
 
-router.get('/reset/', async (req, res) => {
+router.get('/reset/:token', async (req, res) => {
     
     const user = await User.findOne({
         resetPassword: req.params.token,
         resetPasswordDate: { $gt: Date.now() }
     });
 
-
+    if (!user) {
+        return res.status(400).send("Invalid or expired token");
+    }
     res.render('resetPassword', { token: req.params.token });
 });
 
@@ -74,11 +83,11 @@ router.post('/reset/:token', async (req, res) => {
     });
 
     if (!user) {
-        return res.status(400).send("Invalid or expired token");
+        return res.status(400).json({ success: false, message: "Invalid or expired token" });
     }
 
     if (req.body.password !== req.body.confirmPassword) {
-        return res.status(400).send("Passwords do not match");
+        return res.status(400).json({ success: false, message: "Passwords do not match" });
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     user.password = hashedPassword;
@@ -86,7 +95,7 @@ router.post('/reset/:token', async (req, res) => {
     user.resetPasswordDate = undefined;
     await user.save();
     
-    res.send("Password has been reset successfully");
+    res.status(200).json({ success: true, message: "Password has been reset successfully" });
 });
 
 router.post('/login', async (req, res, next) => {
