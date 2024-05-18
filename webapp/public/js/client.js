@@ -29,48 +29,71 @@ document.addEventListener('visibilitychange', () => {
 setInterval(checkTimer, 1000);
 
 document.addEventListener('DOMContentLoaded', function() {
+    let forgotPasswordModalInstance;
+    let successModalInstance;
+    let isEmailRequestInProgress = false; // Flag to prevent duplicate requests
+    const forgotPasswordButton = document.getElementById('forgotPasswordLink');
     const forgotPasswordForm = document.getElementById('forgot-password-form');
-
-    forgotPasswordForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
-        console.log("forgor" + fogotPasswordModal);
-        const email = document.getElementById('forgot-email').value;
-        console.log("email= " + email);
-        fetch('/forgot', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Data" + data);
-            
-            console.log("forgor" + fogotPasswordModal);
-            forgotPasswordModal.hide();
-            if (data.success) {
-                const successModal = new bootstrap.Modal(document.getElementById('modalForgot'));
-                console.log("successModal = " + successModal );
-                successModal.show();
-            } else {
-                alert(data.message || 'Failed to send reset email. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to send reset email. Please try again.');
-        });
-    });
-
     const successButton = document.getElementById('successButton');
-    successButton.addEventListener('click', function() {
-        const successModal = bootstrap.Modal.getInstance(document.getElementById('modalForgot'));
-        console.log("successModal = " + successModal );
-        successModal.hide();
-    });
-    forgotPasswordModal.hide();
-    successModal.hide();
+
+    console.log('DOM fully loaded and parsed');
+
+    // Ensure forgot password modal is only shown once
+    if (forgotPasswordButton) {
+        forgotPasswordButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (!forgotPasswordModalInstance) {
+                forgotPasswordModalInstance = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+            }
+            forgotPasswordModalInstance.show();
+        });
+    }
+
+    // Handle forgot password form submission
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (isEmailRequestInProgress) return; // Prevent duplicate requests
+            isEmailRequestInProgress = true;
+
+            const email = document.getElementById('forgot-email').value;
+
+            fetch('/forgot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                isEmailRequestInProgress = false; // Reset flag
+                if (forgotPasswordModalInstance) {
+                    forgotPasswordModalInstance.hide();
+                }
+                if (data.success) {
+                    if (!successModalInstance) {
+                        successModalInstance = new bootstrap.Modal(document.getElementById('modalForgot'));
+                    }
+                    successModalInstance.show();
+                } else {
+                    alert(data.message || 'Failed to send reset email. Please try again.');
+                }
+            })
+            .catch(error => {
+                isEmailRequestInProgress = false; // Reset flag
+                alert('Failed to send reset email. Please try again.');
+            });
+        });
+    }
+
+    // Handle success modal close button
+    if (successButton) {
+        successButton.addEventListener('click', function() {
+            if (successModalInstance) {
+                successModalInstance.hide();
+            }
+        });
+    }
 });
 
