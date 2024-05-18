@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch(`/profile/profileElements`, { method: "POST" });
+        const response = await fetch('/profile/profileElements', { method: "POST" });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const email = editProfileForm.querySelector('#floatingEmail').value;
 
         try {
-            const response = await fetch('/profile/editProfile', {
+            // First check for duplicates
+            const duplicateResponse = await fetch('/profile/findDuplicate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,8 +55,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 body: JSON.stringify({ name, username, email })
             });
 
-            const result = await response.json();
-            if (result.success) {
+            const duplicateResult = await duplicateResponse.json();
+            if (!duplicateResult.success) {
+                alert(duplicateResult.message);
+                return;
+            }
+
+            // If no duplicates, proceed with profile update
+            const updateResponse = await fetch('/profile/editProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, username, email })
+            });
+
+            const updateResult = await updateResponse.json();
+            if (updateResult.success) {
                 editProfileModal.hide();
                 location.reload(); // Reload the page to see the changes
             } else {

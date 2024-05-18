@@ -33,37 +33,40 @@ router.get('/editProfile', ensureAuthenticated, (req, res) => {
 
 
 router.post('/findDuplicate', ensureAuthenticated, async (req, res) => {
-    try{
-        const {name, username, email} = req.body;
-        const existantUserName = await User.findOne({username: username});
-        if(existantUserName){
-            return res.json({success: false, message: "Username already exists"});
+    try {
+        const { username, email } = req.body;
+        const existantUserName = await User.findOne({ username: username });
+        if (existantUserName) {
+            return res.json({ success: false, message: "Username already exists" });
         }
-        const existantEmail = await User.findOne({email: email});
-        if(existantEmail){
-            return res.json({success: false, message: "Email already exists"});
+        const existantEmail = await User.findOne({ email: email });
+        if (existantEmail) {
+            return res.json({ success: false, message: "Email already exists" });
         }
-        res.json({success: true});
-    } catch (Error) {
-        res.json({success: false});
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error checking duplicates:", error);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 
 router.post('/editProfile', ensureAuthenticated, async (req, res) => {
     try {
         const { name, username, email } = req.body;
-        const user = await User.findOneAndUpdate(
-        {email: req.user.email},
-        {$set: {email:email, name: name, username: username}},
-        {new: true});
-        if (user) {
-            return res.json({success: true});
+        const updatedUser = await User.findOneAndUpdate(
+            { email: req.user.email },
+            { $set: { email: email, name: name, username: username } },
+            { new: true }
+        );
+
+        if (updatedUser) {
+            res.json({ success: true, user: updatedUser });
         } else {
-            return res.json({success: false});
+            res.status(404).json({ success: false, message: "User not found" });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');
+        console.error("Error updating profile:", error);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 
