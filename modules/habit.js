@@ -44,11 +44,28 @@ router.post('/editHabit', async (req, res) => {
     }
 });
 router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
+    try{
     const habits = await Habit.find({email: req.user.email});
-    res.render("habitQuestion", {habits: habits});
+    if (habits.length > 0) {
+        const whenToAsk = habits[0].whenToAsk;
+        if(whenToAsk <= Date.now()){
+            return res.render("habitQuestion", {habits: habits});
+        }
+    }
+    res.redirect('/home1');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
 });
 
-router.post("/indexRedirect", (req, res) => {
+router.post("/indexRedirect", async (req, res) => {
+    const whenToAsk = new Date(Date.now());
+    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
+    const habits = await Habit.updateMany(
+        {email: req.user.email},
+        {$set: {whenToAsk: whenToAsk}}
+    );
     res.redirect("/home1");
 });
 
@@ -152,8 +169,7 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     const normalizedHabit = normalizeText(habit);
     const normalizedQuestion = normalizeText(question);
     const whenToAsk = new Date(Date.now());
-    whenToAsk.setHours(0, 0, 0, 0);
-    whenToAsk.setDate(whenToAsk.getDate() + 1);
+    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
     try {
         const newHabit = new Habit({
             email: req.user.email,
@@ -163,7 +179,8 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
             frequency: 1,
             normalizedHabit: normalizedHabit,
             normalizedQuestion: normalizedQuestion,
-            whenToAsk: whenToAsk
+            whenToAsk: whenToAsk,
+            whenMade: Date.now()
         });
         await newHabit.save();
         res.json({ success: true });

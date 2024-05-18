@@ -10,6 +10,7 @@ const habitSchema = new mongoose.Schema({
     normalizedHabit: {type: String, unique: false, required: true },
     normalizedQuestion: {type: String, unique: false, required: true },
     whenToAsk: {type: Date, unique: false, required: true},
+    whenMade: {type: Date, unique: false, required: true}
 });
 
 habitSchema.plugin(AutoIncrement, { inc_field: 'id' });
