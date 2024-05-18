@@ -1,0 +1,22 @@
+<%- include('template/header', { title: 'Select Scenario' }) %>
+<link rel="stylesheet" href="css/scenarioSelect.css">
+<div class="container mt-4">
+  <h1>Select a Category and Scenario</h1>
+  <div class="btn-group-vertical w-100" role="group" aria-label="Scenario selection">
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario1.json')">Making Friends - Approaching Someone New</button>
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario2.json')">Dating and Romantic Relationships - Handling Rejection</button>
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario3.json')">Family and Close Relationships - Supporting a Loved One</button>
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario4.json')">Handling Public Situations - Dealing with Awkward Situations</button>
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario5.json')">Conflict Resolution - Apologizing Effectively</button>
+    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario6.json')">Social Etiquette - Cultural Sensitivity</button>
+  </div>
+</div>
+
+<script>
+  function selectScenario(scenarioUrl) {
+    sessionStorage.setItem('scenarioUrl', scenarioUrl);
+    window.location.href = '/interpersonal';
+  }
+</script>
+
+<%- include('template/footer') %>

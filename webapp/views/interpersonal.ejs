@@ -1,0 +1,13 @@
+<%- include('template/header', { title: 'Social Skills Game' }) %>
+<link rel="stylesheet" href="css/interpersonal.css">
+
+<div id="game-container" class="container mt-4">
+  <div id="narrator" class="hidden narrator-box"></div>
+  <div id="question" class="hidden"></div>
+  <div id="options" class="hidden"></div>
+  <div id="feedback" class="hidden"></div>
+  <center><button id="continue-button" class="hidden btn btn-primary mt-2">Continue</button></center>
+  
+
+<script src="/js/game.js"></script>
+<%- include('template/footer') %>

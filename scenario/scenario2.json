@@ -1,0 +1,70 @@
+{
+    "scenarios": [
+      {
+        "id": 2,
+        "title": "Handling Rejection",
+        "narrator": "You're on a date, and you notice that the other person seems uninterested. You want to handle the situation gracefully.",
+        "questions": [
+          {
+            "id": 1,
+            "text": "You notice that your date seems distracted and isn't engaging much in the conversation. How do you address this?",
+            "type": "text",
+            "options": [
+              { "text": "Ask directly if something is wrong.", "correct": false, "feedback": "This might come off as too confrontational." },
+              { "text": "Make a light-hearted comment about the situation.", "correct": true, "feedback": "This can help ease the tension and show your understanding." },
+              { "text": "Ignore it and keep talking about yourself.", "correct": false, "feedback": "This can make you seem self-centered and unaware of the situation." },
+              { "text": "Excuse yourself and leave abruptly.", "correct": false, "feedback": "This is an overreaction and can make things awkward." }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "Your date mentions they had a tough day and are not in the best mood. How do you respond?",
+            "type": "text",
+            "options": [
+              { "text": "Offer to reschedule the date.", "correct": true, "feedback": "This shows empathy and understanding of their situation." },
+              { "text": "Insist on continuing the date and try to cheer them up.", "correct": false, "feedback": "This might come off as inconsiderate of their feelings." },
+              { "text": "Complain about your own bad day.", "correct": false, "feedback": "This shifts the focus away from their feelings and can seem insensitive." },
+              { "text": "Suggest doing something more exciting to change their mood.", "correct": false, "feedback": "This might seem pushy and not respectful of their current state." }
+            ]
+          },
+          {
+            "id": 3,
+            "narrator": "Despite your efforts, the date does not seem to improve and your date is still uninterested.",
+            "text": "How do you wrap up the date?",
+            "type": "text",
+            "options": [
+              { "text": "Express disappointment and ask why it didn't go well.", "correct": false, "feedback": "This can put your date on the spot and make them uncomfortable." },
+              { "text": "Thank them for their time and suggest staying in touch.", "correct": true, "feedback": "This shows maturity and respect for their feelings." },
+              { "text": "Leave without saying much and don't contact them again.", "correct": false, "feedback": "This can leave a negative impression and show a lack of respect." },
+              { "text": "Insist on scheduling another date to make up for it.", "correct": false, "feedback": "This might seem desperate and not considerate of their feelings." }
+            ]
+          },
+          {
+            "id": 4,
+            "narrator": "After the date, you reflect on the experience.",
+            "text": "What is the best way to handle your own feelings of rejection?",
+            "type": "text",
+            "options": [
+              { "text": "Blame yourself and feel discouraged about dating.", "correct": false, "feedback": "This is not constructive and can negatively impact your self-esteem." },
+              { "text": "Consider it as a learning experience and move on.", "correct": true, "feedback": "This is a healthy approach and helps you grow from the experience." },
+              { "text": "Immediately try to arrange another date with someone else.", "correct": false, "feedback": "This can seem like you're avoiding dealing with your feelings." },
+              { "text": "Vent your frustrations on social media.", "correct": false, "feedback": "This is not a respectful way to handle rejection and can have negative consequences." }
+            ]
+          },
+          {
+            "id": 5,
+            "narrator": "You decide to send a message to your date to thank them for their time.",
+            "text": "What should you say in the message?",
+            "type": "text",
+            "options": [
+              { "text": "Express frustration and ask for another chance.", "correct": false, "feedback": "This can come off as desperate and pushy." },
+              { "text": "Thank them for the date and wish them well.", "correct": true, "feedback": "This shows maturity and respect." },
+              { "text": "Ask for feedback on why the date didn't go well.", "correct": false, "feedback": "This can make them uncomfortable and feel pressured." },
+              { "text": "Ignore the situation and not send any message.", "correct": false, "feedback": "This can seem rude and show a lack of maturity." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
