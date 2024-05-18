@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     forgotPasswordForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+        console.log("forgor" + fogotPasswordModal);
         const email = document.getElementById('forgot-email').value;
         console.log("email= " + email);
         fetch('/forgot', {

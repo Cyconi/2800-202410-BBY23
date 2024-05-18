@@ -37,7 +37,7 @@ router.post('/forgot', async (req, res) => {
 
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetPassword = resetToken;
-    user.resetPasswordDate = Date.now() + 3600000; // 1 hour
+    user.resetPasswordDate = Date.now() + 3600000;
     await user.save();
 
     const resetURL = `http://${req.headers.host}/reset/${resetToken}`;
@@ -56,16 +56,13 @@ router.post('/forgot', async (req, res) => {
     });
 });
 
-router.get('/reset/:token', async (req, res) => {
+router.get('/reset/', async (req, res) => {
     
     const user = await User.findOne({
         resetPassword: req.params.token,
         resetPasswordDate: { $gt: Date.now() }
     });
 
-    if (!user) {
-        return res.status(400).send("Invalid or expired token");
-    }
 
     res.render('resetPassword', { token: req.params.token });
 });
