@@ -103,7 +103,7 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
 });
 
 router.get('/studyLog', async (req, res) => {
-    const sessions = await StudySession.find(email: email).sort({ date: -1 });
+    const sessions = await StudySession.find({email: email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 
