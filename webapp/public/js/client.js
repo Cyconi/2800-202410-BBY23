@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     forgotPasswordForm.addEventListener('submit', function(event) {
         event.preventDefault();
-
+        const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
         const email = document.getElementById('forgot-email').value;
-
+        console.log("email= " + email);
         fetch('/forgot', {
             method: 'POST',
             headers: {
@@ -43,10 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            const forgotPasswordModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            console.log("Data" + data);
+            
+            console.log("forgor" + fogotPasswordModal);
             forgotPasswordModal.hide();
             if (data.success) {
                 const successModal = new bootstrap.Modal(document.getElementById('modalForgot'));
+                console.log("successModal = " + successModal );
                 successModal.show();
             } else {
                 alert(data.message || 'Failed to send reset email. Please try again.');
@@ -61,7 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const successButton = document.getElementById('successButton');
     successButton.addEventListener('click', function() {
         const successModal = bootstrap.Modal.getInstance(document.getElementById('modalForgot'));
+        console.log("successModal = " + successModal );
         successModal.hide();
     });
+    forgotPasswordModal.hide();
+    successModal.hide();
 });
 

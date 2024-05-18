@@ -31,19 +31,35 @@ router.get('/editProfile', ensureAuthenticated, (req, res) => {
     res.render('editProfile', { user: req.user });
 });
 
+
+router.post('/findDuplicate', ensureAuthenticated, async (req, res) => {
+    try{
+        const {name, username, email} = req.body;
+        const existantUserName = await User.findOne({username: username});
+        if(existantUserName){
+            return res.json({success: false, message: "Username already exists"});
+        }
+        const existantEmail = await User.findOne({email: email});
+        if(existantEmail){
+            return res.json({success: false, message: "Email already exists"});
+        }
+        res.json({success: true});
+    } catch (Error) {
+        res.json({success: false});
+    }
+});
+
 router.post('/editProfile', ensureAuthenticated, async (req, res) => {
     try {
         const { name, username, email } = req.body;
-        const user = await User.findById(req.user._id);
-        
+        const user = await User.findOneAndUpdate(
+        {email: req.user.email},
+        {$set: {email:email, name: name, username: username}},
+        {new: true});
         if (user) {
-            user.name = name;
-            user.username = username;
-            user.email = email;
-            await user.save();
-            res.redirect('/profile');
+            return res.json({success: true});
         } else {
-            res.status(404).send('User not found');
+            return res.json({success: false});
         }
     } catch (error) {
         console.error(error);
