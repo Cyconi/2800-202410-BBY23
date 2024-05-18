@@ -8,7 +8,6 @@
           <div class="row g-0">
             <div class="col-lg-6">
               <div class="card-body p-md-5 mx-md-4">
-
                 <div class="text-center">
                   <img src="/img/better_u_logo.png" style="width: 185px;" alt="logo">
                   <h4 class="mt-1 mb-5 pb-1">Welcome to BetterYou.</h4>
@@ -16,22 +15,19 @@
 
                 <form action="/login" method="post">
                   <p>Please login to your account</p>
-
                   <div class="form-outline mb-4">
                     <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required />
                     <label class="form-label" for="username">Username</label>
                   </div>
-
                   <div class="form-outline mb-4">
                     <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
                     <label class="form-label" for="password">Password</label>
                   </div>
-
                   <div class="text-center pt-1 mb-1 pb-1">
                     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
                   </div>
                   <div class="text-center mb-5">
-                    <a class="text-muted" href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
+                    <a class="text-muted" href="javascript:void(0);" id="forgotPasswordLink">Forgot password?</a>
                   </div>
                 </form>
 
@@ -39,7 +35,6 @@
                   <p class="mb-0 me-2">Don't have an account?</p>
                   <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#signupModal">Create new</button>
                 </div>
-
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -66,7 +61,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="forgot-password-form" action="/forgot" method="post">
+          <form id="forgot-password-form">
             <div class="form-group">
               <label for="forgot-email">Email</label>
               <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
@@ -76,31 +71,9 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Email Sent Success Modal
-  <div class="modal fade" id="modalForgot" tabindex="-1" aria-labelledby="modalForgotLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <h2 class="fw-bold mb-0">Check your email!</h2>
-          <ul class="d-grid gap-4 my-5 list-unstyled small">
-            <li class="d-flex gap-4">
-              <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
-              <div>
-                <h5 class="mb-0">Email sent!</h5>
-                An Email has been sent to you with a password reset link.
-              </div>
-            </li>
-          </ul>
-          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Great, thanks!</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  
+</div>
 
-<!-- Habit Successfully Added Modal??????? --- Email Sent Success Modal -->
+<!-- Email Sent Success Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
   <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
@@ -152,16 +125,12 @@
       </div>
     </div>
   </div>
+</div>
 
 <style>
   .gradient-custom-2 {
-    /* fallback for old browsers */
     background: #fccb90;
-
-    /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
   }
 
@@ -178,5 +147,4 @@
     }
   }
 </style>
-<script src="/js/client.js"></script>
 <%- include('template/footer') %>
