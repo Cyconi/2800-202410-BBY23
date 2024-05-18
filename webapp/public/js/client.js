@@ -29,7 +29,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // Periodically check the timer every 30 seconds
-setInterval(checkTimer, 1000);
+setInterval(checkTimer, 2000);
 
 document.addEventListener('DOMContentLoaded', function() {
     let forgotPasswordModalInstance;
