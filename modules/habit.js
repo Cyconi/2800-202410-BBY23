@@ -109,17 +109,17 @@ router.post('/badHabit', async (req, res) => {
     }
 });
 router.post('/badHabitAdd', (req, res) => {
-    res.render('addHabit', { good: false });
+    res.render('habitAdd', { good: false });
 })
 
 router.get('/badHabitAdd', ensureAuthenticated, (req, res) => {
-    res.render('addHabit', { good: false });
+    res.render('habitAdd', { good: false });
 });
 router.get('/goodHabitAdd', ensureAuthenticated, (req, res) => {
-    res.render('addHabit', { good: true });
+    res.render('habitAdd', { good: true });
 });
 router.post('/goodHabitAdd', (req, res) => {
-    res.render('addHabit', { good: true });
+    res.render('habitAdd', { good: true });
 })
 
 function normalizeText(text) {
