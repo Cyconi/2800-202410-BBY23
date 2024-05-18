@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const Timer = require('./timerSchema');
 
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static('public'));
@@ -25,7 +26,7 @@ let transporter = nodemailer.createTransport({
 router.get('/', (req, res) => {
     res.render('index');
 });
-//  What is this??
+
 router.get('/home1', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
@@ -64,7 +65,6 @@ router.post('/forgot', async (req, res) => {
 });
 
 router.get('/reset/:token', async (req, res) => {
-    
     const user = await User.findOne({
         resetPassword: req.params.token,
         resetPasswordDate: { $gt: Date.now() }
@@ -73,8 +73,11 @@ router.get('/reset/:token', async (req, res) => {
     if (!user) {
         return res.status(400).send("Invalid or expired token");
     }
+
+    console.log(`Rendering resetPassword with token: ${req.params.token}`);
     res.render('resetPassword', { token: req.params.token });
 });
+
 
 router.post('/reset/:token', async (req, res) => {
     const user = await User.findOne({
