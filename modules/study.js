@@ -98,12 +98,12 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
-    const sessions = await StudySession.find({email: email}).sort({ date: -1 });
+    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 
 router.get('/studyLog', async (req, res) => {
-    const sessions = await StudySession.find({email: email}).sort({ date: -1 });
+    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 
