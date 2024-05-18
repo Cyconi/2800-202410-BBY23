@@ -21,26 +21,26 @@
     }
   } */
 
-  /* Apply rounded corners for screens smaller than large devices (992px) */
+  /* Curved edge for mobile */
   @media (max-width: 991.98px) {
-    .gradient-custom-2 {
-      border-radius: .3rem; /* Adjust this value as needed */
+    .gradient-border {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: .3rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: .3rem;
     }
   }
 
-  /* For larger screens, apply rounded corners only on the right side */
+  /* Curved edge for desktop */
   @media (min-width: 992px) {
-    .gradient-custom-2 {
+    .gradient-border {
       border-top-right-radius: .3rem;
       border-bottom-right-radius: .3rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+    }
   }
-}
 </style>
-
-
-
 
 <section class="gradient-form" style="background-color: #eee;">
   <div class="container py-5">
@@ -79,7 +79,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2 gradient-border">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                 <h4 class="mb-4">We are more than just a self-help app</h4>
                 <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
