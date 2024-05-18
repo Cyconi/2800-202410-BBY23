@@ -3,19 +3,22 @@ function checkTimer() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const modal = new bootstrap.Modal(document.getElementById('modalTour'));
-                modal.show();
+                const modalElement = document.getElementById('modalTour');
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
 
-                document.getElementById('modalTour').addEventListener('hidden.bs.modal', () => {
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) {
-                        backdrop.remove();
-                    }
-                });
+                    modalElement.addEventListener('hidden.bs.modal', () => {
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                    });
+                }
             }
         })
-        .catch(error =>{
-            setTimeout(checkTimer, 180000);
+        .catch(error => {
+            setTimeout(checkTimer, 180000); // Retry after 3 minutes if there's an error
         });
 }
 
@@ -36,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const successButton = document.getElementById('successButton');
 
-    console.log('DOM fully loaded and parsed');
 
     // Ensure forgot password modal is only shown once
     if (forgotPasswordButton) {
@@ -95,34 +97,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
 
+    // Handle reset password form submission
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    if (resetPasswordForm) {
+        resetPasswordForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword')
+            };
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-document.getElementById('resetPasswordForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const data = {
-        password: formData.get('password'),
-        confirmPassword: formData.get('confirmPassword')
-    };
-    const response = await fetch(form.action, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-        const modal = new bootstrap.Modal(document.getElementById('modalTour'));
-        modal.show();
-    } else {
-        const errorData = await response.json();
-        alert('Error: ' + errorData.message);
+            if (response.ok) {
+                const modalElement = document.getElementById('modalTour');
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                }
+            } else {
+                const errorData = await response.json();
+                alert('Error: ' + errorData.message);
+            }
+        });
     }
-});
 
-document.getElementById('modalButton').addEventListener('click', function() {
-    window.location.href = '/';
+    // Handle modal button click
+    const modalButton = document.getElementById('modalButton');
+    if (modalButton) {
+        modalButton.addEventListener('click', function() {
+            window.location.href = '/';
+        });
+    }
 });

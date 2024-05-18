@@ -93,7 +93,7 @@ app.post('/calculate', async (req, res) => {
         }
         res.json({success:false});
     } catch (error) {   
-        res.status(500).json({ success: false});
+        res.json({ success: false});
     }
 });
 app.get("*", (req, res) => {
