@@ -200,3 +200,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+
+function submitForm(button) {
+    // Disable all buttons within the same card
+    const card = button.closest('.card-body');
+    card.querySelectorAll('button').forEach(btn => {
+        btn.disabled = true;
+    });
+
+    // Create a new form and submit it
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'addFrequency';
+
+    const habitID = document.createElement('input');
+    habitID.type = 'hidden';
+    habitID.name = 'habitID';
+    habitID.value = button.closest('form').querySelector('input[name="habitID"]').value;
+
+    form.appendChild(habitID);
+    document.body.appendChild(form);
+    form.submit();
+}

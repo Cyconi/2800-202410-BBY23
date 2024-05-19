@@ -22,8 +22,11 @@ router.use("/img", express.static("./webapp/public/img"));
 router.post("/addFrequency", async(req, res) => {
     const {habitID} = req.body;
     const habit = await Habit.findOne({id: habitID});
+    const whenToAsk = new Date(Date.now());
+    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
     if(habit){
         habit.frequency = habit.frequency + 1;
+        habit.whenToAsk = whenToAsk;
         await habit.save();
     }
 });
@@ -47,9 +50,14 @@ router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
     try{
     const habits = await Habit.find({email: req.user.email});
     if (habits.length > 0) {
-        const whenToAsk = habits[0].whenToAsk;
-        if(whenToAsk <= Date.now()){
-            return res.render("habitQuestion", {habits: habits});
+        let habitArray = [];
+        habits.forEach(habit => {
+            if (habit.whenToAsk <= Date.now()) {
+                habitArray.push(habit);
+            }
+        });
+        if(habitArray.length > 0){
+            return res.render('habitQuestion', { habits: habitArray });
         }
     }
     res.redirect('/home1');
@@ -60,15 +68,8 @@ router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
 });
 
 router.post("/indexRedirect", async (req, res) => {
-    const whenToAsk = new Date(Date.now());
-    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
-    const habits = await Habit.updateMany(
-        {email: req.user.email},
-        {$set: {whenToAsk: whenToAsk}}
-    );
     res.redirect("/home1");
 });
-
 router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     const { habitID, habitGood } = req.body;
     const isGood = habitGood === 'true';
@@ -176,7 +177,7 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
             good: goodOrBad,
             habit: habit,
             dailyQuestion: question,
-            frequency: 1,
+            frequency: 0,
             normalizedHabit: normalizedHabit,
             normalizedQuestion: normalizedQuestion,
             whenToAsk: whenToAsk,

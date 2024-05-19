@@ -10,8 +10,6 @@
         transform: scale(0.9); /* Makes the button slightly smaller when clicked */
         background-color: #00000000 !important; /* Change the color when clicked */
     }
-
-
 </style>
 
 <div class="container mt-4">
@@ -21,24 +19,27 @@
                 Habit Questions
             </h1>
             <br>
-            <% habits.forEach(habit=> {  %>
+            <% habits.forEach(habit => { %>
                 <div class="card mb-3 alert <%= habit.good ? 'alert-success' : 'alert-danger' %>" role="alert">
                     <div class="card-body">
                         <h5 class="card-title">Habit: <%= habit.habit %>?<h5>
                         <p class="small text-muted">Habit Question: <%= habit.dailyQuestion %></p>
                         <div class="d-flex justify-content-between">
-                            <form action="addFrequency" method="POST">
+                            <form class="habit-form" style="display:inline;">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
-                                <button type="submit" class="btn btn-success">👍</button>
+                                <button type="button" class="btn btn-success" onclick="submitForm(this)">👍</button>
                             </form>
-                            <button type="button" class="btn btn-danger">👎</button>
+                            <form class="habit-form" style="display:inline;">
+                                <input type="hidden" name="habitID" value="<%= habit.id %>">
+                                <button type="button" class="btn btn-danger" onclick="submitForm(this)">👎</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             <% }); %>
             <div class="d-flex justify-content-center">
                 <form action="/habit/indexRedirect" method="POST">
-                    <button type="submit" class="btn btn-primary mt-3 custom-button">Done</button>
+                    <button type="submit" id="doneButton" class="btn btn-primary mt-3 custom-button">Done</button>
                 </form>
             </div>
         </div>
@@ -46,3 +47,5 @@
 </div>
 
 <%- include('template/footer') %>
+
+<script src="/js/habitC.js"></script>
