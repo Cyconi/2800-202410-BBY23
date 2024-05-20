@@ -34,11 +34,11 @@ setInterval(checkTimer, 2000);
 document.addEventListener('DOMContentLoaded', function() {
     let forgotPasswordModalInstance;
     let successModalInstance;
+    let loginFailedModalInstance; // Add a reference for the login failed modal
     let isEmailRequestInProgress = false; // Flag to prevent duplicate requests
     const forgotPasswordButton = document.getElementById('forgotPasswordLink');
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const successButton = document.getElementById('successButton');
-
 
     // Ensure forgot password modal is only shown once
     if (forgotPasswordButton) {
@@ -135,6 +135,39 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modalButton) {
         modalButton.addEventListener('click', function() {
             window.location.href = '/';
+        });
+    }
+
+    // Handle login form submission
+    const loginForm = document.querySelector('form[action="/login"]');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const errorData = await response.json();
+            if (response.ok) {
+                window.location.href = '/home1';
+            } else {
+                const errorMessageElement = document.getElementById('errorMessage');
+                if (!loginFailedModalInstance) {
+                    loginFailedModalInstance = new bootstrap.Modal(document.getElementById('modalLoginFailed'));
+                }
+                errorMessageElement.textContent = errorData.message;
+                loginFailedModalInstance.show();
+            }
         });
     }
 });
