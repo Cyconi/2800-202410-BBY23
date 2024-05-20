@@ -3,7 +3,7 @@ function checkTimer() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const modalElement = document.getElementById('modalTour');
+                const modalElement = document.getElementById('timer');
                 if (modalElement) {
                     const modal = new bootstrap.Modal(modalElement);
                     modal.show();
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                const modalElement = document.getElementById('modalTour');
+                const modalElement = document.getElementById('timer');
                 if (modalElement) {
                     const modal = new bootstrap.Modal(modalElement);
                     modal.show();
