@@ -23,7 +23,7 @@ router.post("/addFrequency", async(req, res) => {
     const {habitID} = req.body;
     const habit = await Habit.findOne({id: habitID});
     const whenToAsk = new Date(Date.now());
-    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
+    whenToAsk.setSeconds(whenToAsk.getSeconds() + 1);
     if(habit){
         habit.frequency = habit.frequency + 1;
         habit.whenToAsk = whenToAsk;
@@ -170,7 +170,7 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     const normalizedHabit = normalizeText(habit);
     const normalizedQuestion = normalizeText(question);
     const whenToAsk = new Date(Date.now());
-    whenToAsk.setSeconds(whenToAsk.getSeconds() + 40);
+    whenToAsk.setSeconds(whenToAsk.getSeconds() + 1);
     try {
         const newHabit = new Habit({
             email: req.user.email,
