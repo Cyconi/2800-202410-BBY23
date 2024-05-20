@@ -100,7 +100,7 @@ router.post('/reset/:token', async (req, res) => {
     res.status(200).json({ success: true, message: "Password has been reset successfully" });
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Internal server error" });
@@ -110,12 +110,13 @@ router.post('/login', async (req, res, next) => {
         }
         req.login(user, loginErr => {
             if (loginErr) {
-                return res.status(500).json({success: false, message: 'Internal server error' });
+                return res.status(500).json({ success: false, message: 'Internal server error' });
             }
-            res.redirect('/home1');
+            return res.status(200).json({ success: true });
         });
     })(req, res, next);
 });
+
 
 router.post('/signup', async (req, res) => {
     const { username, name, email, password } = req.body;
