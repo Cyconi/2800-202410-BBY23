@@ -9,11 +9,11 @@ module.exports = function (passport) {
             try {
                 const user = await User.findOne({ username: username });
                 if (!user) {
-                    return done(null, false, { message: 'incorrect username' });
+                    return done(null, false, { message: 'username' });
                 }
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (!isMatch) {
-                    return done(null, false, { message: 'incorrect password' });
+                    return done(null, false, { message: 'password' });
                 }
                 return done(null, user);
             } catch (err) {
