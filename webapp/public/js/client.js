@@ -161,19 +161,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 window.location.href = '/home1';
             } else {
-                const errorMessageElement = document.getElementById('errorMessage'); // Header LoginFailed Modal
-                const errorMessageElement2 = document.getElementById('errorMessage2'); // Body LoginFailed Modal
+                const errorMessageHeader = document.getElementById('errorMessageH'); // Header LoginFailed Modal
+                const errorMessageBody = document.getElementById('errorMessageB'); // Body LoginFailed Modal
                 if (!loginFailedModalInstance) {
                     loginFailedModalInstance = new bootstrap.Modal(document.getElementById('modalLoginFailed'));
                 }
 
                 // Header LoginFailed Modal
-                // errorMessageElement.textContent = errorData.message; // Original code
-                let message = errorData.message;
-                errorMessageElement.textContent = message.charAt(0).toUpperCase() + message.slice(1);
+                // errorMessageHeader.textContent = errorData.message; // Original code
+                let headerMsg = errorData.message;
+                errorMessageHeader.textContent = headerMsg.charAt(0).toUpperCase() + headerMsg.slice(1);
 
                 // Body LoginFailed Modal
-                errorMessageElement2.textContent = errorData.message; 
+                errorMessageBody.textContent = errorData.message; 
                 loginFailedModalInstance.show();
             }
         });
