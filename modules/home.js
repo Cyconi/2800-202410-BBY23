@@ -103,14 +103,14 @@ router.post('/reset/:token', async (req, res) => {
 router.post('/login', async (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).json({ success: false, message: "Internal server error" });
         }
         if (!user) {
-            return res.status(401).send(info.message);
+            return res.status(401).json({ success: false, message: info.message });
         }
         req.login(user, loginErr => {
             if (loginErr) {
-                return res.status(500).send('Error logging in');
+                return res.status(500).json({success: false, message: 'Internal server error' });
             }
             res.redirect('/home1');
         });

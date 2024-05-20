@@ -184,16 +184,39 @@
                       <img src="/img/loginFail.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
                       <div>
                           <h5 class="mb-0">
-                            <span> __ </span> Incorrect
+                            Sorry login failed!
                           </h5>
-                          The <span> ___ </span> you have entered is incorrect. Please try again.
+                          You have inputted the <span id="errorMessage"></span> please try again.
                       </div>
                   </li>
               </ul>
-              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Okay</button>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton">okay daddy sorry!</button>
           </div>
       </div>
   </div>
 </div>
+
+
+<!-- Internal Server Error -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalServerError">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Server Error</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/error-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">An error occurred</h5>
+                          Something went wrong on our end. Please try again later.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 
 <%- include('template/footer') %>
