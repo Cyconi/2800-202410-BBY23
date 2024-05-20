@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const modalElement = document.getElementById('modalTour');
+                        const modalElement = document.getElementById('modalDelete');
                         if (modalElement) {
                             const modal = new bootstrap.Modal(modalElement);
                             document.querySelector('.habitName').textContent = data.habit;
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        const modalButton = document.querySelector('#modalTour button[data-bs-dismiss="modal"]');
+        const modalButton = document.querySelector('#modalDelete button[data-bs-dismiss="modal"]');
         if (modalButton) {
             modalButton.addEventListener('click', function () {
                 location.reload();
