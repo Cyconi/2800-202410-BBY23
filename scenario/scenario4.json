@@ -1,0 +1,70 @@
+{
+    "scenarios": [
+      {
+        "id": 4,
+        "title": "Dealing with Awkward Situations",
+        "narrator": "You find yourself in an awkward situation in a public setting. You need to know how to recover gracefully and maintain your composure.",
+        "questions": [
+          {
+            "id": 1,
+            "text": "You accidentally call someone by the wrong name in front of a group. How do you recover?",
+            "type": "text",
+            "options": [
+              { "text": "Apologize and correct yourself immediately.", "correct": true, "feedback": "Apologizing and correcting yourself shows that you acknowledge the mistake and are willing to fix it." },
+              { "text": "Ignore it and hope no one noticed.", "correct": false, "feedback": "Ignoring the mistake can make it seem like you don't care about getting it right." },
+              { "text": "Make a joke about it to lighten the mood.", "correct": false, "feedback": "Making a joke can sometimes be appropriate, but it can also make the situation more awkward." },
+              { "text": "Blame the person for having a confusing name.", "correct": false, "feedback": "Blaming the person is disrespectful and can make the situation worse." }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "During a conversation, you accidentally interrupt someone. How do you handle it?",
+            "type": "text",
+            "options": [
+              { "text": "Apologize and let them continue speaking.", "correct": true, "feedback": "Apologizing and letting them continue shows respect for their turn to speak." },
+              { "text": "Keep talking to make your point.", "correct": false, "feedback": "Continuing to talk can be seen as disrespectful and inconsiderate." },
+              { "text": "Change the subject to avoid the interruption.", "correct": false, "feedback": "Changing the subject can be confusing and doesn't address the interruption." },
+              { "text": "Pretend it didn't happen.", "correct": false, "feedback": "Pretending it didn't happen can make others feel you don't respect the conversation flow." }
+            ]
+          },
+          {
+            "id": 3,
+            "narrator": "You realize you've been talking too much about yourself and not letting others speak.",
+            "text": "What is the best way to recover from this?",
+            "type": "text",
+            "options": [
+              { "text": "Acknowledge it and ask others about themselves.", "correct": true, "feedback": "Acknowledging and shifting focus to others shows self-awareness and interest in others." },
+              { "text": "Keep talking until you finish your point.", "correct": false, "feedback": "Continuing to talk can reinforce the impression that you're not interested in others." },
+              { "text": "Apologize and remain silent for the rest of the conversation.", "correct": false, "feedback": "Remaining silent can make the conversation awkward and stilted." },
+              { "text": "Laugh it off and continue talking about yourself.", "correct": false, "feedback": "Laughing it off can make it seem like you don't take the social faux pas seriously." }
+            ]
+          },
+          {
+            "id": 4,
+            "narrator": "During a group meeting, you mistakenly give incorrect information.",
+            "text": "How do you handle the situation?",
+            "type": "text",
+            "options": [
+              { "text": "Correct yourself as soon as you realize the mistake.", "correct": true, "feedback": "Correcting yourself promptly shows integrity and a commitment to accuracy." },
+              { "text": "Wait and hope no one notices the mistake.", "correct": false, "feedback": "Waiting can lead to misinformation spreading and affect your credibility." },
+              { "text": "Blame the incorrect information on someone else.", "correct": false, "feedback": "Blaming others can damage trust and relationships." },
+              { "text": "Ignore the mistake and continue with the meeting.", "correct": false, "feedback": "Ignoring the mistake can affect the overall outcome of the meeting and your credibility." }
+            ]
+          },
+          {
+            "id": 5,
+            "narrator": "You accidentally spill a drink at a social event.",
+            "text": "What is the best way to handle this situation?",
+            "type": "text",
+            "options": [
+              { "text": "Apologize and clean up the spill immediately.", "correct": true, "feedback": "Apologizing and cleaning up shows responsibility and respect for the space and people around you." },
+              { "text": "Laugh and make a joke about being clumsy.", "correct": false, "feedback": "Making a joke can sometimes be appropriate, but it can also make it seem like you're not taking responsibility." },
+              { "text": "Ignore it and hope someone else cleans it up.", "correct": false, "feedback": "Ignoring it is irresponsible and inconsiderate." },
+              { "text": "Blame someone else for bumping into you.", "correct": false, "feedback": "Blaming others can create unnecessary conflict and damage relationships." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

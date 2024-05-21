@@ -1,0 +1,70 @@
+{
+    "scenarios": [
+      {
+        "id": 5,
+        "title": "Apologizing Effectively",
+        "narrator": "You realize that you've made a mistake and need to apologize to someone. Understanding how to apologize sincerely and effectively can help resolve conflicts and mend relationships.",
+        "questions": [
+          {
+            "id": 1,
+            "text": "You've realized that your actions hurt someone's feelings. What is your first step?",
+            "type": "text",
+            "options": [
+              { "text": "Acknowledge your mistake and prepare to apologize.", "correct": true, "feedback": "Acknowledging your mistake is the first step towards making a sincere apology." },
+              { "text": "Ignore the situation and hope it blows over.", "correct": false, "feedback": "Ignoring the situation can make things worse and show a lack of responsibility." },
+              { "text": "Blame the other person for being too sensitive.", "correct": false, "feedback": "Blaming the other person is defensive and not constructive." },
+              { "text": "Wait for them to bring it up first.", "correct": false, "feedback": "Waiting for the other person to bring it up can make it seem like you don't care about their feelings." }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "You approach the person to apologize. How do you start the conversation?",
+            "type": "text",
+            "options": [
+              { "text": "Express regret for your actions and how they affected them.", "correct": true, "feedback": "Expressing regret shows that you understand the impact of your actions." },
+              { "text": "Immediately explain why you did what you did.", "correct": false, "feedback": "Starting with an explanation can seem like you're making excuses." },
+              { "text": "Ask them why they were upset.", "correct": false, "feedback": "Asking why they were upset can make it seem like you're not acknowledging your role in the situation." },
+              { "text": "Tell them to get over it.", "correct": false, "feedback": "Telling someone to get over it is dismissive and can worsen the conflict." }
+            ]
+          },
+          {
+            "id": 3,
+            "narrator": "The person expresses their feelings about the situation.",
+            "text": "How do you respond to their feelings?",
+            "type": "text",
+            "options": [
+              { "text": "Listen without interrupting and acknowledge their feelings.", "correct": true, "feedback": "Listening and acknowledging their feelings shows that you respect and understand their perspective." },
+              { "text": "Defend your actions to justify why you did what you did.", "correct": false, "feedback": "Defending your actions can make it seem like you're not truly sorry." },
+              { "text": "Tell them they are overreacting.", "correct": false, "feedback": "Telling them they are overreacting dismisses their feelings and is disrespectful." },
+              { "text": "Ignore their feelings and change the subject.", "correct": false, "feedback": "Ignoring their feelings shows a lack of empathy and can damage the relationship further." }
+            ]
+          },
+          {
+            "id": 4,
+            "narrator": "You finish listening to their perspective.",
+            "text": "What should you include in your apology?",
+            "type": "text",
+            "options": [
+              { "text": "Acknowledge your mistake, express regret, and offer to make amends.", "correct": true, "feedback": "A sincere apology includes acknowledging the mistake, expressing regret, and offering to make amends." },
+              { "text": "Blame external circumstances for your actions.", "correct": false, "feedback": "Blaming external circumstances can make your apology seem insincere." },
+              { "text": "Focus on how their reaction made you feel.", "correct": false, "feedback": "Focusing on your own feelings can seem self-centered and dismissive of their experience." },
+              { "text": "Make a joke to lighten the mood.", "correct": false, "feedback": "Making a joke can make the situation seem trivial and not important." }
+            ]
+          },
+          {
+            "id": 5,
+            "narrator": "The person accepts your apology.",
+            "text": "How do you ensure the relationship is mended?",
+            "type": "text",
+            "options": [
+              { "text": "Follow through on any promises to make amends and show through actions that you are sincere.", "correct": true, "feedback": "Following through on promises and showing sincerity through actions helps rebuild trust." },
+              { "text": "Pretend nothing happened and go back to normal immediately.", "correct": false, "feedback": "Pretending nothing happened can prevent proper healing and understanding." },
+              { "text": "Expect everything to be perfect immediately.", "correct": false, "feedback": "Expecting immediate perfection is unrealistic and can put undue pressure on the relationship." },
+              { "text": "Keep bringing up the mistake to show how sorry you are.", "correct": false, "feedback": "Constantly bringing up the mistake can prevent moving forward and healing." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

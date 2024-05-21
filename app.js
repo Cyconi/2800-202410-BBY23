@@ -7,6 +7,8 @@ const passport = require("passport");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 const User = require("./modules/user.js");
+const Timer = require('./modules/timerSchema.js');
+const Habit = require('./modules/user.js');
 
 // EJS 
 app.set('view engine', 'ejs');
@@ -20,7 +22,15 @@ app.use(express.static('public'));
 app.use("/js", express.static("./webapp/public/js"));
 app.use("/css", express.static("./webapp/public/css"));
 app.use("/img", express.static("./webapp/public/img"));
+app.use("/scenario", express.static("./scenario"));
 
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 // Session
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -33,6 +43,7 @@ app.use(session({
 mongoose.connect(process.env.MONGO_URL)
     .then(async () => {
         console.log("MongoDB connected successfully");
+        
     })
     .catch(err => {
         console.error("Failed to connect to MongoDB:", err);
@@ -45,9 +56,46 @@ require('./modules/passport')(passport);
 
 // Routes
 app.use('/', require('./modules/home'));
-
+app.use('/interpersonal', require('./modules/interpersonal'));
+app.use('/habit', require('./modules/habit.js'))
+app.use('/profile', require('./modules/profile.js'));
 app.use('/study', require('./modules/study'));
 
+app.post('/habit/habitQuestion', ensureAuthenticated, async (req, res) => {
+    res.redirect('/habit/habitQuestion');
+});
+
+app.post('/logout', (req, res) => {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send('Error logging out');
+            }
+            res.redirect('/'); 
+        });
+    });
+});
+app.post('/calculate', async (req, res) => {
+    try {
+        const timer = await Timer.findOne({email: req.user.email});
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
+
+                    timer.isPaused = true;
+                    timer.timer = 0;
+                    await timer.save();
+                    return res.json({ success: true });
+                }
+            }
+        }
+        res.json({success:false});
+    } catch (error) {   
+        res.json({ success: false});
+    }
+});
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");

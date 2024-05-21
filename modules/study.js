@@ -27,7 +27,29 @@ router.get('/', (req, res) => {
 router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
-
+router.get('/session', ensureAuthenticated, async(req, res) => {
+    try {
+        const timer = await Timer.findOne({ email: req.user.email });
+        let timeLeft = 0;
+        let isPaused = false;
+        if (timer) {
+            if (!timer.isPaused) {
+                const elapsed = Date.now() - timer.timeNow;
+                if (elapsed >= timer.timer) {
+                    timeLeft = 0; 
+                } else {
+                    timeLeft = timer.timer - elapsed; 
+                }
+            } else {
+                timeLeft = timer.timer; 
+                isPaused = true;
+            }
+        }
+        res.render('studySession', { timeLeft, isPaused });
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
+});
 router.post("/session", ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
@@ -53,7 +75,7 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
 });
 
 router.post("/log", (req, res) => {
-    res.render("studyLog");
+    res.redirect("/study/studyLog");
 });
 
 router.post("/pomodoro", (req, res) => {
@@ -98,12 +120,12 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
-    const sessions = await StudySession.find().sort({ date: -1 });
+    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 
 router.get('/studyLog', async (req, res) => {
-    const sessions = await StudySession.find().sort({ date: -1 });
+    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 

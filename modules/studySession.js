@@ -9,7 +9,7 @@ const studySessionSchema = new mongoose.Schema({
     date: {type: Date, unique: false, required: false, default: Date.now}
 });
 
-studySessionSchema.plugin(AutoIncrement, { inc_field: 'id' });
+studySessionSchema.plugin(AutoIncrement, { inc_field: 'idSession' });
 const StudySession = mongoose.model('studySession', studySessionSchema);
 
 module.exports = StudySession;

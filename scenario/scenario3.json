@@ -1,0 +1,70 @@
+{
+    "scenarios": [
+      {
+        "id": 3,
+        "title": "Supporting a Loved One",
+        "narrator": "Your close friend or family member is going through a difficult time, and you want to be there for them. You need to understand the best ways to offer support.",
+        "questions": [
+          {
+            "id": 1,
+            "text": "Your loved one confides in you about their struggles. What is your first response?",
+            "type": "text",
+            "options": [
+              { "text": "Listen attentively and acknowledge their feelings.", "correct": true, "feedback": "Listening and acknowledging their feelings shows empathy and understanding." },
+              { "text": "Immediately offer advice on how to solve their problems.", "correct": false, "feedback": "Offering advice too soon can seem dismissive of their feelings." },
+              { "text": "Compare their situation to your own past experiences.", "correct": false, "feedback": "This can make them feel like their problems are being minimized." },
+              { "text": "Change the subject to lighten the mood.", "correct": false, "feedback": "Changing the subject can make them feel like their feelings are not important." }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "They express feeling overwhelmed and unable to cope. How do you respond?",
+            "type": "text",
+            "options": [
+              { "text": "Encourage them to take things one step at a time and offer your help.", "correct": true, "feedback": "This shows your willingness to support them in manageable ways." },
+              { "text": "Tell them to toughen up and deal with it.", "correct": false, "feedback": "This response can come off as insensitive and unsupportive." },
+              { "text": "Avoid the topic because it makes you uncomfortable.", "correct": false, "feedback": "Avoiding the topic can make them feel more isolated." },
+              { "text": "Suggest they should have handled things differently.", "correct": false, "feedback": "This can make them feel criticized rather than supported." }
+            ]
+          },
+          {
+            "id": 3,
+            "narrator": "You notice that your loved one is withdrawing from social activities.",
+            "text": "What is a supportive way to address this?",
+            "type": "text",
+            "options": [
+              { "text": "Invite them to a low-pressure activity and respect their response.", "correct": true, "feedback": "Inviting them to a low-pressure activity shows you care without putting too much pressure on them." },
+              { "text": "Tell them they need to get out more and be social.", "correct": false, "feedback": "This can come off as pushy and insensitive to their current state." },
+              { "text": "Ignore the behavior and hope it changes.", "correct": false, "feedback": "Ignoring the behavior can make them feel more isolated." },
+              { "text": "Scold them for avoiding social activities.", "correct": false, "feedback": "Scolding can make them feel worse about their situation." }
+            ]
+          },
+          {
+            "id": 4,
+            "narrator": "Your loved one starts talking about their problems more openly.",
+            "text": "How do you keep the conversation supportive?",
+            "type": "text",
+            "options": [
+              { "text": "Continue to listen without judgment and offer encouragement.", "correct": true, "feedback": "Listening without judgment and offering encouragement helps them feel supported." },
+              { "text": "Tell them they are overreacting.", "correct": false, "feedback": "This minimizes their feelings and can damage trust." },
+              { "text": "Change the subject to avoid discomfort.", "correct": false, "feedback": "Changing the subject can make them feel their problems are being ignored." },
+              { "text": "Give them a step-by-step plan to fix everything.", "correct": false, "feedback": "Offering a plan too soon can seem like you're not really listening." }
+            ]
+          },
+          {
+            "id": 5,
+            "narrator": "They mention feeling hopeless about their situation.",
+            "text": "What should you say?",
+            "type": "text",
+            "options": [
+              { "text": "Express your concern and suggest seeking professional help if needed.", "correct": true, "feedback": "Expressing concern and suggesting professional help shows you care and understand the seriousness of their feelings." },
+              { "text": "Tell them to snap out of it.", "correct": false, "feedback": "This is dismissive and can make them feel worse." },
+              { "text": "Downplay their feelings to try and make them feel better.", "correct": false, "feedback": "Downplaying their feelings can make them feel invalidated." },
+              { "text": "Ignore their statement and talk about something else.", "correct": false, "feedback": "Ignoring their statement can make them feel unheard and unsupported." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
