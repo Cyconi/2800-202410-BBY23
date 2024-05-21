@@ -76,6 +76,8 @@ router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     try {
         const result = await Habit.findOneAndDelete({ id: habitID });
         console.log(result);
+        req.user.numberOfHabits = req.user.numberOfHabits - 1;
+        await req.user.save();
         res.json({ success: true, habit: result.habit });
     } catch (error) {
         console.error('Error deleting habit:', error);
@@ -144,6 +146,10 @@ function normalizeText(text) {
     return text.trim().toLowerCase();
 }
 
+router.post('/Lateral', ensureAuthenticated, async (req, res) => {
+    
+}); 
+
 // Check for existing habit
 router.post("/existingHabitCheck", ensureAuthenticated, async (req, res) => {
     const { goodOrBad, habit, question } = req.body;
@@ -184,6 +190,8 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
             whenMade: Date.now()
         });
         await newHabit.save();
+        req.user.numberOfHabits = req.user.numberOfHabits + 1;
+        await req.user.save();
         res.json({ success: true });
     } catch (err) {
             res.json({ success: false, error: err.message });

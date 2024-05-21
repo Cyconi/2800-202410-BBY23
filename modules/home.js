@@ -40,7 +40,7 @@ router.post('/forgot', async (req, res) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-        return res.status(404).json({ success: false, message: "Couldn't find a user with that email!" });
+        return res.status(404).req.json({ success: false, message: "Couldn't find a user with that email!" });
     }
 
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -135,7 +135,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).send('Signup Failed: User already exists with that email.');
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, name, email, password: hashedPassword });
+        const newUser = new User({ username, name, email, password: hashedPassword, numberOfHabits: 0 });
         await newUser.save();
         req.login(newUser, loginErr => {
             if (loginErr) {
