@@ -138,3 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function goBack() { // for back button
+    window.history.back();
+}

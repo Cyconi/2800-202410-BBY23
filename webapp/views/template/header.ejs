@@ -20,17 +20,23 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="container-fluid d-flex">
+        <div class="container-fluid d-flex justify-content-between">
             <a class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-            aria-controls="offcanvasExample">
-                <img src="/img/hamburg.png" alt="Sidebar" width="30" height="24" class="d-inline-block align-text-top">
+                aria-controls="offcanvasExample">
+                <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
+            </a>
+            <a class="mx-auto" role="button" onclick="goBack()">
+                <img src="/img/q_mark.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
+            </a>
+            <a role="button" onclick="goBack()">
+                <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
             </a>
         </div>
     </nav>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
-                <button type="submit" class="btn"><img src="/img/expl.png" alt="EXO" width="30" height="30"></button>
+                <button type="submit" class="btn"><img src="/img/expl.png" alt="EXO" width="24" height="24"></button>
             </form>
             <a href="/home1">
                 <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3">
@@ -43,7 +49,7 @@
                     <span class="material-symbols-outlined">groups</span>
                     Interpersonal Practice
                 </a>
-                <a class="nav-link" href="/habit">  
+                <a class="nav-link" href="/habit">
                     <span class="material-symbols-outlined">sports_handball</span>
                     Habit Tracker
                 </a>
@@ -61,3 +67,4 @@
             </nav>
         </div>
     </div>
+
