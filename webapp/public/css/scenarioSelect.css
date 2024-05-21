@@ -1,13 +1,17 @@
+/* Global Variables */
 :root {
-    --button-color: #00bfff;
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
     --text-color: #000000;
-    --border-radius: 20px;
-    --bachground-color: #ffffff;
-
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.25rem;
 }
 
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
 }
 
 h1 {
@@ -15,8 +19,9 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Card Styles */
 .card {
-    background-color: var(--bachground-color);
+    background-color: var(--card-background-color);
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -25,18 +30,18 @@ h1 {
 
 .card-header {
     padding: 20px;
-    background-color: var(--bachground-color);
+    background-color: var(--card-background-color);
     color: var(--text-color);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border:none;
+    border: none;
 }
 
 .card-image {
-    width: 100px; 
+    width: 100px;
     height: 100px;
     margin-bottom: 10px;
 }
@@ -45,6 +50,7 @@ h1 {
     padding: 20px;
     display: none;
     text-align: center;
+    font-size: var(--button-font-size);
 }
 
 .card-body p {
@@ -56,18 +62,20 @@ h1 {
     align-items: center;
 }
 
+/* Button Styles */
 .btn-primary {
     width: 90%;
-    background-color: var(--button-color); /* Primary color from logo */
+    background: var(--button-color);
     border: none;
     padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: var(--border-radius);
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
 }
 
+/* Container Styles */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: var(--background-color);
 }
