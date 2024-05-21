@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 3,
-        "title": "Supporting a Loved One",
+        "image": "img/scenario3.png",
+        "gif": "img/scenario3(gif).gif",
+        "title": "Family and Close Relationships",
+        "description": "Supporting a Loved One: How to be there for someone in need.",
         "narrator": "Your close friend or family member is going through a difficult time, and you want to be there for them. You need to understand the best ways to offer support.",
         "questions": [
           {

@@ -1,34 +1,68 @@
+:root {
+    --button-color: #00bfff;
+    --text-color: #000000;
+    --border-radius: 20px;
+    --bachground-color: #ffffff;
+
+}
+
 body {
     font-family: 'Arial', sans-serif;
-   
 }
 
 h1 {
-    color: #111a3c; /* Primary color from logo */
+    color: var(--text-color);
     margin-bottom: 20px;
 }
 
-.btn-scenario {
-    background-color: #00bfff; /* Primary color from logo */
-    color: #fff;
+.card {
+    background-color: var(--bachground-color);
     border: none;
-    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.card-header {
+    padding: 20px;
+    background-color: var(--bachground-color);
+    color: var(--text-color);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border:none;
+}
+
+.card-image {
+    width: 100px; 
+    height: 100px;
     margin-bottom: 10px;
-    font-size: 1.1rem;
-    text-align: left;
-    border-radius: 5px;
-    border-radius: 25px; /* Rounded edges */
-    transition: background-color 0.3s ease;
 }
 
-.btn-scenario:hover {
-    background-color: #009acd; /* Slightly darker shade */
-    color: #fff;
+.card-body {
+    padding: 20px;
+    display: none;
+    text-align: center;
 }
 
-.btn-scenario:focus {
-    outline: none;
-    box-shadow: 0 0 5px #00bfff;
+.card-body p {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    width: 90%;
+    background-color: var(--button-color); /* Primary color from logo */
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
 }
 
 .container {
@@ -36,6 +70,4 @@ h1 {
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

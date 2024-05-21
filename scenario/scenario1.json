@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 1,
-        "title": "Approaching Someone New",
+        "image": "img/scenario1.png",
+        "gif": "img/scenario1(gif).gif",
+        "title": "Making Friends",
+        "description": "Approaching Someone New: How to start a conversation with a stranger.",
         "narrator": "You're at a community event and see someone standing alone. You want to introduce yourself and start a conversation.",
         "questions": [
           {

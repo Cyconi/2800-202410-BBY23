@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 2,
-        "title": "Handling Rejection",
+        "image": "img/scenario2.png",
+        "gif": "img/scenario2(gif).gif",
+        "title": "Dating and Romantic Relationships",
+        "description": "Handling Rejection: How to respond gracefully when things don't go as hoped.",
         "narrator": "You're on a date, and you notice that the other person seems uninterested. You want to handle the situation gracefully.",
         "questions": [
           {

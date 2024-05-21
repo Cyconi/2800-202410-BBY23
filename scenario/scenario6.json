@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 6,
-        "title": "Cultural Sensitivity",
+        "image": "img/scenario6.png",
+        "gif": "img/scenario6(gif).gif",
+        "title": "Social Etiquette",
+        "description": "Cultural Sensitivity: How to navigate interactions in diverse settings.",
         "narrator": "You find yourself in a culturally diverse setting and want to ensure that you interact respectfully and sensitively with everyone. Understanding cultural differences is key to fostering positive interactions.",
         "questions": [
           {

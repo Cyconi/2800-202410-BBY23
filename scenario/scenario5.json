@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 5,
-        "title": "Apologizing Effectively",
+        "image": "img/scenario5.png",
+        "gif": "img/scenario5(gif).gif",
+        "title": "Conflict Resolution",
+        "description": "Apologizing Effectively: How to say sorry and mean it",
         "narrator": "You realize that you've made a mistake and need to apologize to someone. Understanding how to apologize sincerely and effectively can help resolve conflicts and mend relationships.",
         "questions": [
           {
