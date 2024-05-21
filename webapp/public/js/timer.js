@@ -74,12 +74,14 @@ function startStop() {
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("demo").innerHTML = "TIMES UP";
+                document.getElementById('breakTimerPopup').style.display = 'inline-block';
                 startStopBtn.textContent = "Start";
                 startStopBtn.style.backgroundColor = "#5cb85c";
                 isRunning = false;
                 pausedTime = null;
             } else {
                 pausedTime = distance;
+                document.getElementById('breakTimerPopup').style.display = 'none';
             }
         }, 1000);
         isRunning = true;
@@ -209,4 +211,5 @@ document.querySelectorAll('input[type="number"]').forEach(function (input) {
     });
 
     input.addEventListener('touchstart', handleTouchStart);
+    
 });
