@@ -142,3 +142,16 @@ document.addEventListener('DOMContentLoaded', function() {
 function goBack() { // for back button
     window.history.back();
 }
+
+// ? Modals Header
+document.addEventListener('DOMContentLoaded', function() {
+    const faqButton = document.getElementById('faqButton');
+    const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
+      
+    if (faqButton) {
+        faqButton.addEventListener('click', function() {
+            faqModal.show();
+        });
+    }
+});
+
