@@ -23,16 +23,17 @@
                 displayDate = session.date.toLocaleString();
             }
         %>
-            <div class="col">
-                <div class="card h-100 border-primary mb-4">
-                    <div class="card-header bg-primary text-white">
+            <div class="col mb-4">
+                <div class="card h-100 border-dark d-flex flex-column">
+                    <div class="card-header bg-dark text-white">
                         <h5 class="card-title mb-0"><%= displayDate %></h5> 
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-subtitle mb-2"><%= session.subject %></h5> 
                         <p class="card-text"><%= session.notes %></p>
+                        <p class="card-text mt-auto"><small class="text-muted"><%= session.duration %> minutes</small></p>
                     </div>
-                    <div class="card-footer bg-transparent border-primary">
+                    <div class="card-footer bg-transparent border-dark text-center">
                         <p class="card-text"><small class="text-muted"><%= session.date.toLocaleString() %></small></p>
                     </div>
                 </div>
