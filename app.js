@@ -96,6 +96,10 @@ app.post('/calculate', async (req, res) => {
         res.json({ success: false});
     }
 });
+app.use('/study', require('./modules/study'));
+
+app.use('/chat', require('./modules/chat'));
+
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");
