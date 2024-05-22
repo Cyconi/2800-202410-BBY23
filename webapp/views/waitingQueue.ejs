@@ -1,14 +1,37 @@
 <%- include("template/header") %>
     
 <div class="container text-center">
-    <h1>Waiting Queue.</h1>
+    <h1 id="queueHeader">Waiting In Queue... <span class="queueCount">
+            <%= queueCount %>
+        </span></h1>
     <div class="row center-screen">
         <div class="col-md-4">
-            <form action='/waiting' method='POST'>
+            <form action='/chat/waiting' method='POST'>
                 <button type="submit" class="btn btn-primary">Join Queue</button>
+            </form>
+            <br>
+            <form action='/chat/leave' method='POST'>
+                <button type="submit" class="btn btn-primary">Leave Queue</button>
             </form>
         </div>
     </div>
 </div>
-
+<script>
+   function getQueue() {
+        fetch('/chat/updateQueue', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.queueCount').textContent = data.queueCount;
+                }
+            })
+            .catch(error => {
+                console.error('Error checking queue:', error);
+                // Retry after 5 seconds if there's an error
+                setTimeout(getQueue, 5000);
+            });
+    }
+    // Initial check and set interval for periodic checks
+    setTimeout(getQueue, 1000);
+</script>
 <%- include("template/footer") %>
