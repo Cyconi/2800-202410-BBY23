@@ -33,7 +33,6 @@
     border-bottom: none; /* Remove border from the last item */
   }
 </style>
-
 <% if (good) { %>
 <div class="container mt-4">
   <h2 class="text-center"><span class="name"></span>'s<br> Good Habits</h2>
@@ -126,6 +125,18 @@
 </div>
 <% } %>
 
+<div>
+  <label for="timeRange">Select Time Range:</label>
+  <select id="timeRange">
+      <option value="week">Week</option>
+      <option value="month">Month</option>
+      <option value="year">Year</option>
+  </select>
+  <button id="updateGraphButton">Update Graph</button>
+</div>
+<canvas id="habitGraph" width="400" height="200"></canvas>
+
+
 <!-- Delete Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalDelete">
   <div class="modal-dialog" role="document">
@@ -179,4 +190,8 @@
 </div>
 
 <script src="/js/habitC.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+<script src="/js/habitGraph.js"></script>
 <%- include("template/footer") %>

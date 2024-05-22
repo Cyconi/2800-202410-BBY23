@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const habitID = form.querySelector('input[name="habitID"]').value;
                 const habitGood = form.querySelector('input[name="habitGood"]').value;
-                
+
                 fetch('/habit/deleteHabit', {
                     method: 'POST',
                     headers: {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (modalElement) {
                             const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
                             modal.hide();
-                            location.reload(); 
+                            location.reload();
                         }
                     } else {
                         alert('Failed to edit habit. Please try again.');

@@ -19,15 +19,21 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
-router.post("/addFrequency", async(req, res) => {
-    const {habitID} = req.body;
-    const habit = await Habit.findOne({id: habitID});
-    const whenToAsk = new Date(Date.now());
-    whenToAsk.setSeconds(whenToAsk.getSeconds() + 1);
-    if(habit){
-        habit.frequency = habit.frequency + 1;
-        habit.whenToAsk = whenToAsk;
-        await habit.save();
+router.post("/addFrequency", async (req, res) => {
+    const { habitID } = req.body;
+    try {
+        const habit = await Habit.findOne({ id: habitID });
+        if (habit) {
+            const today = new Date();
+            const newFrequency = (habit.frequency.length > 0 ? habit.frequency[habit.frequency.length - 1] : 0) + 1;
+            habit.frequency.push(newFrequency);
+            habit.whenToAsk = new Date(today.setSeconds(today.getSeconds() + 30));
+            await habit.save();
+            
+        } else {
+           
+        }
+    } catch (error) {
     }
 });
 
@@ -146,9 +152,76 @@ function normalizeText(text) {
     return text.trim().toLowerCase();
 }
 
-router.post('/Lateral', ensureAuthenticated, async (req, res) => {
-    
-}); 
+router.post('/getFrequencyRatios', async (req, res) => {
+    try {
+        const { goodOrBad, timeRange } = req.body;
+        const now = new Date();
+        let start;
+
+        switch (timeRange) {
+            case 'week':
+                start = new Date(now.getTime() - 7 * 30 * 1000); // 7 "days" ago
+                break;
+            case 'month':
+                start = new Date(now.getTime() - 30 * 30 * 1000); // 30 "days" ago
+                break;
+            case 'year':
+                start = new Date(now.getTime() - 365 * 30 * 1000); // 365 "days" ago
+                break;
+            default:
+                return res.json({ success: false, error: 'Invalid time range' });
+        }
+
+        const habits = await Habit.find({ email: req.user.email, good: goodOrBad });
+        const timeDifference = now.getTime() - start.getTime();
+        const dayDifference = Math.floor(timeDifference / (30 * 1000)); // Number of 10-second intervals
+
+        let totalMaxFrequencies = new Array(dayDifference + 1).fill(0);
+        let totalFrequencies = new Array(dayDifference + 1).fill(0);
+
+        habits.forEach(habit => {
+            const habitStartDate = new Date(habit.whenMade);
+            const habitStartIndex = Math.floor((habitStartDate.getTime() - start.getTime()) / (30 * 1000));
+            const habitEndIndex = Math.min(dayDifference, Math.floor((now.getTime() - habitStartDate.getTime()) / (30 * 1000)));
+
+            console.log("Habit start date: " + habitStartDate);
+            console.log("Habit start index: " + habitStartIndex);
+            console.log("Habit end index: " + habitEndIndex);
+
+            if (habit.frequency && habit.frequency.length > 0) {
+                for (let i = habitStartIndex; i <= habitEndIndex; i++) {
+                    const index = i - habitStartIndex;
+                    if (index < habit.frequency.length) {
+                        totalFrequencies[i] += habit.frequency[index];
+                    }
+                    totalMaxFrequencies[i] += 1; // Increment max frequencies correctly
+                }
+            }
+        });
+
+        // Ensure max frequencies are cumulative and do not decrease
+        for (let i = 1; i <= dayDifference; i++) {
+            if (totalMaxFrequencies[i] < totalMaxFrequencies[i - 1]) {
+                totalMaxFrequencies[i] = totalMaxFrequencies[i - 1];
+            }
+        }
+
+        // Debugging logs
+        console.log("totalFrequencies:", totalFrequencies);
+        console.log("totalMaxFrequencies:", totalMaxFrequencies);
+
+        const frequencyRatios = totalFrequencies.map((frequency, i) => {
+            const ratio = totalMaxFrequencies[i] > 0 ? frequency / totalMaxFrequencies[i] : 0;
+            console.log(`Day ${i}: Frequency ${frequency}, Max Frequency ${totalMaxFrequencies[i]}, Ratio ${ratio}`);
+            return ratio;
+        });
+
+        res.json({ success: true, frequencyRatios, start, end: now });
+    } catch (error) {
+        res.json({ success: false, error: error.message });
+    }
+});
+
 
 // Check for existing habit
 router.post("/existingHabitCheck", ensureAuthenticated, async (req, res) => {
@@ -177,26 +250,31 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     const normalizedQuestion = normalizeText(question);
     const whenToAsk = new Date(Date.now());
     whenToAsk.setSeconds(whenToAsk.getSeconds() + 1);
+
     try {
         const newHabit = new Habit({
             email: req.user.email,
             good: goodOrBad,
             habit: habit,
             dailyQuestion: question,
-            frequency: 0,
+            frequency: [],
             normalizedHabit: normalizedHabit,
             normalizedQuestion: normalizedQuestion,
             whenToAsk: whenToAsk,
             whenMade: Date.now()
         });
+
         await newHabit.save();
-        req.user.numberOfHabits = req.user.numberOfHabits + 1;
+
+        req.user.numberOfHabits += 1;
         await req.user.save();
+
         res.json({ success: true });
     } catch (err) {
-            res.json({ success: false, error: err.message });
-        }
+        res.json({ success: false, error: err.message });
+    }
 });
+
 
 
 router.get('/habitList', async (req, res) => {
