@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 const WaitQueue = require('./queueSchema');
+const ChatRoom = require('./chatRoomSchema');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -21,7 +22,7 @@ function ensureAuthenticated(req, res, next) {
 
 router.get('/', async (req, res) => {
     const queueCount = await WaitQueue.getQueueCount();
-    res.render('waitingQueue', {queueCount: queueCount});
+    res.render('waitingRoom', {queueCount: queueCount});
 });
 
 router.post('/join', ensureAuthenticated, async (req, res) => {
@@ -36,8 +37,23 @@ router.post('/join', ensureAuthenticated, async (req, res) => {
         userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
         await userExists.save();
     }
-    res.render('waitingQueue', { queueCount: queueCount });
+
+    // After adding to the queue, try to match users
+    const usersInQueue = await WaitQueue.find({ inQueue: true }).limit(2);
+    if (usersInQueue.length === 2) {
+        // Remove users from the queue
+        await WaitQueue.updateMany({ email: { $in: [usersInQueue[0].email, usersInQueue[1].email] } }, { inQueue: false });
+
+        // Create a chat room for these users
+        const chatRoom = new ChatRoom({ user1: usersInQueue[0].email, user2: usersInQueue[1].email });
+        await chatRoom.save();
+
+        res.redirect('/path-to-chat-room');
+    } else {
+        res.render('waitingRoom', { queueCount: queueCount });
+    }
 });
+
 
 
 router.post('/leave', ensureAuthenticated, async (req, res) => {
@@ -48,7 +64,7 @@ router.post('/leave', ensureAuthenticated, async (req, res) => {
         userExists.inQueue = false;
         await userExists.save();
     }
-    res.render('waitingQueue', { queueCount: queueCount });
+    res.render('waitingRoom', { queueCount: queueCount });
 });
 
 router.post('/updateQueue', ensureAuthenticated, async (req, res) => {
@@ -56,5 +72,19 @@ router.post('/updateQueue', ensureAuthenticated, async (req, res) => {
     const queueCount = await WaitQueue.getQueueCount();
     res.json({ success: true, queueCount: queueCount});
 });
+
+// router.post('/matchUsers', ensureAuthenticated, async (req, res) => {
+//     const usersInQueue = await WaitQueue.find({ inQueue: true }).limit(2);
+//     if (usersInQueue.length === 2) {
+//         // Remove users from the queue
+//         await WaitQueue.updateMany({ email: { $in: [usersInQueue[0].email, usersInQueue[1].email] } }, { inQueue: false });
+
+//         // Create a chat room for these users
+//         const chatRoom = new ChatRoom({ user1: usersInQueue[0].email, user2: usersInQueue[1].email });
+//         await chatRoom.save();
+//         res.send("2 users found in queue");
+//     } else 
+//         res.send("not enough users in queue");
+// });
 
 module.exports = router;
