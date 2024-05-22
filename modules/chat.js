@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     res.render('waitingQueue', {queueCount: queueCount});
 });
 
-router.post("/waiting", ensureAuthenticated, async (req, res) => {
+router.post('/join', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     let userExists = await WaitQueue.findOne({ email: email });
     const queueCount = await WaitQueue.getQueueCount();
@@ -36,12 +36,11 @@ router.post("/waiting", ensureAuthenticated, async (req, res) => {
         userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
         await userExists.save();
     }
-
     res.render('waitingQueue', { queueCount: queueCount });
 });
 
 
-router.post("/leave", ensureAuthenticated, async (req, res) => {
+router.post('/leave', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const userExists = await WaitQueue.findOne({ email: email });
     const queueCount = await WaitQueue.getQueueCount();
@@ -49,11 +48,10 @@ router.post("/leave", ensureAuthenticated, async (req, res) => {
         userExists.inQueue = false;
         await userExists.save();
     }
-    res.render('waitingQueue', { queueCount: queueCount }); 
-        
+    res.render('waitingQueue', { queueCount: queueCount });
 });
 
-router.post('/updateQueue', ensureAuthenticated, async (req, res)=> {
+router.post('/updateQueue', ensureAuthenticated, async (req, res) => {
     //const usersInQueue = await WaitQueue.find({ inQueue: true });
     const queueCount = await WaitQueue.getQueueCount();
     res.json({ success: true, queueCount: queueCount});

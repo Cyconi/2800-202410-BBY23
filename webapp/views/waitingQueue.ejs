@@ -6,7 +6,7 @@
         </span></h1>
     <div class="row center-screen">
         <div class="col-md-4">
-            <form action='/chat/waiting' method='POST'>
+            <form action='/chat/join' method='POST'>
                 <button type="submit" class="btn btn-primary">Join Queue</button>
             </form>
             <br>
@@ -16,7 +16,13 @@
         </div>
     </div>
 </div>
+
 <script>
+    // trigger the leave queue when page is unloaded. 
+    // Currantly theres an issue where leave/join causes the page to reload making this not function properly
+    // window.addEventListener('beforeunload', function () {
+    //         navigator.sendBeacon('/chat/leave');
+    //     });
    function getQueue() {
         fetch('/chat/updateQueue', { method: 'POST' })
             .then(response => response.json())
@@ -27,11 +33,9 @@
             })
             .catch(error => {
                 console.error('Error checking queue:', error);
-                // Retry after 5 seconds if there's an error
                 setTimeout(getQueue, 5000);
             });
     }
-    // Initial check and set interval for periodic checks
     setTimeout(getQueue, 1000);
 </script>
 <%- include("template/footer") %>
