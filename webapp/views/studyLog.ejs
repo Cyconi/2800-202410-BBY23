@@ -1,21 +1,38 @@
 <%- include("template/header") %>
 <link rel="stylesheet" href="css/studyLog.css">
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <span class="mx-auto">Study Log</span>
-    </div>
-</nav>
-
 <div class="container mt-4">
-    <div class="row">
-        <% sessions.forEach(session => { %>
-            <div class="col-md-4">
-                <div class="card mb-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% 
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const lastWeek = new Date(today);
+        lastWeek.setDate(lastWeek.getDate() - 7);
+
+        sessions.forEach(session => { 
+            let sessionDate = new Date(session.date);
+            let displayDate;
+            if(sessionDate.toDateString() === today.toDateString()) {
+                displayDate = "Today";
+            } else if(sessionDate.toDateString() === yesterday.toDateString()) {
+                displayDate = "Yesterday";
+            } else if(sessionDate > lastWeek) {
+                displayDate = "Earlier this Week";
+            } else {
+                displayDate = session.date.toLocaleString();
+            }
+        %>
+            <div class="col">
+                <div class="card h-100 border-primary mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0"><%= displayDate %></h5> 
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title"><%= session.subject %></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><%= session.duration %> minutes</h6>
+                        <h5 class="card-subtitle mb-2"><%= session.subject %></h5> 
                         <p class="card-text"><%= session.notes %></p>
+                    </div>
+                    <div class="card-footer bg-transparent border-primary">
                         <p class="card-text"><small class="text-muted"><%= session.date.toLocaleString() %></small></p>
                     </div>
                 </div>
