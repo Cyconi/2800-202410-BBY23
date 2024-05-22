@@ -1,0 +1,40 @@
+<%- include("template/header") %>
+    
+<script>
+    window.onload = function () {
+        fetch('/waiting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin' // Include cookies
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                console.log("Current queue count: " + data.queueCount);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
+    window.onbeforeunload = function () {
+            fetch('/leave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin' // Include cookies
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    console.log("Current queue count: " + data.queueCount);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        };
+</script>
+<%- include("template/footer") %>
