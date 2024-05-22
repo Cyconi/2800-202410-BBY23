@@ -76,7 +76,7 @@ function startStop() {
                 document.getElementById("demo").innerHTML = "TIMES UP";
                 document.getElementById('breakTimerPopup').style.display = 'inline-block';
                 startStopBtn.textContent = "Start";
-                startStopBtn.style.backgroundColor = "#5cb85c";
+                startStopBtn.style.backgroundColor = "#0719c3";
                 isRunning = false;
                 pausedTime = null;
             } else {
@@ -88,7 +88,7 @@ function startStop() {
     } else {
         clearInterval(x);
         startStopBtn.textContent = "Start";
-        startStopBtn.style.backgroundColor = "#5cb85c";
+        startStopBtn.style.backgroundColor = "#0719c3";
         isRunning = false;
         isPaused = true;
         fetch('/study/serverTimer', {
@@ -127,7 +127,7 @@ function resumeTimer(remainingTime) {
             clearInterval(x);
             document.getElementById("demo").innerHTML = "TIMES UP";
             startStopBtn.textContent = "Start";
-            startStopBtn.style.backgroundColor = "#5cb85c";
+            startStopBtn.style.backgroundColor = "#0719c3;";
             isRunning = false;
             pausedTime = null;
         } else {
@@ -149,7 +149,7 @@ function resetTimer() {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "0h 0m 0s";
     document.getElementById("startStopBtn").textContent = "Start";
-    document.getElementById("startStopBtn").style.backgroundColor = "#5cb85c";
+    document.getElementById("startStopBtn").style.backgroundColor = "#0719c3";
     isRunning = false;
     pausedTime = null;
     isPaused = false;
