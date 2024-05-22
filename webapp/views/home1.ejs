@@ -1,45 +1,72 @@
 <%- include('template/header') %>
 
+<link rel="stylesheet" href="css/home.css">
 <style>
-    .container {
-        margin-top: 20px;
-    }
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden; /* Ensure the pseudo-element covers the entire viewport */
+}
 
-    .img-fluid {
-        max-width: 100%;
-        width: 250px;
-        height: auto; 
-    }
-    .progress-vertical {
-        position: relative;
-        width: 55px; 
-        height: 130px; 
-        margin: 20px auto;
-        background-color: #e9ecef;
-        border: 4px solid black; 
-        border-radius: 20px; 
-    }
+.container {
+    position: relative; /* Ensure the container is positioned relative to the pseudo-element */
+    z-index: 1;
+    margin-top: 20px;
+    background: url('img/stars.png') no-repeat center center fixed;
+    background-size: cover;
+}
 
-    .progress-bar-vertical {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 0%; 
-        background-color: #007bff;
-        border-radius: 10px;
-    }
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white overlay */
+    z-index: -1;
+    pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
+}
 
-    .text-center {
-        text-align: center;
-    }
+.img-fluid {
+    max-width: 100%;
+    width: 250px;
+    height: auto; 
+}
 
-    .mt-4 {
-        margin-top: 1.5rem;
-    }
+.progress-vertical {
+    position: relative;
+    width: 55px; 
+    height: 130px; 
+    margin: 20px auto;
+    background-color: #e9ecef;
+    border: 4px solid black; 
+    border-radius: 20px; 
+}
 
-    .progress-label {
-        margin-top: 10px;
-    }
+.progress-bar-vertical {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%; 
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.progress-label {
+    margin-top: 10px;
+}
+
 </style>
 
 <div class="container text-center">
