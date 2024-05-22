@@ -131,19 +131,19 @@ router.post('/signup', async (req, res) => {
     try {
         const existingUser = await User.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
-            return res.status(400).send('Signup Failed: User already exists with that email.');
+            return res.json({success: false, message: "User already exists."});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, name, email, password: hashedPassword, numberOfHabits: 0 });
         await newUser.save();
         req.login(newUser, loginErr => {
             if (loginErr) {
-                return res.status(500).send('Error during signup process.');
+                return res.json({ success: false, message: "Error logging in." });
             }
-            res.redirect('/home1');
+            return res.json({ success: true});
         });
     } catch (err) {
-        res.status(500).send('Error during signup process: ' + err.message);
+        return res.json({ success: false, message: "Internal server error"});
     }
 });
 

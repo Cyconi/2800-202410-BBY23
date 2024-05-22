@@ -155,3 +155,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// user already exists modal
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the signup form
+    const signupForm = document.getElementById('signup-form');
+
+    // Handle signup form submission
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Serialize form data
+            var formData = $(this).serialize();
+
+            // Send POST request
+            $.post('/signup', formData, function(data) {
+                if (data.success) {
+                    // Handle successful signup
+                    // Redirect to dashboard or show a success message
+                    // window.location.href = '/dashboard'; // replace '/dashboard' with the actual path
+                } else if (data.message === "User already exists.") {
+                    // Show the modal
+                    $('#modalUserExists').modal('show'); 
+                } else {
+                    // Handle other errors
+                    // Show an error message
+                    alert(data.message || 'Signup failed. Please try again.');
+                }
+            });
+        });
+    }
+});
+
+

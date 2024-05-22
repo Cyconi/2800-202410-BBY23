@@ -173,4 +173,25 @@
   </div>
 </div>
 
+<!-- User already exists with that email. Modal -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalUserExists">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">SignUp Failed</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/fail-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">Failed to create account</h5>
+                          A user with that email already exists.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton" data-bs-dismiss="modal">Okay</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 <%- include('template/footer') %>
