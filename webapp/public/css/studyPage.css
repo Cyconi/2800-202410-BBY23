@@ -9,7 +9,64 @@
 }
 
 
+/* Card Styles */
+.card {
+    background-color: var(--card-background-color);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.card-header {
+    padding: 20px;
+    background-color: var(--card-background-color);
+    color: var(--text-color);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    padding: 20px;
+    display: none;
+    text-align: center;
+    font-size: var(--button-font-size);
+}
+
+.card-body p {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Button Styles */
+.btn-primary {
+    width: 90%;
+    background: var(--button-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px; 
+}
 
 /* Center screen class */
 .center-screen {
@@ -17,11 +74,6 @@
     justify-content: center;
     align-items: center;
     height: 80vh; /* This makes sure the container takes up 80% of the screen height */
-}
-
-/* Container Styles */
-.container {
-    text-align: center;
 }
 
 /* Button Styles */

@@ -37,6 +37,7 @@ router.post('/addFrequency', async (req, res) => {
 
             habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
             await habit.save();
+            res.sendStatus(204);
         } else {
             // handle error
         }

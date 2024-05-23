@@ -1,53 +1,87 @@
-function checkTimer() {
-    fetch('/calculate', { method: 'POST' })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const modalElement = document.getElementById('timer');
-                if (modalElement) {
-                    const modal = new bootstrap.Modal(modalElement);
-                    modal.show();
-
-                    modalElement.addEventListener('hidden.bs.modal', () => {
-                        const backdrop = document.querySelector('.modal-backdrop');
-                        if (backdrop) {
-                            backdrop.remove();
-                        }
-                    });
-                }
-            }
-        })
-        .catch(error => {
-            setTimeout(checkTimer, 180000); // Retry after 3 minutes if there's an error
-        });
-}
-
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden' || document.visibilityState === 'visible') {
-        checkTimer();
-    }
-});
-
-// Periodically check the timer every 30 seconds
-setInterval(checkTimer, 2000);
-
 document.addEventListener('DOMContentLoaded', function() {
+    let enterEmailModalInstance;
     let forgotPasswordModalInstance;
     let successModalInstance;
-    let loginFailedModalInstance; // Add a reference for the login failed modal
-    let isEmailRequestInProgress = false; // Flag to prevent duplicate requests
+    let loginFailedModalInstance;
+    let isEmailRequestInProgress = false;
+    let enteredEmail = '';  // Variable to store the entered email
+
     const forgotPasswordButton = document.getElementById('forgotPasswordLink');
+    const enterEmailForm = document.getElementById('enter-email-form');
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const successButton = document.getElementById('successButton');
 
-    // Ensure forgot password modal is only shown once
+    // Show enter email modal
     if (forgotPasswordButton) {
         forgotPasswordButton.addEventListener('click', function(event) {
             event.preventDefault();
-            if (!forgotPasswordModalInstance) {
-                forgotPasswordModalInstance = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+            if (!enterEmailModalInstance) {
+                enterEmailModalInstance = new bootstrap.Modal(document.getElementById('enterEmailModal'));
             }
-            forgotPasswordModalInstance.show();
+            enterEmailModalInstance.show();
+        });
+    }
+
+    // Handle enter email form submission
+    if (enterEmailForm) {
+        enterEmailForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('enter-email').value;
+            if (email) {
+                const response = await fetch('/getSecurityQuestion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    if (data.question) {
+                        document.getElementById('securityQuestion').innerText = data.question;
+                        enteredEmail = email;  // Store the entered email
+                        if (!forgotPasswordModalInstance) {
+                            forgotPasswordModalInstance = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+                        }
+                        enterEmailModalInstance.hide();
+                        forgotPasswordModalInstance.show();
+                    } else {
+                        // Directly handle password reset if no security question is set
+                        fetch('/forgot', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ email: email })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                if (!successModalInstance) {
+                                    successModalInstance = new bootstrap.Modal(document.getElementById('modalForgot'));
+                                }
+                                enterEmailModalInstance.hide();
+                                successModalInstance.show();
+                            } else {
+                                alert(data.message || 'Failed to send reset email. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            alert('Failed to send reset email. Please try again.');
+                        });
+                    }
+                } else {
+                    fetch('/forgot', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email })
+                    })
+                    successModalInstance = new bootstrap.Modal(document.getElementById('modalForgot'));
+                    successModalInstance.show();
+                }
+            }
         });
     }
 
@@ -55,21 +89,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (forgotPasswordForm) {
         forgotPasswordForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (isEmailRequestInProgress) return; // Prevent duplicate requests
+            if (isEmailRequestInProgress) return; 
             isEmailRequestInProgress = true;
 
-            const email = document.getElementById('forgot-email').value;
+            const securityAnswer = document.getElementById('forgot-security-answer').value;
 
             fetch('/forgot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ email: enteredEmail, securityAnswer: securityAnswer })  // Use the stored email
             })
             .then(response => response.json())
             .then(data => {
-                isEmailRequestInProgress = false; // Reset flag
+                isEmailRequestInProgress = false;
                 if (forgotPasswordModalInstance) {
                     forgotPasswordModalInstance.hide();
                 }
@@ -79,12 +113,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     successModalInstance.show();
                 } else {
-                    alert(data.message || 'Failed to send reset email. Please try again.');
+                    const errorMessage = data.message || 'Failed to send reset email. Please try again.';
+                    document.getElementById('forgot-password-error').innerText = errorMessage;
+                    document.getElementById('forgot-password-error').style.display = 'block';
                 }
             })
             .catch(error => {
-                isEmailRequestInProgress = false; // Reset flag
-                alert('Failed to send reset email. Please try again.');
+                isEmailRequestInProgress = false;
+                const errorMessage = 'Failed to send reset email. Please try again.';
+                document.getElementById('forgot-password-error').innerText = errorMessage;
+                document.getElementById('forgot-password-error').style.display = 'block';
             });
         });
     }
@@ -94,6 +132,45 @@ document.addEventListener('DOMContentLoaded', function() {
         successButton.addEventListener('click', function() {
             if (successModalInstance) {
                 successModalInstance.hide();
+            }
+        });
+    }
+
+    // Handle login form submission
+    const loginForm = document.querySelector('form[action="/login"]');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {
+                identifier: formData.get('identifier'),
+                password: formData.get('password')
+            };
+            console.log(data);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const errorData = await response.json();
+            if (response.ok) {
+                window.location.href = '/home1';
+            } else {
+                const errorMessageHeader = document.getElementById('errorMessageH');
+                const errorMessageBody = document.getElementById('errorMessageB');
+                if (!loginFailedModalInstance) {
+                    loginFailedModalInstance = new bootstrap.Modal(document.getElementById('modalLoginFailed'));
+                }
+
+                // Update LoginFailed Modal
+                let headerMsg = errorData.message;
+                errorMessageHeader.textContent = headerMsg.charAt(0).toUpperCase() + headerMsg.slice(1);
+                errorMessageBody.textContent = errorData.message; 
+                loginFailedModalInstance.show();
             }
         });
     }
@@ -118,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                const modalElement = document.getElementById('timer');
+                const modalElement = document.getElementById('modalTour');
                 if (modalElement) {
                     const modal = new bootstrap.Modal(modalElement);
                     modal.show();
@@ -197,34 +274,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } catch (e) {
         console.error('Modal Error:', e);
+    if (faqButton) {
+        try {
+        const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
+        if (faqButton && !faqModal) {
+            faqButton.addEventListener('click', function () {
+                faqModal.show();
+            });
+        }
+    } catch (e) {
+        console.error('Modal Error:', e);
     }
-});
+    }
 
-// user already exists modal
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the signup form
+    // Handle user already exists modal
     const signupForm = document.getElementById('signup-form');
-
-    // Handle signup form submission
     if (signupForm) {
         signupForm.addEventListener('submit', function(event) {
             event.preventDefault();
-
-            // Serialize form data
-            var formData = $(this).serialize();
-
-            // Send POST request
+            const formData = $(this).serialize();
             $.post('/signup', formData, function(data) {
                 if (data.success) {
-                    // Handle successful signup
-                    // Redirect to dashboard or show a success message
-                    // window.location.href = '/dashboard'; // replace '/dashboard' with the actual path
+                    window.location.href = "/home1";
                 } else if (data.message === "User already exists.") {
-                    // Show the modal
                     $('#modalUserExists').modal('show'); 
                 } else {
-                    // Handle other errors
-                    // Show an error message
                     alert(data.message || 'Signup failed. Please try again.');
                 }
             });
@@ -232,4 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
+// Function for back button
+function goBack() {
+    window.history.back();
+}

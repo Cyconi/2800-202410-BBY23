@@ -11,7 +11,9 @@ const userSchema = new mongoose.Schema({
     knowledgeAmount: {type: Number, unique: false, required: true, default: 0},
     numberOfHabits: {type: Number, unique: false, required: true, default: 0},
     interpersonalAmount: {type: Number, unique: false, required: true, default: 0},
-    interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]}
+    interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]},
+    securityQuestion: { type: String, unique: false, required: false },
+    securityAnswer: { type: String, unique: false, required: false }
 });
 
 const User = mongoose.model('User', userSchema);
