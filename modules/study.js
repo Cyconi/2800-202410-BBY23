@@ -124,11 +124,8 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
 
     const user = await User.findOne({ email: email });
     if (user) {
-        const additionalPercentage = (duration / 5) * 0.5;
-        user.knowledgePercentage = (user.knowledgePercentage || 0) + additionalPercentage;
-        if (user.knowledgePercentage > 100) {
-            user.knowledgePercentage = 100; // Cap at 100%
-        }
+        const additionalNumber = (duration / 5) * 0.5;
+        req.user.knowledgeAmount =  req.user.knowledgeAmount + additionalNumber;
         await user.save();
     }
 
@@ -143,22 +140,6 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
         if (!user) {
             return res.status(404).send("User not found");
         }
-
-        const sessions = await StudySession.find({ email: req.user.email });
-        let totalMinutes = 0;
-
-        sessions.forEach(session => {
-            totalMinutes += session.duration;
-        });
-
-        // Calculate the knowledge percentage based on total minutes
-        let knowledgePercentage = (totalMinutes / 5) * 0.5;
-        if (knowledgePercentage > 100) {
-            knowledgePercentage = 100; // Cap at 100%
-        }
-
-        user.knowledgePercentage = knowledgePercentage;
-        await user.save();
 
         res.render('profile', { user });
     } catch (error) {
