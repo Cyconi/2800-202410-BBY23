@@ -4,6 +4,18 @@
 <link rel="stylesheet" href="css/studyLog.css">
 
 <div class="container mt-4">
+    <!-- Total Study Time Display -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Total Study Time</h4>
+                    <p class="card-text" id="total-study-time">0 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <% 
         const today = new Date();
@@ -12,6 +24,7 @@
         const lastWeek = new Date(today);
         lastWeek.setDate(lastWeek.getDate() - 7);
 
+        let totalDuration = 0;
         sessions.forEach(session => { 
             let sessionDate = new Date(session.date);
             let displayDate;
@@ -24,6 +37,8 @@
             } else {
                 displayDate = session.date.toLocaleString();
             }
+
+            totalDuration += session.duration;
         %>
             <div class="col mb-4">
                 <div class="card h-100 border-dark d-flex flex-column">
@@ -43,5 +58,9 @@
         <% }) %>
     </div>
 </div>
+
+<script>
+    document.getElementById('total-study-time').textContent = '<%= totalDuration %> minutes';
+</script>
 
 <%- include("template/footer") %>

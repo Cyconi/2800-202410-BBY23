@@ -1,26 +1,75 @@
 <%- include("template/header") %>
 
-<link rel="stylesheet" href="css/studyGuide.css">
+<link rel="stylesheet" href="css/studyPage.css">
 <link rel="stylesheet" href="css/background.css">
 
+<style>
+  .card-body {
+      display: none;
+  }
+  .card.expanded .card-body {
+      display: block;
+  }
+  .card-header {
+      cursor: pointer;
+  }
+</style>
+
 <div class="container text-center">
-    <h1>Study Guides.</h1>
-    <div class="row center-screen">
-        <div class="col-md-4">
-            <form action='/study/pomodoro' method='POST'>
-                <button type="submit" class="btn btn-info">Podoromo Method</button>
-            </form>
-        </div>
-        <div class="col-md-4">
-            <form action='/study/actRecall' method='POST'>
-                <button type="submit" class="btn btn-info">Active Recall</button>
-            </form>
-        </div>
-        <div class="col-md-4">
-            <form action='/study/feynman' method='POST'>
-                <button type="submit" class="btn btn-info">Feynman Technique</button>
-            </form>
-        </div>
-    </div>
+  <h1>Study Guides</h1>
+  <div class="row center-screen">
+      <!-- Pomodoro Method Card -->
+      <div class="col-md-4 mb-4">
+          <div class="card study-card" onclick="toggleCard(this)">
+              <div class="card-header">
+                  <img src="/img/pomodoro-technique.png" alt="Pomodoro Method image" class="card-image" />
+                  <h5 class="card-title">Pomodoro Method</h5>
+              </div>
+              <div class="card-body">
+                  <p class="card-text">Utilize short breaks to maintain long term focus.</p>
+                  <form action="/study/pomodoro" method="POST" onsubmit="event.stopPropagation();">
+                      <button type="submit" class="btn btn-primary">Open Pomodoro Guide</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <!-- Active Recall Card -->
+      <div class="col-md-4 mb-4">
+          <div class="card study-card" onclick="toggleCard(this)">
+              <div class="card-header">
+                  <img src="/img/memory-recall.png" alt="Active Recall image" class="card-image" />
+                  <h5 class="card-title">Active Recall</h5>
+              </div>
+              <div class="card-body">
+                  <p class="card-text">Train your memory to recall important information on any topic.</p>
+                  <form action="/study/actRecall" method="POST" onsubmit="event.stopPropagation();">
+                      <button type="submit" class="btn btn-primary">Open Active Recall Guide</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <!-- Feynman Technique Card -->
+      <div class="col-md-4 mb-4">
+          <div class="card study-card" onclick="toggleCard(this)">
+              <div class="card-header">
+                  <img src="/img/teaching.png" alt="Feynman Technique image" class="card-image" />
+                  <h5 class="card-title">Feynman Technique</h5>
+              </div>
+              <div class="card-body">
+                  <p class="card-text">Practice teaching your studies to others to understand even better for yourself.</p>
+                  <form action="/study/feynman" method="POST" onsubmit="event.stopPropagation();">
+                      <button type="submit" class="btn btn-primary">Open Feynman Guide</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
+<script>
+  function toggleCard(card) {
+      card.classList.toggle('expanded');
+  }
+</script>
+
 <%- include("template/footer") %>

@@ -5,6 +5,7 @@ const passport = require("passport");
 const User = require('./user');
 const StudySession = require('./studySession');
 const Timer = require("./timerSchema");
+const cron = require('node-cron');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -178,6 +179,20 @@ router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
         res.status(200).send("Timer updated successfully");
     } catch (error) {
         res.status(500).send("Internal server error");
+    }
+});
+
+// Scheduled task to delete old study sessions every hour
+cron.schedule('0 * * * *', async () => {
+    try {
+        const elevenDaysAgo = new Date();
+        elevenDaysAgo.setDate(elevenDaysAgo.getDate() - 11);
+        
+        // Delete sessions older than 11 days
+        await StudySession.deleteMany({ date: { $lt: elevenDaysAgo } });
+        console.log('Old study sessions deleted');
+    } catch (error) {
+        console.error('Error deleting old study sessions:', error);
     }
 });
 
