@@ -27,16 +27,13 @@ router.post('/addFrequency', async (req, res) => {
         if (habit) {
             const now = new Date();
             const habitStartDate = new Date(habit.whenMade);
-            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
-            const intervalDifference = daysSinceStart;
-
-            while (habit.frequency.length <= intervalDifference) {
-                habit.frequency.push(0);
-            }
-            habit.frequency[intervalDifference] = 1;
+            
+            habit.frequency.push(1);
 
             habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
             await habit.save();
+            req.user.habitAmount += 5;
+            await req.user.save();
             res.sendStatus(204);
         } else {
             res.sendStatus(204);
