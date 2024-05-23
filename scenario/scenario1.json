@@ -2,12 +2,16 @@
     "scenarios": [
       {
         "id": 1,
-        "title": "Approaching Someone New",
+        "image": "img/scenario1.png",
+        "gif": "img/scenario1(gif).gif",
+        "title": "Making Friends",
+        "description": "Approaching Someone New: How to start a conversation with a stranger.",
         "narrator": "You're at a community event and see someone standing alone. You want to introduce yourself and start a conversation.",
         "questions": [
           {
             "id": 1,
-            "text": "You're deciding whether to approach someone based on their body language. Look at the images below and choose the person whose body language suggests they are open to being approached.",
+            "narrator": "You're deciding whether to approach someone based on their body language.",
+            "text":"Look at the images below and choose the person whose body language suggests they are open to being approached.",
             "type": "image",
             "images": [
               "image1.jpg",  
@@ -47,7 +51,8 @@
           },
           {
             "id": 4,
-            "text": "The conversation has been going well, and you want to know if the other person is interested in continuing the conversation. Look at the images below and choose the person who seems most interested in continuing.",
+            "narrator": "The conversation has been going well, and you want to know if the other person is interested in continuing the conversation.",
+            "text": "Look at the images below and choose the person who seems most interested in continuing.",
             "type": "image",
             "images": [
               "image1.jpg",
@@ -100,7 +105,8 @@
           },
           {
             "id": 8,
-            "narrator": "You suggest an idea during your conversation and want to know if the other person agrees with you. Look at the images below and choose the person who seems most agreeable.",
+            "narrator": "You suggest an idea during your conversation and want to know if the other person agrees with you.",
+            "text":"Look at the images below and choose the person who seems most agreeable.",
             "type": "image",
             "images": [
               "image1.jpg",  

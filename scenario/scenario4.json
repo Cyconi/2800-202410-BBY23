@@ -2,7 +2,10 @@
     "scenarios": [
       {
         "id": 4,
-        "title": "Dealing with Awkward Situations",
+        "image": "img/scenario4.png",
+        "gif": "img/scenario4(gif).gif",
+        "title": "Handling Public Situations",
+        "description": "Dealing with Awkward Situations: How to recover from social faux pas.",
         "narrator": "You find yourself in an awkward situation in a public setting. You need to know how to recover gracefully and maintain your composure.",
         "questions": [
           {

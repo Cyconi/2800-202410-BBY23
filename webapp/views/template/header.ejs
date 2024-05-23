@@ -18,6 +18,11 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
+<style>
+    .sidebarBg {
+    background-color: #96ccff;
+}
+</style>
 <body>
     <nav class="navbar">
         <div class="container-fluid d-flex justify-content-between">
@@ -33,7 +38,7 @@
             </a>
         </div>
     </nav>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
                 <button type="submit" class="btn"><img src="/img/expl.png" alt="EXO" width="24" height="24"></button>
@@ -45,19 +50,19 @@
         </div>
         <div class="offcanvas-body">
             <nav class="nav flex-column">
-                <a class="nav-link" href="/interpersonal/select-scenario">
+                <a class="nav-link text-black" href="/interpersonal/select-scenario">
                     <span class="material-symbols-outlined">groups</span>
                     Interpersonal Practice
                 </a>
-                <a class="nav-link" href="/habit">
+                <a class="nav-link text-black" href="/habit">  
                     <span class="material-symbols-outlined">sports_handball</span>
                     Habit Tracker
                 </a>
-                <a class="nav-link" href="/study">
+                <a class="nav-link text-black" href="/study">
                     <span class="material-symbols-outlined">book_4</span>
                     Study Improver
                 </a>
-                <a class="nav-link" href="/profile">
+                <a class="nav-link text-black" href="/profile">
                     <span class="material-symbols-outlined">account_circle</span>
                     Profile
                 </a>

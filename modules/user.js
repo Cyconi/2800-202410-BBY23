@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     resetPassword: {type: String, unique: false, required: false},
     resetPasswordDate: {type: Date, unique: false, required: false},
-    numberOfHabits: {type: Number, unique: false, required: true, default: 0}
+    numberOfHabits: {type: Number, unique: false, required: true, default: 0},
+    interpersonalAmount: {type: Number, unique: false, required: true, default: 0},
+    interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]}
 });
 
 const User = mongoose.model('User', userSchema);

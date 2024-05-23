@@ -1,14 +1,19 @@
 <%- include('template/header', { title: 'Select Scenario' }) %>
+<link rel="stylesheet" href="css/background.css">
 <link rel="stylesheet" href="css/scenarioSelect.css">
+
 <div class="container mt-4">
-  <h1>Select a Category and Scenario</h1>
-  <div class="btn-group-vertical w-100" role="group" aria-label="Scenario selection">
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario1.json')">Making Friends - Approaching Someone New</button>
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario2.json')">Dating and Romantic Relationships - Handling Rejection</button>
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario3.json')">Family and Close Relationships - Supporting a Loved One</button>
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario4.json')">Handling Public Situations - Dealing with Awkward Situations</button>
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario5.json')">Conflict Resolution - Apologizing Effectively</button>
-    <button type="button" class="btn btn-scenario" onclick="selectScenario('/scenario/scenario6.json')">Social Etiquette - Cultural Sensitivity</button>
+  <h1 class="text-center">Select Scenario</h1>
+  <div class="row">
+    <% scenarios.forEach(scenario => { %>
+      <%- include('template/scenarioCard', {
+            title: scenario.title,
+            description: scenario.description,
+            image: scenario.image,
+            gif: scenario.gif,
+            scenarioUrl: '/scenario/scenario' + scenario.id + '.json'
+          }) %>
+    <% }) %>
   </div>
 </div>
 
@@ -57,6 +62,21 @@
   function selectScenario(scenarioUrl) {
     sessionStorage.setItem('scenarioUrl', scenarioUrl);
     window.location.href = '/interpersonal';
+  }
+
+  function toggleCard(card) {
+    const cardBody = card.querySelector('.card-body');
+    const cardImage = card.querySelector('.card-image');
+    const gifSrc = cardImage.getAttribute('data-gif');
+    const staticSrc = cardImage.getAttribute('data-static');
+
+    if (cardBody.style.display === 'none' || !cardBody.style.display) {
+      cardBody.style.display = 'block';
+      cardImage.src = gifSrc;
+    } else {
+      cardBody.style.display = 'none';
+      cardImage.src = staticSrc;
+    }
   }
 </script>
 

@@ -1,13 +1,58 @@
 <%- include('template/header', { title: 'Social Skills Game' }) %>
+
 <link rel="stylesheet" href="css/interpersonal.css">
+<link rel="stylesheet" href="css/background.css">
 
 <div id="game-container" class="container mt-4">
+  <div class="progress mb-4">
+    <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
   <div id="narrator" class="hidden narrator-box"></div>
   <div id="question" class="hidden"></div>
   <div id="options" class="hidden"></div>
-  <div id="feedback" class="hidden"></div>
   <center><button id="continue-button" class="hidden btn btn-primary mt-2">Continue</button></center>
-  
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalFeedbackImage" class="mb-3"></div>
+        <p id="modalFeedbackText" class="feedback-text"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Completion Modal -->
+<div class="modal fade" id="completionModal" tabindex="-1" aria-labelledby="completionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="completionModalLabel">Scenario Completed</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="completionImage" class="mb-3"></div>
+        <p>Congratulations! You have completed the scenario.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="profileButton" type="button" class="btn btn-secondary w-100">Go to Profile</button>
+        <button id="selectScenarioButton" type="button" class="btn btn-secondary w-100 mt-2" data-bs-dismiss="modal">Select Another Scenario</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="/js/game.js"></script>
 <%- include('template/footer') %>

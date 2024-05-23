@@ -3,7 +3,7 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #f8f9fa;
+    background: url('img/stars.png') no-repeat center center fixed;
 }
 
 .navbar {
