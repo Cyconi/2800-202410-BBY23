@@ -1,95 +1,62 @@
 <%- include("template/header") %>
 
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Prevent scrolling */
+    }
+    .full-height {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to right, #28a745 50%, #17a2b8 50%);
+    }
+    .side {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+        height: 100%;
+    }
+    .button {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+    .button img {
+        display: block;
+        margin: 0 auto 10px;
+        width: 200px;
+        height: auto;
+    }
+</style>
+<link rel="stylesheet" href="css/background.css">
 
-
-    <style>
-        .horizontal-progress {
-            position: absolute;
-            left: 5%;
-            right: 5%;
-            top: 48%;
-            /* height: 10px; */
-            height: 3%;
-            background: linear-gradient(to right, green 50%, red 50%);
-        }
-        .habit {
-            position: absolute;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 2em;
-        }
-        .good-habit {
-            top: 7%;
-            left: 5%;
-            right: 5%;
-        }
-        .bad-habit {
-            bottom: 8%;
-            left: 5%;
-            right: 5%;
-        }
-    </style>
-    <link rel="stylesheet" href="css/background.css">
-
-    <div class="horizontal-progress"></div>
-    <form action="/habit/goodHabit" method="POST">
-        <button style="height: 40%;" type="submit" class="btn btn-success h-49 habit good-habit">Good Habits</button>
-    </form>
-    <form action="/habit/badHabit" method="POST">
-        <button style="height: 40%;" type="submit" class="btn btn-danger h-49 habit bad-habit">Bad Habits</button>
-    </form>
-    <!-- <a href="/goodHabit" class="habit good-habit">Good Habit</a>
-    <a href="/badHabit" class="habit bad-habit">Bad Habit</a> -->
-
-    <!-- ? Modal -->
-    <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content rounded-4 shadow">
-            <div class="modal-body p-5">
-            <h2 class="fw-bold mb-0">Learn about the Habit Tracker</h2>
-              <ul class="d-grid gap-4 my-5 list-unstyled small">
-                <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
-                  <div>
-                    <h5 class="mb-0">How to Start</h5>
-                    <ul>
-                    <li>Are you trying to form a new habit? Log it in the Good Habits.</li>
-                   <li>Are you breaking negative old habits? Log it in the Bad Habits.</li>
-                  </ul>
-                  </div>
-                </li>
-                <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
-                  <div>
-                    <h5 class="mb-0">Consistency</h5>
-                    <ul>
-                    <li>The key to really seeing your progress is being consistent with your entries through the MCQ's</li>
-                    <li>Make sure to add well worded questions for your habits so you can answer well and your graph will be more accurate.</li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
-                  <div>
-                    <h5 class="mb-0">Self Honesty</h5>
-                    <ul>
-                      <li>Answer the MCQ honestly to ensure precise results for the habits you're tracking.</li>
-                      <li></li>
-
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
-            </div>
-          </div>
+<div class="container-fluid full-height">
+    <div class="row w-100 h-100">
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <form action="/habit/goodHabit" method="POST">
+                <button type="submit" class="button">
+                    <img src="/img/good_habit.gif" alt="image not loaded">
+                    <p>Good Habit</p>
+                </button>
+            </form>
         </div>
-      </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <form action="/habit/badHabit" method="POST">
+                <button type="submit" class="button">
+                    <img src="/img/bad_habit.gif" alt="image not loaded">
+                    <p>Bad Habit</p>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <%- include("template/footer") %>
-
-
-
-
-
