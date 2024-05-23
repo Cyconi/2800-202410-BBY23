@@ -7,6 +7,8 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const StudySession = require('./studySession');
 
+const LEVELUPREQUIREMENT = 100;
+
 // Middleware
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -31,7 +33,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
         });
         req.user.knowledgeAmount = totalPoints;
         await req.user.save();
-        res.render('profile', { user: req.user });
+        res.render('profile', { user: req.user});
     } catch (error) {
         console.error("Error fetching study sessions:", error);
         res.status(500).send("Internal server error");

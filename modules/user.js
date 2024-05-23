@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
     numberOfHabits: {type: Number, unique: false, required: true, default: 0},
     interpersonalAmount: {type: Number, unique: false, required: true, default: 0},
     interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]},
-    lastCheckedNotification: {type: Date, unique: false, required: true, default: oneHourAgo }
+    lastCheckedNotification: {type: Date, unique: false, required: true, default: oneHourAgo },
+    habitAmount: {type: Number, unique: false, required: true, default: 100 }
 });
 
 const User = mongoose.model('User', userSchema);
