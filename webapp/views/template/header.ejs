@@ -22,22 +22,27 @@
     .sidebarBg {
     background-color: #96ccff;
 }
+.material-symbols-outlined {
+    color: #000000;
+}
 </style>
 <body>
-    <nav class="navbar">
+    <nav class="navbar fixed-top">
         <div class="container-fluid d-flex justify-content-between">
             <a class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                 aria-controls="offcanvasExample">
                 <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
             </a>
             <a class="mx-auto" role="button" id="faqButton">
-                <img src="/img/q_mark.png" alt="FAQ" width="24" height="24" class="d-inline-block align-text-top">
+                <!-- <img src="/img/q_mark.png" alt="FAQ" width="24" height="24" class="d-inline-block align-text-top"> -->
+                <span class="material-symbols-outlined d-inline-block align-text-to" width="24" height="24">help</span>
             </a>
             <a role="button" onclick="goBack()">
                 <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
             </a>
         </div>
     </nav>
+    <br><br><br>
     <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>

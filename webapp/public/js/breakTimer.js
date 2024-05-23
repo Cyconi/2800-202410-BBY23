@@ -3,8 +3,12 @@ var x;
 var isRunning = false;
 var pausedTime = 0;
 var isPaused = isPaused;
+var timeLeft;
 
 document.addEventListener("DOMContentLoaded", function () {
+    if(!timeLeft)
+        return;
+
     if (timeLeft > 0) {
         if (isPaused) {
             pausedTime = timeLeft;

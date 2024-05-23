@@ -182,17 +182,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function goBack() { // for back button
     window.history.back();
+    window.location.reload();
 }
 
 // ? Modals Header
 document.addEventListener('DOMContentLoaded', function() {
     const faqButton = document.getElementById('faqButton');
-    const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
-      
-    if (faqButton) {
-        faqButton.addEventListener('click', function() {
-            faqModal.show();
-        });
+    try {
+        const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
+        if (faqButton && !faqModal) {
+            faqButton.addEventListener('click', function () {
+                faqModal.show();
+            });
+        }
+    } catch (e) {
+        console.error('Modal Error:', e);
     }
 });
 
