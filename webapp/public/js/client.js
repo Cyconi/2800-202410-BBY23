@@ -216,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Handle login form submission
-    const loginForm = document.querySelector('form[action="/login"]');
     if (loginForm) {
         loginForm.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -274,17 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } catch (e) {
         console.error('Modal Error:', e);
-    if (faqButton) {
-        try {
-        const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
-        if (faqButton && !faqModal) {
-            faqButton.addEventListener('click', function () {
-                faqModal.show();
-            });
-        }
-    } catch (e) {
-        console.error('Modal Error:', e);
-    }
+
     }
 
     // Handle user already exists modal
