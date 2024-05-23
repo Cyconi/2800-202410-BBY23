@@ -1,8 +1,8 @@
 var countDownDate;
 var x;
 var isRunning = false;
-var pausedTime = timeLeft;
-var isPaused = isPaused; 
+var pausedTime = 0;
+var isPaused = isPaused;
 
 document.addEventListener("DOMContentLoaded", function () {
     if (timeLeft > 0) {
@@ -15,76 +15,65 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function startStop() {
-    var startStopBtn = document.getElementById("startStopBtn");
+function breakStartStop() {
+    var startStopBtn = document.getElementById("breakStartStopBtn");
     if (!isRunning) {
-        var hours = parseInt(document.getElementById("hoursInput").value) || 0;
-        var minutes = parseInt(document.getElementById("minutesInput").value) || 0;
-        var seconds = parseInt(document.getElementById("secondsInput").value) || 0;
+        var hours = parseInt(document.getElementById("breakHoursInput").value) || 0;
+        var minutes = parseInt(document.getElementById("breakMinutesInput").value) || 0;
+        var seconds = parseInt(document.getElementById("breakSecondsInput").value) || 0;
         var totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
-        if (!pausedTime && totalSeconds > 0) {
+        if (totalSeconds > 0) {
             // When timer is started for the first time
-            countDownDate = new Date().getTime() + totalSeconds * 1000;
-            isPaused = false;
-            console.log("Starting new timer for total seconds:", totalSeconds); // Debugging log
-            fetch('/study/serverTimer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    isPaused: false,
-                    timer: totalSeconds * 1000 // Send the correct timer value
-                })
-            })
-            .catch(error => console.error('Error:', error));
-        } else if (pausedTime) {
-            // When timer is resumed
-            countDownDate = new Date().getTime() + pausedTime;
-            isPaused = false;
-            fetch('/study/serverTimer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    isPaused: false,
-                    timer: pausedTime // Send the correct remaining time
-                })
-            })
-            
-            .catch(error => console.error('Error:', error));
-        }
-
-        startStopBtn.textContent = "Pause";
-        startStopBtn.style.backgroundColor = "#f0ad4e";
-
-        // Update the count down every 1 second
-        x = setInterval(function () {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("demo").innerHTML = "TIMES UP";
-                document.getElementById('breakTimerPopup').style.display = 'inline-block';
-                startStopBtn.textContent = "Start";
-                startStopBtn.style.backgroundColor = "#0719c3";
-                isRunning = false;
-                pausedTime = null;
+            if (pausedTime === 0) {
+                countDownDate = new Date().getTime() + totalSeconds * 1000;
+                pausedTime = totalSeconds * 1000; // Set pausedTime to the initial total seconds in milliseconds
             } else {
-                pausedTime = distance;
-                document.getElementById('breakTimerPopup').style.display = 'none';
+                // When timer is resumed
+                countDownDate = new Date().getTime() + pausedTime;
             }
-        }, 1000);
-        isRunning = true;
+
+            isPaused = false;
+            fetch('/study/serverTimer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    isPaused: false,
+                    timer: pausedTime // Send the correct timer value
+                })
+            }).catch(error => console.error('Error:', error));
+
+            startStopBtn.textContent = "Pause";
+            startStopBtn.style.backgroundColor = "#f0ad4e";
+
+            // Update the count down every 1 second
+            x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("break").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("break").innerHTML = "TIMES UP";
+                    startStopBtn.textContent = "Start";
+                    startStopBtn.style.backgroundColor = "#0719c3";
+                    isRunning = false;
+                    pausedTime = 0;
+                } else {
+                    pausedTime = distance;
+                }
+            }, 1000);
+            isRunning = true;
+        } else {
+            alert("Please set a valid break time.");
+        }
     } else {
         clearInterval(x);
         startStopBtn.textContent = "Start";
@@ -100,16 +89,14 @@ function startStop() {
                 isPaused: true,
                 timer: pausedTime // Send the correct paused time
             })
-        })
-        .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error:', error));
     }
 }
 
-// Function to resume the timer using the remaining time
 function resumeTimer(remainingTime) {
     countDownDate = new Date().getTime() + remainingTime;
 
-    var startStopBtn = document.getElementById("startStopBtn");
+    var startStopBtn = document.getElementById("breakStartStopBtn");
     startStopBtn.textContent = "Pause";
     startStopBtn.style.backgroundColor = "#f0ad4e";
 
@@ -121,15 +108,15 @@ function resumeTimer(remainingTime) {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+        document.getElementById("break").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
 
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById("demo").innerHTML = "TIMES UP";
+            document.getElementById("break").innerHTML = "TIMES UP";
             startStopBtn.textContent = "Start";
-            startStopBtn.style.backgroundColor = "#0719c3;";
+            startStopBtn.style.backgroundColor = "#0719c3";
             isRunning = false;
-            pausedTime = null;
+            pausedTime = 0;
         } else {
             pausedTime = distance;
         }
@@ -142,16 +129,16 @@ function updateTimerDisplay(remainingTime) {
     var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-    document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+    document.getElementById("break").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
 }
 
-function resetTimer() {
+function breakResetTimer() {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "0h 0m 0s";
-    document.getElementById("startStopBtn").textContent = "Start";
-    document.getElementById("startStopBtn").style.backgroundColor = "#0719c3";
+    document.getElementById("break").innerHTML = "0h 0m 0s";
+    document.getElementById("breakStartStopBtn").textContent = "Start";
+    document.getElementById("breakStartStopBtn").style.backgroundColor = "#0719c3";
     isRunning = false;
-    pausedTime = null;
+    pausedTime = 0;
     isPaused = false;
     fetch('/study/serverTimer', {
         method: 'POST',
@@ -162,8 +149,7 @@ function resetTimer() {
             timer: 0,
             isPaused: true
         })
-    })
-    .catch(error => console.error('Error:', error));
+    }).catch(error => console.error('Error:', error));
 }
 
 function handleTouchStart(event) {
@@ -211,5 +197,4 @@ document.querySelectorAll('input[type="number"]').forEach(function (input) {
     });
 
     input.addEventListener('touchstart', handleTouchStart);
-    
 });

@@ -16,14 +16,43 @@
     </p>
 </div>
 
-<div class="guide-section steps">
-    <h2>Steps</h2>
-    <ul>
-        <li>Prepare Study Materials: By writing down (on paper) flashcards, summaries, or practice questions based on the material you need to learn.</li>
-        <li>Self-Test: Regularly test yourself on the material, attempting to recall the information without looking at your notes.</li>
-        <li>Review Mistakes: After testing, review any mistakes and focus on the areas where you struggled.</li>
-        <li>Repeat: Practice your active recall over multiple study sessions to reinforce your memory and understanding.</li>
-    </ul>
+<div id="guideCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="guide-section">
+                <h2>Step 1</h2>
+                <p>Prepare Study Materials: By writing down (on paper) flashcards, summaries, or practice questions based on the material you need to learn.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="guide-section">
+                <h2>Step 2</h2>
+                <p>Self-Test: Regularly test yourself on the material, attempting to recall the information without looking at your notes.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="guide-section">
+                <h2>Step 3</h2>
+                <p>Review Mistakes: After testing, review any mistakes and focus on the areas where you struggled.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="guide-section">
+                <h2>Step 4</h2>
+                <p>Repeat: Practice your active recall over multiple study sessions to reinforce your memory and understanding.</p>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#guideCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#guideCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#guideCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#guideCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-primary" type="button" data-bs-target="#guideCarousel" data-bs-slide="prev">Prev</button>
+        <button class="btn btn-primary" type="button" data-bs-target="#guideCarousel" data-bs-slide="next">Next</button>
+    </div>
 </div>
 
 <%- include("template/footer") %>

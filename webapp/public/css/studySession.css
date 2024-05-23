@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     text-align: center;
@@ -50,4 +50,134 @@ button {
 
 button:disabled {
     background-color: #ccc;
+}
+
+.break-timer-popup {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+    margin-bottom: 10px;
+} */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    text-align: center;
+    padding: 20px;
+}
+
+.timer-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.text-display {
+    font-size: 20px;
+}
+
+.timer-section {
+    display: inline-block;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-timer {
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0719c3;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.btn-timer:disabled {
+    background-color: #ccc;
+}
+
+.btn-timer:hover {
+    background-color: #0719c3;
+}
+
+.break-timer-popup {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.study-log-form {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.study-log-form h2 {
+    font-weight: bold;
+}
+
+.study-log-form .form-group {
+    margin-bottom: 15px;
+}
+
+.study-log-form .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.study-log-form .form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.study-log-form .form-control:focus {
+    border-color: #0719c3;
+    box-shadow: 0 0 5px rgba(97, 92, 184, 0.5);
+}
+
+.study-log-form button {
+    background-color: #0719c3;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.study-log-form button:hover {
+    background-color: #0056b3;
 }

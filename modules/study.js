@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
 router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
+
 router.get('/session', ensureAuthenticated, async(req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
@@ -50,6 +51,7 @@ router.get('/session', ensureAuthenticated, async(req, res) => {
         res.status(500).send("Internal server error");
     }
 });
+
 router.post("/session", ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
@@ -113,22 +115,43 @@ router.get('/studySession', ensureAuthenticated, async (req, res) => {
         res.status(500).send("Internal server error");
     }
 });
-
+//Adds additional Percentage to a user's knoweldge percentage after logging a session.
 router.post('/logSession', ensureAuthenticated, async (req, res) => {
-    console.log("HELLO");
     const { subject, duration, notes } = req.body;
     const email = req.user.email;
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
+
+    const user = await User.findOne({ email: email });
+    if (user) {
+        const additionalNumber = (duration / 5);
+        req.user.knowledgeAmount =  req.user.knowledgeAmount + additionalNumber;
+        await user.save();
+    }
+
     const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
+
+//loads the knowledge level for the profile page based on all sessions durations loaded up.
+router.get('/profile', ensureAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email });
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        res.render('profile', { user });
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
+});
+
 
 router.get('/studyLog', async (req, res) => {
     const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
-
 
 router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
     const { isPaused, timer } = req.body;
@@ -157,7 +180,5 @@ router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
         res.status(500).send("Internal server error");
     }
 });
-
-
 
 module.exports = router;

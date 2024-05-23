@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <span class="mx-auto">Study Session</span>
+        <!-- <span class="mx-auto">Study Session</span> -->
     </div>
 </nav>
 
@@ -25,11 +25,12 @@
         </div>
         <br>
         <br>
-        <button id="startStopBtn" onclick="startStop()">Start</button>
-        <button onclick="resetTimer()">Reset</button>
+        <button id="startStopBtn" class="btn-timer" onclick="startStop()">Start</button>
+        <button class="btn-timer" onclick="resetTimer()">Reset</button>
     </div>
 
-    <form action="/study/logSession" method="POST">
+    <form action="/study/logSession" method="POST" class="study-log-form mt-5">
+        <h2 class="text-center mb-4">Log Your Session</h2>
         <div class="form-group">
             <label for="subject">Subject</label>
             <input type="text" name="subject" class="form-control" placeholder="Enter your Subject" required>
@@ -40,10 +41,10 @@
         </div>
         <div class="form-group">
             <label for="notes">Notes</label>
-            <input type="text" name="notes" class="form-control" placeholder="Write some notes" required>
+            <textarea name="notes" class="form-control" placeholder="Write some notes" rows="4" required></textarea>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Log Study Session</button>
+        <button type="submit" class="btn btn-primary w-100">Log Study Session</button>
     </form>
 </div>
 
