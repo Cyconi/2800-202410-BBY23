@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     resetPassword: {type: String, unique: false, required: false},
-    resetPasswordDate: {type: Date, unique: false, required: false}
+    resetPasswordDate: {type: Date, unique: false, required: false},
+    interpersonalAmount: {type: Number, unique: false, required: true, default: 0},
+    interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]}
 });
 
 const User = mongoose.model('User', userSchema);

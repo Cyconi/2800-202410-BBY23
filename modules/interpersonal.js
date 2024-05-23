@@ -23,7 +23,24 @@ function ensureAuthenticated(req, res, next) {
 router.get('/', (req, res) => {
     res.render('interpersonal');
 });
-router.get('/select-scenario', (req, res) => {
+
+router.post('/completed', async (req, res) => {
+    try{
+        const {scenarioID} = req.body;
+        console.log(scenarioID);
+        let index = scenarioID - 1;
+        if(req.user.interpersonalCompleted[index] !== 1){
+            req.user.interpersonalCompleted[index] = 1;
+            req.user.interpersonalAmount += 25;
+            await req.user.save();
+        }
+        res.json({success: true});
+    } catch (error){
+        res.json({success: false, message: error.message});
+    }
+});
+
+router.get('/select-scenario', ensureAuthenticated, (req, res) => {
     const scenarioFiles = [
         'scenario1.json',
         'scenario2.json',

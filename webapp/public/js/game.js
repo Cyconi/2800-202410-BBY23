@@ -1,6 +1,6 @@
 let currentQuestionIndex = -1;
 let scenario = null;
-
+let scenarioID = null;
 document.addEventListener('DOMContentLoaded', () => {
     const narratorDiv = document.getElementById('narrator');
     const questionDiv = document.getElementById('question');
@@ -18,12 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 scenario = data.scenarios[0];
+                scenarioID = scenario.id;
                 showIntroduction();
             })
             .catch(error => console.error('Error fetching scenario:', error));
     }
 
     function showIntroduction() {
+        console.log(scenarioID);
         if (scenario.narrator) {
             narratorDiv.textContent = scenario.narrator;
             questionDiv.classList.add('hidden');
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             continueButton.classList.remove('hidden');
             continueButton.onclick = nextQuestion;
         } else {
+            console.log(scenarioID);
             nextQuestion();
         }
     }
@@ -88,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = `${progress}%`;
             progressBar.setAttribute('aria-valuenow', progress);
         } else {
+            console.log(scenarioID);
             showCompletionModal();
         }
     }
@@ -112,11 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function nextQuestion() {
+        console.log(scenarioID);
         currentQuestionIndex++;
         showQuestion();
     }
 
     function showCompletionModal() {
+        console.log(scenarioID);
+        fetch('/interpersonal/completed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ scenarioID: scenarioID })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Scenario completion status updated');
+            } else {
+                console.error('Failed to update scenario completion status');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating scenario completion status:', error);
+        });
         completionImage.innerHTML = '<img src="img/success-icon.png" alt="Completion Image" class="img-fluid">';
         completionModal.show();
         document.getElementById('profileButton').onclick = () => window.location.href = '/home1';
