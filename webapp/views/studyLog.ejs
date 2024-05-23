@@ -1,35 +1,7 @@
 <%- include("template/header") %>
-<link rel="stylesheet" href="css/studyLog.css">
 
-<style>
-    body {
-       font-family: 'Arial', sans-serif;
-       background: url('img/stars.png') no-repeat center center fixed;
-       background-size: cover;
-       margin: 0;
-       padding: 0;
-       position: relative;
-       overflow: hidden; /* Ensure the pseudo-element covers the entire viewport */
-   }
-   
-   body::before {
-       content: "";
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: rgba(255, 255, 255, 0.5); /* Semi-transparent white overlay */
-       z-index: -1;
-       pointer-events: none; /* Ensure the pseudo-element does not interfere with any interactions */
-   }
-   
-   .container {
-       position: relative; /* Ensure the container is positioned relative to the pseudo-element */
-       z-index: 1;
-   }
-   
-   </style>
+<link rel="stylesheet" href="css/background.css">
+<link rel="stylesheet" href="css/studyLog.css">
 
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
