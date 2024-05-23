@@ -1,9 +1,9 @@
 <%- include('template/header', { title: 'Select Scenario' }) %>
-
+<link rel="stylesheet" href="css/background.css">
 <link rel="stylesheet" href="css/scenarioSelect.css">
 
 <div class="container mt-4">
-  <h1>Select Scenario</h1>
+  <h1 class="text-center">Select Scenario</h1>
   <div class="row">
     <% scenarios.forEach(scenario => { %>
       <%- include('template/scenarioCard', {
