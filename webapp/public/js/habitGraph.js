@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ goodOrBad: goodOrBad, timeRange }) 
+                body: JSON.stringify({ goodOrBad: true, timeRange }) 
             });
             const data = await response.json();
 
@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log('Received data:', data);
 
                 const labels = [];
-                const currentDate = new Date();
                 for (let i = 0; i < data.frequencyRatios.length; i++) {
                     labels.push(`Day ${i + 1}`);
                 }

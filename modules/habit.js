@@ -27,23 +27,24 @@ router.post('/addFrequency', async (req, res) => {
         if (habit) {
             const now = new Date();
             const habitStartDate = new Date(habit.whenMade);
-            const intervalDifference = Math.floor((now - habitStartDate) / (1000 * 20));
+            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
+            const intervalDifference = daysSinceStart;
 
             while (habit.frequency.length <= intervalDifference) {
                 habit.frequency.push(0);
             }
             habit.frequency[intervalDifference] = 1;
 
-            habit.whenToAsk = new Date(now.setSeconds(now.getSeconds() + 30));
+            habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
             await habit.save();
-          
         } else {
-            
+            // handle error
         }
     } catch (error) {
         res.json({ success: false, error: error.message });
     }
 });
+
 
 async function updateFrequency() {
     try {
@@ -52,7 +53,8 @@ async function updateFrequency() {
         habits.forEach(async habit => {
             const now = new Date();
             const habitStartDate = new Date(habit.whenMade);
-            const intervalDifference = Math.floor((now - habitStartDate) / (1000 * 20)); // Calculate difference in 20-second intervals
+            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
+            const intervalDifference = daysSinceStart;
 
             // Ensure the frequency array is long enough
             while (habit.frequency.length <= intervalDifference) {
@@ -71,8 +73,8 @@ async function updateFrequency() {
     }
 }
 
-// Schedule the task to run every 20 seconds
-cron.schedule('*/20 * * * * *', updateFrequency);
+// Schedule the task to run every 24 hours
+cron.schedule('0 0 * * *', updateFrequency);
 
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;
@@ -215,8 +217,10 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         const totalFrequencies = new Array(intervalCount).fill(0);
 
         habits.forEach(habit => {
-            const habitStartIndex = habit.frequency.length - intervalCount;
-            const habitEndIndex = habit.frequency.length - 1;
+            const habitStartDate = new Date(habit.whenMade);
+            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
+            const habitStartIndex = daysSinceStart - intervalCount + 1;
+            const habitEndIndex = daysSinceStart;
 
             console.log('habitStartIndex:', habitStartIndex);
             console.log('habitEndIndex:', habitEndIndex);
@@ -242,6 +246,7 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         res.json({ success: false, error: error.message });
     }
 });
+
 
 
 
