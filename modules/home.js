@@ -40,7 +40,7 @@ router.post('/forgot', async (req, res) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-        return res.status(404).json({ success: false, message: "Couldn't find a user with that email!" });
+        return res.status(404).req.json({ success: false, message: "Couldn't find a user with that email!" });
     }
 
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -100,22 +100,23 @@ router.post('/reset/:token', async (req, res) => {
     res.status(200).json({ success: true, message: "Password has been reset successfully" });
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).json({ success: false, message: "Internal server error" });
         }
         if (!user) {
-            return res.status(401).send(info.message);
+            return res.status(401).json({ success: false, message: info.message });
         }
         req.login(user, loginErr => {
             if (loginErr) {
-                return res.status(500).send('Error logging in');
+                return res.status(500).json({ success: false, message: 'Internal server error' });
             }
-            res.redirect('/home1');
+            return res.status(200).json({ success: true });
         });
     })(req, res, next);
 });
+
 
 router.post('/signup', async (req, res) => {
     const { username, name, email, password } = req.body;
