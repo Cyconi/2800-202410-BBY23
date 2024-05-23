@@ -18,7 +18,7 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     res.redirect('/');
-}
+};
 
 router.get('/', async (req, res) => {
     const queueCount = await WaitQueue.getQueueCount();
@@ -37,7 +37,10 @@ router.post('/join', ensureAuthenticated, async (req, res) => {
         userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
         await userExists.save();
     }
+    matchUsers();
 
+});
+async function matchUsers(req, res, next) {
     // After adding to the queue, try to match users
     const usersInQueue = await WaitQueue.find({ inQueue: true }).limit(2);
     if (usersInQueue.length === 2) {
@@ -49,12 +52,9 @@ router.post('/join', ensureAuthenticated, async (req, res) => {
         await chatRoom.save();
 
         res.redirect('/path-to-chat-room');
-    } else {
+    } else
         res.render('waitingRoom', { queueCount: queueCount });
-    }
-});
-
-
+};
 
 router.post('/leave', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
