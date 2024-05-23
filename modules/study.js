@@ -124,7 +124,7 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
 
     const user = await User.findOne({ email: email });
     if (user) {
-        const additionalNumber = (duration / 5) * 0.5;
+        const additionalNumber = (duration / 5);
         req.user.knowledgeAmount =  req.user.knowledgeAmount + additionalNumber;
         await user.save();
     }
