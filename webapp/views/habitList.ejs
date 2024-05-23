@@ -125,17 +125,18 @@
 </div>
 <% } %>
 
-<div>
-  <label for="timeRange">Select Time Range:</label>
-  <select id="timeRange">
+<div class="container mt-4">
+  <h2 class="text-center">Consistency Graph</h2>
+  <div class="text-center">
+    <select id="timeRange" class="form-select w-auto d-inline-block">
       <option value="week">Week</option>
       <option value="month">Month</option>
       <option value="year">Year</option>
-  </select>
-  <button id="updateGraphButton">Update Graph</button>
+    </select>
+    <button id="updateGraphButton" class="btn btn-primary">Update Graph</button>
+  </div>
+  <canvas id="habitGraph" width="400" height="200"></canvas>
 </div>
-<canvas id="habitGraph" width="400" height="200"></canvas>
-
 
 <!-- Delete Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalDelete">
@@ -189,6 +190,9 @@
   </div>
 </div>
 
+<script>
+  var goodOrBad = <%= good %>;
+</script>
 <script src="/js/habitC.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment"></script>

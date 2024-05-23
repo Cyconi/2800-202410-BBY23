@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require('./user');
 const Habit = require('./habitSchema');
+const cron = require('node-cron');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -19,23 +20,59 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
-router.post("/addFrequency", async (req, res) => {
+router.post('/addFrequency', async (req, res) => {
     const { habitID } = req.body;
     try {
         const habit = await Habit.findOne({ id: habitID });
         if (habit) {
-            const today = new Date();
-            const newFrequency = (habit.frequency.length > 0 ? habit.frequency[habit.frequency.length - 1] : 0) + 1;
-            habit.frequency.push(newFrequency);
-            habit.whenToAsk = new Date(today.setSeconds(today.getSeconds() + 30));
+            const now = new Date();
+            const habitStartDate = new Date(habit.whenMade);
+            const intervalDifference = Math.floor((now - habitStartDate) / (1000 * 20));
+
+            while (habit.frequency.length <= intervalDifference) {
+                habit.frequency.push(0);
+            }
+            habit.frequency[intervalDifference] = 1;
+
+            habit.whenToAsk = new Date(now.setSeconds(now.getSeconds() + 30));
             await habit.save();
-            
+          
         } else {
-           
+            
         }
     } catch (error) {
+        res.json({ success: false, error: error.message });
     }
 });
+
+async function updateFrequency() {
+    try {
+        const habits = await Habit.find();
+
+        habits.forEach(async habit => {
+            const now = new Date();
+            const habitStartDate = new Date(habit.whenMade);
+            const intervalDifference = Math.floor((now - habitStartDate) / (1000 * 20)); // Calculate difference in 20-second intervals
+
+            // Ensure the frequency array is long enough
+            while (habit.frequency.length <= intervalDifference) {
+                habit.frequency.push(0);
+            }
+
+            // Check if the last interval is 0, if not add 0
+            if (habit.frequency[intervalDifference] === 0) {
+                habit.frequency[intervalDifference] = 0;
+            }
+
+            await habit.save();
+        });
+    } catch (error) {
+        console.error('Error updating frequency:', error.message);
+    }
+}
+
+// Schedule the task to run every 20 seconds
+cron.schedule('*/20 * * * * *', updateFrequency);
 
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;
@@ -152,75 +189,60 @@ function normalizeText(text) {
     return text.trim().toLowerCase();
 }
 
-router.post('/getFrequencyRatios', async (req, res) => {
+router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
     try {
         const { goodOrBad, timeRange } = req.body;
         const now = new Date();
-        let start;
+        let intervalCount;
 
+        // Calculate the number of intervals based on the time range
         switch (timeRange) {
             case 'week':
-                start = new Date(now.getTime() - 7 * 30 * 1000); // 7 "days" ago
+                intervalCount = 7;
                 break;
             case 'month':
-                start = new Date(now.getTime() - 30 * 30 * 1000); // 30 "days" ago
+                intervalCount = 30;
                 break;
             case 'year':
-                start = new Date(now.getTime() - 365 * 30 * 1000); // 365 "days" ago
+                intervalCount = 365;
                 break;
             default:
                 return res.json({ success: false, error: 'Invalid time range' });
         }
 
         const habits = await Habit.find({ email: req.user.email, good: goodOrBad });
-        const timeDifference = now.getTime() - start.getTime();
-        const dayDifference = Math.floor(timeDifference / (30 * 1000)); // Number of 10-second intervals
-
-        let totalMaxFrequencies = new Array(dayDifference + 1).fill(0);
-        let totalFrequencies = new Array(dayDifference + 1).fill(0);
+        const totalMaxFrequencies = new Array(intervalCount).fill(0);
+        const totalFrequencies = new Array(intervalCount).fill(0);
 
         habits.forEach(habit => {
-            const habitStartDate = new Date(habit.whenMade);
-            const habitStartIndex = Math.floor((habitStartDate.getTime() - start.getTime()) / (30 * 1000));
-            const habitEndIndex = Math.min(dayDifference, Math.floor((now.getTime() - habitStartDate.getTime()) / (30 * 1000)));
+            const habitStartIndex = habit.frequency.length - intervalCount;
+            const habitEndIndex = habit.frequency.length - 1;
 
-            console.log("Habit start date: " + habitStartDate);
-            console.log("Habit start index: " + habitStartIndex);
-            console.log("Habit end index: " + habitEndIndex);
+            console.log('habitStartIndex:', habitStartIndex);
+            console.log('habitEndIndex:', habitEndIndex);
 
-            if (habit.frequency && habit.frequency.length > 0) {
-                for (let i = habitStartIndex; i <= habitEndIndex; i++) {
-                    const index = i - habitStartIndex;
-                    if (index < habit.frequency.length) {
-                        totalFrequencies[i] += habit.frequency[index];
-                    }
-                    totalMaxFrequencies[i] += 1; // Increment max frequencies correctly
+            for (let i = habitStartIndex; i <= habitEndIndex; i++) {
+                const index = i - habitStartIndex;
+                console.log("index = " + index);
+
+                if (index >= 0 && index < intervalCount) {
+                    console.log("habit.frequency[i]:", habit.frequency[i]);
+                    totalFrequencies[index] += habit.frequency[i];
+                    totalMaxFrequencies[index] += 1;
                 }
             }
         });
 
-        // Ensure max frequencies are cumulative and do not decrease
-        for (let i = 1; i <= dayDifference; i++) {
-            if (totalMaxFrequencies[i] < totalMaxFrequencies[i - 1]) {
-                totalMaxFrequencies[i] = totalMaxFrequencies[i - 1];
-            }
-        }
-
-        // Debugging logs
-        console.log("totalFrequencies:", totalFrequencies);
-        console.log("totalMaxFrequencies:", totalMaxFrequencies);
-
-        const frequencyRatios = totalFrequencies.map((frequency, i) => {
-            const ratio = totalMaxFrequencies[i] > 0 ? frequency / totalMaxFrequencies[i] : 0;
-            console.log(`Day ${i}: Frequency ${frequency}, Max Frequency ${totalMaxFrequencies[i]}, Ratio ${ratio}`);
-            return ratio;
-        });
-
-        res.json({ success: true, frequencyRatios, start, end: now });
+        const frequencyRatios = totalFrequencies.map((freq, index) => (totalMaxFrequencies[index] > 0 ? (freq / totalMaxFrequencies[index]) * 100 : 0));
+        console.log('frequencyRatios:', frequencyRatios);
+        console.log('totalMaxFrequencies:', totalMaxFrequencies);
+        console.log('totalFrequencies:', totalFrequencies);
+        res.json({ success: true, frequencyRatios });
     } catch (error) {
         res.json({ success: false, error: error.message });
     }
 });
+
 
 
 // Check for existing habit

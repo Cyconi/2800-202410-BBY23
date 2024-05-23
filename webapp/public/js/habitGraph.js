@@ -8,19 +8,57 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 label: 'Habit Frequency Ratios',
                 data: [],
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                fill: false
             }]
         },
         options: {
             scales: {
                 x: {
-                    type: 'time',
-                    time: {
-                        unit: 'day'
+                    title: {
+                        display: true,
+                        text: 'Days',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return `Day ${index + 1}`; // Label as Day 1, Day 2, etc.
+                        }
                     }
                 },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Consistency (%)',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%'; // Convert to percentage
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Consistency Graph',
+                    font: {
+                        size: 20
+                    }
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
                 }
             }
         }
@@ -34,16 +72,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ goodOrBad: true, timeRange }) 
+                body: JSON.stringify({ goodOrBad: goodOrBad, timeRange }) 
             });
             const data = await response.json();
 
             if (data.success) {
+                console.log('Received data:', data);
+
                 const labels = [];
-                const currentDate = new Date(data.start);
-                while (currentDate <= new Date(data.end)) {
-                    labels.push(new Date(currentDate));
-                    currentDate.setDate(currentDate.getDate() + 1);
+                const currentDate = new Date();
+                for (let i = 0; i < data.frequencyRatios.length; i++) {
+                    labels.push(`Day ${i + 1}`);
                 }
 
                 habitChart.data.labels = labels;
@@ -58,13 +97,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    // Attach event listener to the update button
     const updateButton = document.getElementById('updateGraphButton');
     if (updateButton) {
-        console.log('Button found:', updateButton);
         updateButton.addEventListener('click', updateGraph);
-        console.log('Event listener added');
     } else {
-        console.error('Button not found');
+        console.error('Update button not found');
     }
 });
