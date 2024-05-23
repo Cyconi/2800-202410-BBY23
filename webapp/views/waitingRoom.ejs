@@ -1,0 +1,41 @@
+<%- include("template/header") %>
+    
+<div class="container text-center">
+    <h1 id="queueHeader">Waiting In Queue... <span class="queueCount">
+            <%= queueCount %>
+        </span></h1>
+    <div class="row center-screen">
+        <div class="col-md-4">
+            <form action='/chat/join' method='POST'>
+                <button type="submit" class="btn btn-primary">Join Queue</button>
+            </form>
+            <br>
+            <form action='/chat/leave' method='POST'>
+                <button type="submit" class="btn btn-primary">Leave Queue</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // trigger the leave queue when page is unloaded. 
+    // Currantly theres an issue where leave/join causes the page to reload making this not function properly
+    // window.addEventListener('beforeunload', function () {
+    //         navigator.sendBeacon('/chat/leave');
+    //     });
+   function getQueue() {
+        fetch('/chat/updateQueue', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.queueCount').textContent = data.queueCount;
+                }
+            })
+            .catch(error => {
+                console.error('Error checking queue:', error);
+                setTimeout(getQueue, 5000);
+            });
+    }
+    setTimeout(getQueue, 1000);
+</script>
+<%- include("template/footer") %>
