@@ -64,20 +64,20 @@
                 <form action="/login" method="post">
                   <p>Please login to your account</p>
                   <div class="form-outline mb-4">
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required />
-                    <label class="form-label" for="username">Username</label>
+                      <input type="text" id="identifier" name="identifier" class="form-control" placeholder="Enter your username or email" required />
+                      <label class="form-label" for="identifier">Username or Email</label>
                   </div>
                   <div class="form-outline mb-4">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
-                    <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
+                      <label class="form-label" for="password">Password</label>
                   </div>
                   <div class="text-center pt-1 mb-1 pb-1">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
+                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
                   </div>
                   <div class="text-center mb-5">
-                    <a class="text-muted" href="javascript:void(0);" id="forgotPasswordLink">Forgot password?</a>
+                      <a class="text-muted" href="javascript:void(0);" id="forgotPasswordLink">Forgot password?</a>
                   </div>
-                </form>
+              </form>              
 
                 <div class="d-flex align-items-center justify-content-center pb-4">
                   <p class="mb-0 me-2">Don't have an account?</p>
@@ -99,29 +99,57 @@
     </div>
   </div>
 </section>
+<!--Enter email before forget Modal-->
+<div class="modal fade" id="enterEmailModal" tabindex="-1" aria-labelledby="enterEmailModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content rounded-4 shadow-lg">
+          <div class="modal-header">
+              <h5 class="modal-title" id="enterEmailModalLabel">Enter Email</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="enter-email-form">
+                  <div class="mb-3">
+                      <label for="enter-email" class="form-label">Email</label>
+                      <input type="email" id="enter-email" name="email" class="form-control" placeholder="Enter your email" required />
+                  </div>
+                  <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 
 <!-- Forgot Password Modal -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-4 shadow-lg"> 
-            <div class="modal-header">
-                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="forgot-password-form">
-                    <div class="mb-3"> 
-                        <label for="forgot-email" class="form-label">Email</label> 
-                        <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
-                    </div>
-                    <div class="d-flex justify-content-center"> 
+  <div class="modal-dialog">
+      <div class="modal-content rounded-4 shadow-lg"> 
+          <div class="modal-header">
+              <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="forgot-password-form" action="/forgot" method="post">
+                  <div class="mb-3"> 
+                      <label for="securityQuestion" class="form-label">Security Question</label> 
+                      <p id="securityQuestion"></p>
+                  </div>
+                  <div class="mb-3"> 
+                      <label for="forgot-security-answer" class="form-label">Security Answer</label> 
+                      <input type="text" id="forgot-security-answer" name="securityAnswer" class="form-control" placeholder="Enter your security answer" required />
+                  </div>
+                  <div class="d-flex justify-content-center"> 
                       <button type="submit" class="btn btn-primary mt-3">Submit</button>
                   </div>
-                </form>
-            </div>
-        </div>
-    </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </div>
+
+
 
 <!-- Email Sent Success Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
@@ -170,6 +198,14 @@
                       <label for="signup-password" class="form-label">Password</label>
                       <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
                   </div>
+                  <div class="mb-3">
+                      <label for="signup-security-question" class="form-label">Security Question (optional)</label>
+                      <input type="text" id="signup-security-question" name="securityQuestion" class="form-control" placeholder="Enter a security question" />
+                  </div>
+                  <div class="mb-3">
+                      <label for="signup-security-answer" class="form-label">Security Answer (optional)</label>
+                      <input type="text" id="signup-security-answer" name="securityAnswer" class="form-control" placeholder="Enter the answer" />
+                  </div>
                   <div class="d-flex justify-content-center"> <!-- Center align the button -->
                       <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
                   </div>
@@ -197,7 +233,7 @@
                       </div>
                   </li>
               </ul>
-              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton" data-bs-dismiss="modal">sorry daddy!</button>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton" data-bs-dismiss="modal">Try Again</button>
           </div>
       </div>
   </div>

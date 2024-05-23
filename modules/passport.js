@@ -4,16 +4,17 @@ const User = require('./user');
 
 module.exports = function (passport) {
     passport.use(new LocalStrategy(
-        { usernameField: 'username', passwordField: 'password' },
-        async (username, password, done) => {
+        { usernameField: 'identifier', passwordField: 'password' },  // Note the change to 'identifier'
+        async (identifier, password, done) => {
             try {
-                const user = await User.findOne({ username: username });
+                // Search for the user by either username or email
+                const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
                 if (!user) {
-                    return done(null, false, { message: 'username' });
+                    return done(null, false, { message: 'Invalid username or email' });
                 }
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (!isMatch) {
-                    return done(null, false, { message: 'password' });
+                    return done(null, false, { message: 'Incorrect password' });
                 }
                 return done(null, user);
             } catch (err) {
@@ -21,6 +22,7 @@ module.exports = function (passport) {
             }
         }
     ));
+    
 
     passport.serializeUser((user, done) => {
         done(null, user.id);
