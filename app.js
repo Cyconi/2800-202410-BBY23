@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 const User = require("./modules/user.js");
 const Timer = require('./modules/timerSchema.js');
-const Habit = require('./modules/user.js');
+const Habit = require('./modules/habitSchema');
 
 // EJS 
 app.set('view engine', 'ejs');
@@ -30,6 +30,13 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     res.redirect('/');
+}
+
+function ensureAuthNoRed(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.sendStatus(204);
 }
 // Session
 app.use(session({
@@ -76,6 +83,35 @@ app.post('/logout', (req, res) => {
         });
     });
 });
+
+app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
+    try {
+        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+        let notify = false;
+        if(req.user.lastCheckedNotification <= oneHourAgo){
+            const habits = await Habit.find({ email: req.user.email});
+            if (habits) {
+                for (const habit of habits) {
+                    if (habit.whenToAsk <= Date.now()) {
+                        notify = true;
+                        break;
+                    }
+                }
+            }
+            req.user.lastCheckedNotification = Date.now();
+            await req.user.save();
+        }
+        if (notify === true) {
+            res.json({ success: true, notify: true });
+        } else {
+            res.json({ success: true, notify: false });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false });
+    }
+});
+
 app.post('/calculate', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});

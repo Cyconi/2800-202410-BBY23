@@ -31,6 +31,41 @@ document.addEventListener('visibilitychange', () => {
 // Periodically check the timer every 30 seconds
 setInterval(checkTimer, 2000);
 
+
+function checkNotification(){
+    console.log("RAN IT");
+    fetch('/checkHabitNotification', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                console.log("success");
+                if(data.notify){
+                    console.log("notify");
+                    const modalElement = document.getElementById('timer');
+                    if (modalElement) {
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+
+                        modalElement.addEventListener('hidden.bs.modal', () => {
+                            const backdrop = document.querySelector('.modal-backdrop');
+                            if (backdrop) {
+                                backdrop.remove();
+                            }
+                        });
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            setTimeout(checkTimer, 3600000); 
+        });
+}
+
+checkNotification();
+
+setInterval(checkNotification, 3600000);
+
 document.addEventListener('DOMContentLoaded', function() {
     let forgotPasswordModalInstance;
     let successModalInstance;

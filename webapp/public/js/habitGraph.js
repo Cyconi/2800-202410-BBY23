@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 },
                 y: {
                     beginAtZero: true,
+                    min: 0,          // Set the minimum value for the Y-axis
+                    max: 100,        // Set the maximum value for the Y-axis
                     title: {
                         display: true,
                         text: 'Consistency (%)',

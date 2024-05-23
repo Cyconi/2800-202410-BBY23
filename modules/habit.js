@@ -37,8 +37,9 @@ router.post('/addFrequency', async (req, res) => {
 
             habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
             await habit.save();
+            res.sendStatus(204);
         } else {
-            // handle error
+            res.sendStatus(204);
         }
     } catch (error) {
         res.json({ success: false, error: error.message });
@@ -105,7 +106,7 @@ router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
             return res.render('habitQuestion', { habits: habitArray });
         }
     }
-    res.redirect('/home1');
+    res.sendStatus(204);
     } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");
@@ -142,6 +143,7 @@ router.get('/', (req, res) => {
 router.post('/goodHabit', async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
+        console.log(goodHabits.length);
         res.render('habitList', { habits: goodHabits, good: true });
     } catch (err) {
         res.status(500).send("Error retrieving good habits");
@@ -197,9 +199,9 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         const now = new Date();
         let intervalCount;
 
-        // Calculate the number of intervals based on the time range
         switch (timeRange) {
             case 'week':
+
                 intervalCount = 7;
                 break;
             case 'month':
@@ -221,18 +223,18 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
             const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
             const habitStartIndex = daysSinceStart - intervalCount + 1;
             const habitEndIndex = daysSinceStart;
-
-            console.log('habitStartIndex:', habitStartIndex);
-            console.log('habitEndIndex:', habitEndIndex);
-
+            let isExists = false;
             for (let i = habitStartIndex; i <= habitEndIndex; i++) {
                 const index = i - habitStartIndex;
-                console.log("index = " + index);
-
                 if (index >= 0 && index < intervalCount) {
-                    console.log("habit.frequency[i]:", habit.frequency[i]);
-                    totalFrequencies[index] += habit.frequency[i];
-                    totalMaxFrequencies[index] += 1;
+                    if(habit.frequency.length === 0 && !isExists){
+                        totalMaxFrequencies[totalMaxFrequencies.length - 1] += 1;
+                        isExists = true;
+                    }
+                    if(!isNaN(habit.frequency[i])){
+                        totalFrequencies[index] += habit.frequency[i];
+                        totalMaxFrequencies[index] += 1;
+                    }
                 }
             }
         });
