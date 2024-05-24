@@ -37,12 +37,12 @@
                         <div class="d-flex justify-content-between">
                             <form class="habit-form" style="display:inline;">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
-                                <button type="button" class="btn btn-success" onclick="submitForm(this)">👍</button>
+                                <button type="button" class="btn btn-success" onclick="submitForm(this, '/addFrequency')">👍</button>
                             </form>
                             <form class="habit-form" style="display:inline;">
                                 <input type="hidden" name="habitID" value="<%= habit.id %>">
-                                <button type="button" class="btn btn-danger" onclick="submitForm(this)">👎</button>
-                            </form>
+                                <button type="button" class="btn btn-danger" onclick="submitForm(this, '/habit/thumbsDown')">👎</button>
+                            </form>                            
                         </div>
                     </div>
                 </div>
