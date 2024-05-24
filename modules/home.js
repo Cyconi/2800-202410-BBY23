@@ -193,7 +193,7 @@ router.post('/getSecurityQuestion', async (req, res) => {
     if (user.securityQuestion) {
         return res.json({ success: true, question: user.securityQuestion });
     } else {
-        return res.status(400).json({ success: false, message: "No security question set for this user." });
+        return res.status(400).json({ success: true, message: "No security question set for this user." });
     }
 });
 
