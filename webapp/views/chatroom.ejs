@@ -3,12 +3,13 @@
     <link rel="stylesheet" href="css/chatroom.css">
 
     <form action='/chat/closeRoom' method='POST'>
-        <button type="submit" class="btn btn-primary">Leave Queue</button>
-        <h2 id="timer">Time Left: 3m 0s</h2>
+        <button type="submit" class="btn btn-danger">Leave</button>
+        <!-- <h2 id="timer">Time Left: 3m 0s</h2> -->
+        <div id="timer" type="submit" class="btn btn-dark">Time Left: 3m 0s</div>
     </form>
     <!-- <button id="addMinute" class="btn btn-primary">Add a Minute</button> -->
     <div class="container mt-4 alert alert-primary">
-        <h2 class="text-center">Chat Messages</h2>
+        <h2 class="text-center text-black">Chat Messages</h2>
 
         <div id="chat-messages" class="mt-4">
             <!-- Existing chat messages will go here -->

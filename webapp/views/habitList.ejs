@@ -44,7 +44,17 @@
 
 <% if (good) { %>
 <div class="container mt-4">
-  <h2 class="text-center"><span class="name"></span>'s<br> Good Habits</h2>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h2 class="text-center" style="margin: 10px;">
+          <span class="name"></span>'s<br> Good Habits
+        </h2>
+    </div>
+  </div>
+  <br>
+
+  <!-- <h2 class="text-center"><span class="name"></span>'s<br> Good Habits</h2> -->
   <div class="card alert alert-primary text-black boxAlert" role="alert">
     <div class="card-header">
       Habit List

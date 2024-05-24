@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showIntroduction() {
-        console.log(scenarioID);
         if (scenario.narrator) {
             narratorDiv.textContent = scenario.narrator;
             questionDiv.classList.add('hidden');
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             continueButton.classList.remove('hidden');
             continueButton.onclick = nextQuestion;
         } else {
-            console.log(scenarioID);
             nextQuestion();
         }
     }
@@ -95,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = `${progress}%`;
             progressBar.setAttribute('aria-valuenow', progress);
         } else {
-            console.log(scenarioID);
             showCompletionModal();
         }
     }
@@ -120,13 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function nextQuestion() {
-        console.log(scenarioID);
         currentQuestionIndex++;
         showQuestion();
     }
 
     function showCompletionModal() {
-        console.log(scenarioID);
         fetch('/interpersonal/completed', {
             method: 'POST',
             headers: {
@@ -137,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log('Scenario completion status updated');
             } else {
                 console.error('Failed to update scenario completion status');
             }

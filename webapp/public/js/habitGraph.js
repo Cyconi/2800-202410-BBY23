@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const data = await response.json();
 
             if (data.success) {
-                console.log('Received data:', data);
 
                 const labels = [];
                 for (let i = 0; i < data.frequencyRatios.length; i++) {

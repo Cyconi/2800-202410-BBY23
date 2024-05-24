@@ -27,7 +27,6 @@ function startStop() {
             // When timer is started for the first time
             countDownDate = new Date().getTime() + totalSeconds * 1000;
             isPaused = false;
-            console.log("Starting new timer for total seconds:", totalSeconds); // Debugging log
             fetch('/study/serverTimer', {
                 method: 'POST',
                 headers: {

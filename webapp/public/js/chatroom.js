@@ -12,9 +12,9 @@ function fetchMessages() {
             data.chatRoom.forEach(function (message) {
                 var messageElement = document.createElement('div');
                 if (data.email == message.email)
-                    messageElement.className = 'container lighter';
+                    messageElement.className = 'container lighter bg-primary text-white';
                 else
-                    messageElement.className = 'container darker';
+                    messageElement.className = 'container darker bg-dark text-white';
                 messageElement.innerHTML = `
                     <div><strong>${message.sender}</strong></div>
                     <div>
@@ -31,7 +31,6 @@ function fetchMessages() {
 function roomNotFound() {
     $.get('/chat/pullMsg', function (data) {
         if (!data.success) {
-            console.log("leaving chatroom...");
             window.location.href = data.redirectTo;
         }
     });

@@ -119,7 +119,6 @@ router.post('/deleteHabit', ensureAuthenticated, async (req, res) => {
     const isGood = habitGood === 'true';
     try {
         const result = await Habit.findOneAndDelete({ id: habitID });
-        console.log(result);
         req.user.numberOfHabits = req.user.numberOfHabits - 1;
         await req.user.save();
         res.json({ success: true, habit: result.habit });
@@ -141,7 +140,6 @@ router.get('/', (req, res) => {
 router.post('/goodHabit', async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
-        console.log(goodHabits.length);
         res.render('habitList', { habits: goodHabits, good: true });
     } catch (err) {
         res.status(500).send("Error retrieving good habits");
@@ -236,9 +234,6 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         });
 
         const frequencyRatios = totalFrequencies.map((freq, index) => (totalMaxFrequencies[index] > 0 ? (freq / totalMaxFrequencies[index]) * 100 : 0));
-        console.log('frequencyRatios:', frequencyRatios);
-        console.log('totalMaxFrequencies:', totalMaxFrequencies);
-        console.log('totalFrequencies:', totalFrequencies);
         res.json({ success: true, frequencyRatios });
     } catch (error) {
         res.json({ success: false, error: error.message });

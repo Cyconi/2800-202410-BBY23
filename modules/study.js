@@ -189,7 +189,6 @@ cron.schedule('0 * * * *', async () => {
         elevenDaysAgo.setDate(elevenDaysAgo.getDate() - 11);
         
         await StudySession.deleteMany({ date: { $lt: elevenDaysAgo } });
-        console.log('Old study sessions deleted');
     } catch (error) {
         console.error('Error deleting old study sessions:', error);
     }
