@@ -86,7 +86,7 @@ app.post('/logout', (req, res) => {
 
 app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     try {
-        const oneHourAgo = new Date(Date.now() - 1000);
+        const oneHourAgo = new Date(Date.now() - 3600000);
         let notify = false;
         if(req.user.lastCheckedNotification <= oneHourAgo){
             const habits = await Habit.find({ email: req.user.email});
