@@ -116,8 +116,6 @@ app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
     try {
         const faqItem = req.body.faqItem;
         if(req.user.faqUsed[faqItem] === 0){
-            req.user.faqUsed[faqItem] = 1;
-            await req.user.save();
             return res.json({success: true});
         } 
         res.json({success:false});
@@ -126,7 +124,16 @@ app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
         res.json({ success: false });
     }
 });
-
+app.post('/updateFAQ', async (req, res)=> {
+    try{
+        const faqItem = req.body.faqItem;
+        req.user.faqUsed[faqItem] = 1;
+        await req.user.save();
+        return res.json({success: true});
+    } catch (error){
+        res.json({success: false});
+    }
+});
 app.post('/calculate', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});

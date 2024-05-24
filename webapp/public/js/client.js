@@ -294,6 +294,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 faqButton.style.display = 'block';
             }
             faqButton.addEventListener('click', function() {
+                fetch('/updateFAQ', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ faqItem })
+                }).catch(error => {
+                    console.log(error.message);
+                });
+                const spanElement = faqButton.querySelector('span');
+                spanElement.style.color = '#000000';
                 const faqModal = new bootstrap.Modal(modalFAQ);
                 faqModal.show();
             });
