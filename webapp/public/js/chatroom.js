@@ -12,9 +12,9 @@ function fetchMessages() {
             data.chatRoom.forEach(function (message) {
                 var messageElement = document.createElement('div');
                 if (data.email == message.email)
-                    messageElement.className = 'container lighter';
+                    messageElement.className = 'container lighter bg-info text-white';
                 else
-                    messageElement.className = 'container darker';
+                    messageElement.className = 'container darker bg-dark text-white';
                 messageElement.innerHTML = `
                     <div><strong>${message.sender}</strong></div>
                     <div>
