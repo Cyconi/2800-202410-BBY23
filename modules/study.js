@@ -125,13 +125,11 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     }
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
-
-    const user = await User.findOne({ email: email });
-    if (user) {
+    
         const additionalNumber = (duration / 5);
         req.user.knowledgeAmount =  req.user.knowledgeAmount + additionalNumber;
-        await user.save();
-    }
+        await req.user.save();
+    
 
     const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
     return res.json({success: true});
