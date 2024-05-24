@@ -1,26 +1,99 @@
 <%- include("template/header") %>
+    <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="css/chatroom.css">
+
     <form action='/chat/closeRoom' method='POST'>
         <button type="submit" class="btn btn-primary">Leave Queue</button>
         <h2 id="timer">Time Left: 3m 0s</h2>
     </form>
     <!-- <button id="addMinute" class="btn btn-primary">Add a Minute</button> -->
-    <div class="container mt-4">
+    <div class="container mt-4 alert alert-primary">
         <h2 class="text-center">Chat Messages</h2>
 
         <div id="chat-messages" class="mt-4">
             <!-- Existing chat messages will go here -->
         </div>
-        <form id="message-form">
-            <div class="input-group">
-                <input type="text" id="message-input" class="form-control" placeholder="Type a message...">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Send</button>
+
+    </div>
+    <!-- Break for footer -->
+    <br><br><br>
+    <form id="message-form" class="fixed-bottom">
+        <div class="input-group">
+            <input type="text" id="message-input" class="form-control" placeholder="Type a message...">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Timer popup Modal -->
+    <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="timer">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-body p-5">
+                    <h2 class="fw-bold mb-0">Times Up!</h2>
+                    <ul class="d-grid gap-4 my-5 list-unstyled small">
+                        <li class="d-flex gap-4">
+                            <img src="/img/success-icon.png" alt="Icon" width="48" height="48"
+                                class="text-body-secondary flex-shrink-0">
+                            <div>
+                                <h5 class="mb-0">Break time! Take a 5-minute break.</h5>
+                                <br>
+                                <div class="timer-container">
+                                    <div class="timer-display" id="break">0h 5m 0s</div>
+                                    <div class="timer-section">
+                                        <div class="text-display">hr</div>
+                                        <input type="number" id="breakHoursInput" placeholder="H" min="0" max="23"
+                                            value="0">
+                                    </div>
+                                    <div class="timer-section">
+                                        <div class="text-display">min</div>
+                                        <input type="number" id="breakMinutesInput" placeholder="M" min="0" max="59"
+                                            value="5">
+                                    </div>
+                                    <div class="timer-section">
+                                        <div class="text-display">sec</div>
+                                        <input type="number" id="breakSecondsInput" placeholder="S" min="0" max="59"
+                                            value="0">
+                                    </div>
+                                    <br><br>
+                                    <button id="breakStartStopBtn" class="btn-timer"
+                                        onclick="breakStartStop()">Start</button>
+                                    <button class="btn-timer" onclick="breakResetTimer()">Reset</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great,
+                        thanks!</button>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    Might note need -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Non min version -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.js"></script>
+
+    <script src="/js/client.js"></script>
+    <script src="/js/breakTimer.js"></script>
+
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/chatroom.js"></script>
+    </body>
 
-    <%- include("template/footer") %>
+    </html>

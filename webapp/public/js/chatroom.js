@@ -12,7 +12,7 @@ function fetchMessages() {
             data.chatRoom.forEach(function (message) {
                 var messageElement = document.createElement('div');
                 if (data.email == message.email)
-                    messageElement.className = 'container';
+                    messageElement.className = 'container lighter';
                 else
                     messageElement.className = 'container darker';
                 messageElement.innerHTML = `
@@ -93,7 +93,7 @@ function countdown() {
         timerElement.textContent = 'Time Left: 0m 0s';
         // Add a 3 second delay before submitting the form
         setTimeout(function () {
-            document.querySelector("form[action='/chat/closeRoom']").submit();
+            //document.querySelector("form[action='/chat/closeRoom']").submit();
         }, 3000);
     } else {
         timeLeft--;
