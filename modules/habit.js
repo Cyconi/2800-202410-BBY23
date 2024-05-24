@@ -199,13 +199,13 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         switch (timeRange) {
             case 'week':
 
-                intervalCount = 7;
+                intervalCount = 8;
                 break;
             case 'month':
-                intervalCount = 30;
+                intervalCount = 31;
                 break;
             case 'year':
-                intervalCount = 365;
+                intervalCount = 366;
                 break;
             default:
                 return res.json({ success: false, error: 'Invalid time range' });
@@ -216,10 +216,8 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         const totalFrequencies = new Array(intervalCount).fill(0);
 
         habits.forEach(habit => {
-            const habitStartDate = new Date(habit.whenMade);
-            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
-            const habitStartIndex = daysSinceStart - intervalCount + 1;
-            const habitEndIndex = daysSinceStart;
+            const habitStartIndex = habit.frequency.length - intervalCount;
+            const habitEndIndex = habit.frequency.length - 1;
             let isExists = false;
             for (let i = habitStartIndex; i <= habitEndIndex; i++) {
                 const index = i - habitStartIndex;
