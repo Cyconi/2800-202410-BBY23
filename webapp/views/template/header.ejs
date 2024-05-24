@@ -27,18 +27,19 @@
 }
 </style>
 <body>
-    <nav class="navbar fixed-top">
+    <nav class="navbar fixed-top" style="pointer-events: none;">
         <div class="container-fluid d-flex justify-content-between">
             <a class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                 aria-controls="offcanvasExample">
-                <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
+                <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top" style="pointer-events: auto;">>
             </a>
-            <a class="mx-auto" role="button" id="faqButton">
+            <a class="mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
                 <!-- <img src="/img/q_mark.png" alt="FAQ" width="24" height="24" class="d-inline-block align-text-top"> -->
                 <span class="material-symbols-outlined d-inline-block align-text-to" width="24" height="24">help</span>
             </a>
-            <a role="button" onclick="goBack()">
-                <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top">
+            <a role="button" onclick="goBack()" style="pointer-events: auto;">
+                <!-- <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top"> -->
+                <span class="material-symbols-outlined" width="24" height="24">arrow_circle_left</span>
             </a>
         </div>
     </nav>
