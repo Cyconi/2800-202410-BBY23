@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 },
                 y: {
                     beginAtZero: true,
+                    min: 0,
+                    max: 100,
                     title: {
                         display: true,
                         text: 'Consistency (%)',
@@ -40,7 +42,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     ticks: {
                         callback: function(value) {
                             return value + '%'; // Convert to percentage
-                        }
+                        },
+                        reverse: true // Make y-axis go from 100% to 0%
                     }
                 }
             },

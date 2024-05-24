@@ -5,7 +5,6 @@ const passport = require("passport");
 const User = require('./user');
 const Habit = require('./habitSchema');
 const cron = require('node-cron');
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -74,8 +73,10 @@ async function updateFrequency() {
     }
 }
 
-// Schedule the task to run every 24 hours
-cron.schedule('0 0 * * *', updateFrequency);
+const clientTimeZone = 'America/Los_Angeles';
+cron.schedule('0 0 * * *', updateFrequency, {
+    timezone: clientTimeZone
+});
 
 router.post('/editHabit', async (req, res) => {
     const { habitID, habit, question, habitGood } = req.body;

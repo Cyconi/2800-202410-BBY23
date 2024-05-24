@@ -120,6 +120,9 @@ router.get('/studySession', ensureAuthenticated, async (req, res) => {
 router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const { subject, duration, notes } = req.body;
     const email = req.user.email;
+    if(duration < 0){
+        return res.json({success: false, message: "You entered a negative time, are you Chronos?"});
+    }
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
 
@@ -131,7 +134,7 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     }
 
     const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
-    res.render('studyLog', { sessions });
+    return res.json({success: true});
 });
 
 //loads the knowledge level for the profile page based on all sessions durations loaded up.
@@ -182,13 +185,11 @@ router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
     }
 });
 
-// Scheduled task to delete old study sessions every hour
 cron.schedule('0 * * * *', async () => {
     try {
         const elevenDaysAgo = new Date();
         elevenDaysAgo.setDate(elevenDaysAgo.getDate() - 11);
         
-        // Delete sessions older than 11 days
         await StudySession.deleteMany({ date: { $lt: elevenDaysAgo } });
         console.log('Old study sessions deleted');
     } catch (error) {
