@@ -1,69 +1,138 @@
 <%- include("template/header") %>
-<style>
-    body {
-        margin: 0 auto;
-        max-width: 800px;
-        padding: 0 20px;
-    }
+    <style>
+        body {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
 
-    .container {
-        border: 2px solid #dedede;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 5px 10px;
-        margin: 10px 0;
-    }
+        .container {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 10px 0;
+        }
 
-    .darker {
-        border-color: #ccc;
-        background-color: #ddd;
-    }
+        .darker {
+            border-color: #ccc;
+            background-color: #ddd;
+        }
 
-    .container::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
 
-    .time-right {
-        float: right;
-        color: #aaa;
-    }
-</style>
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+    </style>
 
-<h2>Chat Messages</h2>
-
-<div class="container">
-    <div><strong>User1</strong></div>
-    <div>
-        Hey!
-        <span class="time-right">11:00</span>
-    </div>
-</div>
-
-<div class="container darker">
-    <div><strong>User2</strong></div>
-    <div>
-        Hey! I'm fine. Thanks for asking!
-        <span class="time-right">11:01</span>
-    </div>
-</div>
-
-<div class="container">
-    <div><strong>User1</strong></div>
-    <div>
-        Sweet! So, what do you wanna do today?
-        <span class="time-right">11:02</span>
+    <h2>Chat Messages</h2>
+<form action='/chat/leaveRoom' method='POST'>
+    <button type="submit" class="btn btn-primary">Leave Queue</button>
+</form>
+    <div class="container">
+        <div><strong>User1</strong></div>
+        <div>
+            Hey!
+            <span class="time-right">11:00</span>
+        </div>
     </div>
 
-</div>
-
-<div class="container darker">
-    <div><strong>User2</strong></div>
-    <div>
-        Nah, I dunno. Play soccer.. or learn more coding perhaps?
-        <span class="time-right">11:05</span>
+    <div class="container darker">
+        <div><strong>User2</strong></div>
+        <div>
+            Hey! I'm fine. Thanks for asking!
+            <span class="time-right">11:01</span>
+        </div>
     </div>
-</div>
 
-<%- include("template/footer") %>
+    <div id="chat-messages">
+        <!-- Existing chat messages will go here -->
+    </div>
+
+    <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Fetch the chat messages when the page loads
+        function fetchMessages() {
+            $.get('/chat/pullMsg', function (data) {
+                var chatMessages = document.getElementById('chat-messages');
+                // Clear the chat messages
+                chatMessages.innerHTML = '';
+                if (data.success && data.chatRoom) {
+                    data.chatRoom.forEach(function (message) {
+                        var messageElement = document.createElement('div');
+                        messageElement.className = 'container darker';
+                        messageElement.innerHTML = `
+                    <div><strong>${message.sender}</strong></div>
+                    <div>
+                        ${message.message}
+                        <span class="time-right">${new Date(message.timestamp).toLocaleTimeString()}</span>
+                    </div>`;
+                        chatMessages.appendChild(messageElement);
+                    });
+                } else {
+                    leaveRoom();
+                }
+            });
+        }
+        function leaveRoom() {
+                $.get('/chat/pullMsg', function (data) {
+                    if (!data.success) {
+                        console.log("leaving chatroom...");
+                        window.location.href = data.redirectTo;
+                    }
+                });
+            }
+
+        $(document).ready(function () {
+            fetchMessages(); // Fetch messages when the page loads
+            setInterval(fetchMessages, 2000); // Fetch messages every 5 seconds
+            //setInterval(leaveRoom, 2000); // removes user from chat room if it no long exists
+        });
+
+        // Send a new message when the form is submitted
+        document.getElementById('message-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            var messageInput = document.getElementById('message-input');
+            var msg = messageInput.value;
+
+            if (msg) {
+                // TODO: Send the message to the server
+                fetch('/chat/pushMsg',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: msg
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            fetchMessages();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error sending msg to server:', error);
+                    });
+
+                // Clear the input field
+                messageInput.value = '';
+            }
+        });
+    </script>
+
+    <%- include("template/footer") %>
