@@ -6,7 +6,7 @@ const User = require('./user');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const Timer = require('./timerSchema');
-
+const LEVELUPREQUIREMENT = 100;
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -31,7 +31,21 @@ router.get('/home1', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
-    res.render('home1', { user: req.user });
+    let level = 1;
+    let leveledUp = 0;
+    if(req.user.knowledgeAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(req.user.interpersonalAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(req.user.habitAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(leveledUp >= 2){
+        level = 2;
+    }
+    res.render('home1', { user: req.user, level: level });
 });
 
 

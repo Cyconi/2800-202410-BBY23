@@ -1,3 +1,70 @@
+function checkTimer() {
+    fetch('/calculate', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const modalElement = document.getElementById('timer');
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+
+                    modalElement.addEventListener('hidden.bs.modal', () => {
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                    });
+                }
+            }
+        })
+        .catch(error => {
+            setTimeout(checkTimer, 180000); // Retry after 3 minutes if there's an error
+        });
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' || document.visibilityState === 'visible') {
+        checkTimer();
+    }
+});
+
+// Periodically check the timer every 30 seconds
+setInterval(checkTimer, 2000);
+
+
+function checkNotification() {
+    console.log("RAN IT");
+    fetch('/checkHabitNotification', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                console.log("success");
+                if(data.notify){
+                    const notificationArea = document.getElementById('notification-area');
+                    const closeNotification = document.getElementById('close-notification');
+                    const explIcon = document.getElementById('expl-icon');
+                    if (notificationArea) {
+                        notificationArea.style.display = "block";
+                        closeNotification.addEventListener('click', function() {
+                            notificationArea.style.display = "none";
+                        });
+                    }
+                    if (explIcon) {
+                        explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            setTimeout(checkNotification, 3600000); 
+        });
+}
+
+checkNotification();
+setInterval(checkNotification, 3600000);
+
+
 document.addEventListener('DOMContentLoaded', function() {
     let enterEmailModalInstance;
     let forgotPasswordModalInstance;

@@ -26,19 +26,16 @@ router.post('/addFrequency', async (req, res) => {
         if (habit) {
             const now = new Date();
             const habitStartDate = new Date(habit.whenMade);
-            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
-            const intervalDifference = daysSinceStart;
-
-            while (habit.frequency.length <= intervalDifference) {
-                habit.frequency.push(0);
-            }
-            habit.frequency[intervalDifference] = 1;
+            
+            habit.frequency.push(1);
 
             habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
             await habit.save();
+            req.user.habitAmount += 5;
+            await req.user.save();
             res.sendStatus(204);
         } else {
-            // handle error
+            res.sendStatus(204);
         }
     } catch (error) {
         res.json({ success: false, error: error.message });
@@ -107,7 +104,7 @@ router.get('/habitQuestion', ensureAuthenticated, async (req, res) =>{
             return res.render('habitQuestion', { habits: habitArray });
         }
     }
-    res.redirect('/home1');
+    res.sendStatus(204);
     } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");
@@ -144,6 +141,7 @@ router.get('/', (req, res) => {
 router.post('/goodHabit', async (req, res) => {
     try {
         const goodHabits = await Habit.find({ email: req.user.email, good: true });
+        console.log(goodHabits.length);
         res.render('habitList', { habits: goodHabits, good: true });
     } catch (err) {
         res.status(500).send("Error retrieving good habits");
@@ -199,16 +197,16 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         const now = new Date();
         let intervalCount;
 
-        // Calculate the number of intervals based on the time range
         switch (timeRange) {
             case 'week':
-                intervalCount = 7;
+
+                intervalCount = 8;
                 break;
             case 'month':
-                intervalCount = 30;
+                intervalCount = 31;
                 break;
             case 'year':
-                intervalCount = 365;
+                intervalCount = 366;
                 break;
             default:
                 return res.json({ success: false, error: 'Invalid time range' });
@@ -219,22 +217,20 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
         const totalFrequencies = new Array(intervalCount).fill(0);
 
         habits.forEach(habit => {
-            const habitStartDate = new Date(habit.whenMade);
-            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
-            const habitStartIndex = daysSinceStart - intervalCount + 1;
-            const habitEndIndex = daysSinceStart;
-
-            console.log('habitStartIndex:', habitStartIndex);
-            console.log('habitEndIndex:', habitEndIndex);
-
+            const habitStartIndex = habit.frequency.length - intervalCount;
+            const habitEndIndex = habit.frequency.length - 1;
+            let isExists = false;
             for (let i = habitStartIndex; i <= habitEndIndex; i++) {
                 const index = i - habitStartIndex;
-                console.log("index = " + index);
-
                 if (index >= 0 && index < intervalCount) {
-                    console.log("habit.frequency[i]:", habit.frequency[i]);
-                    totalFrequencies[index] += habit.frequency[i];
-                    totalMaxFrequencies[index] += 1;
+                    if(habit.frequency.length === 0 && !isExists){
+                        totalMaxFrequencies[totalMaxFrequencies.length - 1] += 1;
+                        isExists = true;
+                    }
+                    if(!isNaN(habit.frequency[i])){
+                        totalFrequencies[index] += habit.frequency[i];
+                        totalMaxFrequencies[index] += 1;
+                    }
                 }
             }
         });
