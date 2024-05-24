@@ -35,9 +35,8 @@
                 aria-controls="offcanvasExample">
                 <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top" style="pointer-events: auto;">
             </a>
-            <a class="mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
-                <!-- <img src="/img/q_mark.png" alt="FAQ" width="24" height="24" class="d-inline-block align-text-top"> -->
-                <span class="material-symbols-outlined d-inline-block align-text-to" width="24" height="24">help</span>
+            <a class="mx-auto" role="button" id="faqButton" style="display: none; pointer-events: auto;">
+                <span class="material-symbols-outlined d-inline-block align-text-top" width="24" height="24">help</span>
             </a>
             <a role="button" onclick="goBack()" style="pointer-events: auto;">
                 <!-- <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top"> -->
@@ -99,7 +98,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(to right, #28a745 50%, #17a2b8 50%);
+        background: linear-gradient(to right, #00c99e 50%, #186fc6 50%);
     }
     .side {
         display: flex;
@@ -146,5 +145,47 @@
         </div>
     </div>
 </div>
+
+<div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-body p-5">
+        <h2 class="fw-bold mb-0">Learn about the Habit Tracker</h2>
+          <ul class="d-grid gap-4 my-5 list-unstyled small">
+            <li class="d-flex gap-4">
+
+              <div>
+                <h5 class="mb-0">How to Start</h5>
+                <ul>
+                <li>Are you trying to form a new habit? Log it in the Good Habits.</li>
+               <li>Are you breaking negative old habits? Log it in the Bad Habits.</li>
+              </ul>
+              </div>
+            </li>
+            <li class="d-flex gap-4">
+
+              <div>
+                <h5 class="mb-0">Consistency</h5>
+                <ul>
+                <li>The key to really seeing your progress is being consistent with your entries through the MCQ's</li>
+                <li>Make sure to add well worded questions for your habits so you can answer well and your graph will be more accurate.</li>
+                </ul>
+              </div>
+            </li>
+            <li class="d-flex gap-4">
+
+              <div>
+                <h5 class="mb-0">Self Honesty</h5>
+                <ul>
+                  <li>Answer the MCQ honestly to ensure precise results for the habits you're tracking.</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <%- include("template/footer") %>
