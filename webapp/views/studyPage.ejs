@@ -5,10 +5,10 @@
     
 
 <style>
-  .card-body {
+  .studycard {
       display: none;
   }
-  .card.expanded .card-body {
+  .card.expanded .studycard {
       display: block;
   }
   .card-header {
@@ -17,7 +17,15 @@
 </style>
 
 <div class="container text-center">
-  <h1>Study Page</h1>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h1 class="text-center" style="margin: 10px;">
+          Study Page
+        </h1>
+    </div>
+  </div>
+
   <div class="row center-screen">
       <!-- Study Guides Card -->
       <div class="col-md-4 mb-4">
@@ -26,7 +34,7 @@
                   <img src="/img/studyGuide.png" alt="Study Guides image" class="card-image" />
                   <h5 class="card-title">Study Guides</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Access guides to enhance your study sessions and make your time more efficient.</p>
                   <form action="/study/guides" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">Open Study Guides</button>
@@ -41,7 +49,7 @@
                   <img src="/img/studySession.png" alt="Study Session image" class="card-image" />
                   <h5 class="card-title">Study Session</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Start a focused study session with a timer and break intervals.</p>
                   <form action="/study/session" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">Start Study Session</button>
@@ -56,7 +64,7 @@
                   <img src="/img/studyLog.png" alt="Study Log image" class="card-image" />
                   <h5 class="card-title">Study Log</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">View and analyze your past study sessions and track your progress.</p>
                   <form action="/study/log" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">View Study Log</button>

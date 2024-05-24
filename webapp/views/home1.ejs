@@ -53,7 +53,16 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-12">
-            <h1><%= user.username %></h1>
+
+            <div style="display: flex; justify-content: center;">
+                <div class="card bg-dark text-white" style="display: inline-block;">
+                    <h4 class="text-center" style="margin: 10px;">
+                        <%= user.username %>
+                    </h4>
+                </div>
+              </div>
+
+            <!-- <h1><%= user.username %></h1> -->
             <img src="/img/avatar2.png" alt="User Avatar" class="img-fluid"> 
         </div>
     </div>

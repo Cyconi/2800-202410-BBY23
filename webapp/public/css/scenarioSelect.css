@@ -14,8 +14,7 @@ body {
 }
 
 h1 {
-    color: var(--text-color);
-    margin-bottom: 20px;
+    color: white;
 }
 
 /* Card Styles */
@@ -44,14 +43,14 @@ h1 {
     margin-bottom: 10px;
 }
 
-.card-body {
+.studycard {
     padding: 20px;
     display: none;
     text-align: center;
     font-size: var(--button-font-size);
 }
 
-.card-body p {
+.studycard p {
     margin: 0;
     margin-bottom: 10px;
     text-align: center;

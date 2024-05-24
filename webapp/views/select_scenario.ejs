@@ -3,7 +3,17 @@
 <link rel="stylesheet" href="css/scenarioSelect.css">
 
 <div class="container mt-4">
-  <h1 class="text-center">Select Scenario</h1>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h1 class="text-center" style="margin: 10px;">
+          Select Scenerio
+        </h1>
+    </div>
+  </div>
+  <br>
+
+  <!-- <h1 class="text-center">Select Scenario</h1> -->
   <div class="row">
     <% scenarios.forEach(scenario => { %>
       <%- include('template/scenarioCard', {
