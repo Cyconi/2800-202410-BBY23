@@ -63,7 +63,7 @@ router.post('/leave', ensureAuthenticated, async (req, res) => {
 });
 
 router.post('/autoleave', ensureAuthenticated, async (req, res) => {
-
+    try{
     const currentRoot = req.originalUrl;
     if (!currentRoot.toString().includes('/chat')) {
         console.log("not on /chat root, force leaving queue");
@@ -75,6 +75,8 @@ router.post('/autoleave', ensureAuthenticated, async (req, res) => {
         }
     }
     res.json({ success: true });
+    } catch (error){
+    }
 });
 
 

@@ -320,12 +320,15 @@ window.onpageshow = function (event) {
 };
 
 // auto leave function for chat room
-function autoLeave() {
-    $.get('/chat/autoleave', function (data) {
+async function autoLeave() {
+    try {
+        let response = await fetch('/chat/autoleave', { method: 'POST' });
+    
+        let data = await response.json();
         if (data.success) {
-            console.log("not on waiting page");
         }
-    });
+    } catch (error) {
+    }
 }
 // auto leave function for chat room
 $(document).ready(function () {
