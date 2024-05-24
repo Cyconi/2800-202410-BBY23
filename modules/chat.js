@@ -114,10 +114,11 @@ router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
     if (chatRoom) {
         chatRoom.messages.push({
             sender: user.name,
+            email: user.email,
             message: message
         });
         await chatRoom.save();
-        res.json({ success: true });
+        res.json({ success: true});
     } else
         res.status(404).json({ success: false, message: 'Chat room not found' });
 });
@@ -126,7 +127,7 @@ router.get('/pullMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] });
     if (chatRoom)
-        res.json({ success: true, chatRoom: chatRoom.messages });
+        res.json({ success: true, chatRoom: chatRoom.messages, email: user.email });
     else
         res.json({ success: false, redirectTo: '/chat' });
 });
