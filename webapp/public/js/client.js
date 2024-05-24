@@ -58,12 +58,12 @@ function checkNotification() {
             }
         })
         .catch(error => {
-            setTimeout(checkNotification, 300000); // Retry after 1 hour if there's an error
+            setTimeout(checkNotification, 1000 * 60 * 3); // Retry after 1 hour if there's an error
         });
 }
 
 checkNotification();
-setInterval(checkNotification, 300000);
+setInterval(checkNotification, 1000 * 60 * 3);
 
 document.addEventListener('DOMContentLoaded', function() {
     let enterEmailModalInstance;

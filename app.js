@@ -86,7 +86,7 @@ app.post('/logout', (req, res) => {
 
 app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     try {
-        const oneHourAgo = new Date(Date.now() - 1000);
+        const oneHourAgo = new Date(Date.now() - 1000 * 60 * 3);
         let notify = false;
         if(req.user.openedNotification === 1){
             return res.json({ success: true, notify: false });
