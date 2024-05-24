@@ -32,7 +32,7 @@ document.addEventListener('visibilitychange', () => {
 setInterval(checkTimer, 2000);
 
 
-function checkNotification(){
+function checkNotification() {
     console.log("RAN IT");
     fetch('/checkHabitNotification', { method: 'POST' })
         .then(response => response.json())
@@ -41,30 +41,29 @@ function checkNotification(){
             if (data.success) {
                 console.log("success");
                 if(data.notify){
-                    console.log("notify");
-                    const modalElement = document.getElementById('timer');
-                    if (modalElement) {
-                        const modal = new bootstrap.Modal(modalElement);
-                        modal.show();
-
-                        modalElement.addEventListener('hidden.bs.modal', () => {
-                            const backdrop = document.querySelector('.modal-backdrop');
-                            if (backdrop) {
-                                backdrop.remove();
-                            }
+                    const notificationArea = document.getElementById('notification-area');
+                    const closeNotification = document.getElementById('close-notification');
+                    const explIcon = document.getElementById('expl-icon');
+                    if (notificationArea) {
+                        notificationArea.style.display = "block";
+                        closeNotification.addEventListener('click', function() {
+                            notificationArea.style.display = "none";
                         });
+                    }
+                    if (explIcon) {
+                        explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
                     }
                 }
             }
         })
         .catch(error => {
-            setTimeout(checkTimer, 3600000); 
+            setTimeout(checkNotification, 3600000); 
         });
 }
 
 checkNotification();
-
 setInterval(checkNotification, 3600000);
+
 
 document.addEventListener('DOMContentLoaded', function() {
     let forgotPasswordModalInstance;

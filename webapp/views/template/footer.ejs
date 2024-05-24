@@ -1,4 +1,3 @@
-
 <!-- Timer popup Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="timer">
     <div class="modal-dialog" role="document">
@@ -38,6 +37,12 @@
     </div>
 </div>
 
+<!-- Notification Area -->
+<div id="notification-area" style="display:none; position: fixed; top: 35px; left: 20px; background-color: red; color: white; padding: 10px; border-radius: 5px; z-index: 1000;">
+    <span id="close-notification" style="cursor: pointer; font-weight: bold; float: right; margin-left: 15px;">&times;</span>
+    <span id="notification-message">You have MCQ questions to enter!</span>
+</div>
+
 
 <!-- Break for footer -->
 <br><br><br>
@@ -52,20 +57,13 @@
     <!-- Copyright -->
 </footer>
 
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    Might note need -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>    Might not need -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Non min version -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.js"></script>
-
 <script src="/js/client.js"></script>
 <script src="/js/breakTimer.js"></script>
 </body>
 </html>
-
