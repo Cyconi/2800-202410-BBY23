@@ -1,9 +1,9 @@
 <%- include("template/header") %>
 
     <div class="container text-center">
-        <h1 id="queueHeader">Waiting In Queue... <span class="queueCount">
-                <%= queueCount %>
-            </span></h1>
+        <h1 id="queueHeader"><span class="queueCount">
+            <%= queueCount %>
+        </span> Waiting In Queue... </h1>
         <div class="row center-screen">
             <div class="col-md-4">
                 <form action='/chat/join' method='POST'>

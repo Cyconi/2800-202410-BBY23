@@ -29,42 +29,36 @@
             float: right;
             color: #aaa;
         }
+
+        #timer {
+            float: right;
+        }
     </style>
-
-    <h2>Chat Messages</h2>
-<form action='/chat/leaveRoom' method='POST'>
-    <button type="submit" class="btn btn-primary">Leave Queue</button>
-</form>
-    <!-- <div class="container">
-        <div><strong>User1</strong></div>
-        <div>
-            Hey!
-            <span class="time-right">11:00</span>
-        </div>
-    </div>
-
-    <div class="container darker">
-        <div><strong>User2</strong></div>
-        <div>
-            Hey! I'm fine. Thanks for asking!
-            <span class="time-right">11:01</span>
-        </div>
-    </div> -->
-
-    <div id="chat-messages">
-        <!-- Existing chat messages will go here -->
-    </div>
-
-    <form id="message-form">
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button type="submit">Send</button>
+    <form action='/chat/closeRoom' method='POST'>
+        <button type="submit" class="btn btn-primary">Leave Queue</button>
+        <h2 id="timer">Time Left: 3m 0s</h2>
     </form>
+    <!-- <button id="addMinute" class="btn btn-primary">Add a Minute</button> -->
+    <div class="container mt-4">
+        <h2 class="text-center">Chat Messages</h2>
 
+        <div id="chat-messages" class="mt-4">
+            <!-- Existing chat messages will go here -->
+        </div>
+        <form id="message-form">
+            <div class="input-group">
+                <input type="text" id="message-input" class="form-control" placeholder="Type a message...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         window.addEventListener('beforeunload', function () {
-                navigator.sendBeacon('/chat/leaveRoom');
-            });
+            navigator.sendBeacon('/chat/closeRoom');
+        });
 
         // Fetch the chat messages when the page loads
         function fetchMessages() {
@@ -75,7 +69,7 @@
                 if (data.success && data.chatRoom) {
                     data.chatRoom.forEach(function (message) {
                         var messageElement = document.createElement('div');
-                        if(data.email == message.email)
+                        if (data.email == message.email)
                             messageElement.className = 'container';
                         else
                             messageElement.className = 'container darker';
@@ -88,18 +82,18 @@
                         chatMessages.appendChild(messageElement);
                     });
                 } else {
-                    leaveRoom();
+                    roomNotFound();
                 }
             });
         }
-        function leaveRoom() {
-                $.get('/chat/pullMsg', function (data) {
-                    if (!data.success) {
-                        console.log("leaving chatroom...");
-                        window.location.href = data.redirectTo;
-                    }
-                });
-            }
+        function roomNotFound() {
+            $.get('/chat/pullMsg', function (data) {
+                if (!data.success) {
+                    console.log("leaving chatroom...");
+                    window.location.href = data.redirectTo;
+                }
+            });
+        }
 
         $(document).ready(function () {
             fetchMessages(); // Fetch messages when the page loads
@@ -139,6 +133,40 @@
                 // Clear the input field
                 messageInput.value = '';
             }
+        });
+
+        // countdown timer code
+        var timeLeft = 0xB4; // Start with 3 minutes
+        var timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+            timerElement.textContent = 'Time Left: ' + minutes + 'm ' + seconds + 's';
+        }
+
+        function countdown() {
+            if (timeLeft <= 0) {
+                clearInterval(intervalId);
+                timerElement.textContent = 'Time Left: 0m 0s';
+                // Add a 3 second delay before submitting the form
+                setTimeout(function () {
+                    document.querySelector("form[action='/chat/closeRoom']").submit();
+                }, 3000);
+            } else {
+                timeLeft--;
+                updateTimer();
+            }
+        }
+
+
+
+
+        var intervalId = setInterval(countdown, 1000);
+
+        document.getElementById('addMinute').addEventListener('click', function () {
+            timeLeft += 60; // Add a minute
+            updateTimer();
         });
     </script>
 

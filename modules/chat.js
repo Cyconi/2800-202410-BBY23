@@ -96,7 +96,7 @@ router.get('/updateQueue', ensureAuthenticated, async (req, res) => {
 });
 
 
-router.post('/leaveRoom', ensureAuthenticated, async (req, res) => {
+router.post('/closeRoom', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const queueCount = await WaitQueue.getQueueCount();
     const chatRoom = await ChatRoom.deleteMany({ $or: [{ user1: email }, { user2: email }] });
