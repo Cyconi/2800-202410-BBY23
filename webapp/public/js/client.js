@@ -71,15 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     }
                 } else {
-                    fetch('/forgot', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ email: email })
-                    })
-                    successModalInstance = new bootstrap.Modal(document.getElementById('modalForgot'));
-                    successModalInstance.show();
+                    alert(data.message || 'Failed to fetch security question. Please try again.');
                 }
             }
         });
@@ -215,65 +207,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle login form submission
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const data = {
-                username: formData.get('username'),
-                password: formData.get('password')
-            };
-            const response = await fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const errorData = await response.json();
-            if (response.ok) {
-                window.location.href = '/home1';
-            } else {
-                const errorMessageHeader = document.getElementById('errorMessageH'); // Header LoginFailed Modal
-                const errorMessageBody = document.getElementById('errorMessageB'); // Body LoginFailed Modal
-                if (!loginFailedModalInstance) {
-                    loginFailedModalInstance = new bootstrap.Modal(document.getElementById('modalLoginFailed'));
-                }
-
-                // Header LoginFailed Modal
-                // errorMessageHeader.textContent = errorData.message; // Original code
-                let headerMsg = errorData.message;
-                errorMessageHeader.textContent = headerMsg.charAt(0).toUpperCase() + headerMsg.slice(1);
-
-                // Body LoginFailed Modal
-                errorMessageBody.textContent = errorData.message; 
-                loginFailedModalInstance.show();
-            }
-        });
-    }
-});
-
-function goBack() { // for back button
-    window.history.back();
-    window.location.reload();
-}
-
-// ? Modals Header
-document.addEventListener('DOMContentLoaded', function() {
+    // Handle FAQ modal
     const faqButton = document.getElementById('faqButton');
-    try {
-        const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
-        if (faqButton && !faqModal) {
-            faqButton.addEventListener('click', function () {
-                faqModal.show();
-            });
-        }
-    } catch (e) {
-        console.error('Modal Error:', e);
-
+    if (faqButton) {
+        faqButton.addEventListener('click', function() {
+            const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
+            faqModal.show();
+        });
     }
 
     // Handle user already exists modal
