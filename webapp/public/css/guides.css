@@ -1,7 +1,21 @@
+:root {
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
+}
+
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
     background: url('img/stars.png') no-repeat center center fixed;
+}
+
+.btn-primary{
+    background: var(--button-color);
 }
 
 .navbar {

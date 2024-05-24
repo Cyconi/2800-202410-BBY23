@@ -6,15 +6,29 @@
   --button-border-radius: 10px;
   --background-color: #bae6f5;
   --button-font-size: 1.5rem;
+  --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
 }
 
+
 /* profile page styling */
-.profile-container {
-  max-width: 100%;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: transparent;
-  color: #000000;
+.profile-image-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid rgb(17, 125, 248);
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  background-size: cover;
+  background-position: center top;
+  position: absolute;
+  clip-path: circle(50% at 50% 50%);
+  margin-left: -42px;
+  top: -10px;
 }
 
 .profile-header {
@@ -28,12 +42,6 @@
 
 .profile-info .form-group {
   margin-bottom: 15px;
-}
-
-
-.profile-image{
-    width: 70%;
-    height: auto;
 }
 
 .btn-primary {
@@ -51,11 +59,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-}
-
-.profile-image {
-    width: 100px;
-    height: 100px;
 }
 
 .modal-content {

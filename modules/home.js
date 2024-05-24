@@ -48,6 +48,27 @@ router.get('/home1', (req, res) => {
     res.render('home1', { user: req.user, level: level });
 });
 
+router.get('/profile', (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    let level = 1;
+    let leveledUp = 0;
+    if(req.user.knowledgeAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(req.user.interpersonalAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(req.user.habitAmount >= LEVELUPREQUIREMENT){
+        leveledUp++;
+    }
+    if(leveledUp >= 2){
+        level = 2;
+    }
+    res.render('profile', { user: req.user, level: level });
+});
+
 
 router.post('/forgot', async (req, res) => {
     const { email, securityAnswer } = req.body;
