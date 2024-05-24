@@ -62,6 +62,22 @@ router.post('/leave', ensureAuthenticated, async (req, res) => {
     //res.render('waitingRoom', { queueCount: queueCount });
 });
 
+router.post('/autoleave', ensureAuthenticated, async (req, res) => {
+
+    const currentRoot = req.originalUrl;
+    if (currentRoot !== '/') {
+        console.log("not on /chat root, force leaving queue");
+        const email = req.user.email;
+        const userExists = await WaitQueue.findOne({ email: email });
+        if (userExists) {
+            userExists.inQueue = false;
+            await userExists.save();
+        }
+    }
+    res.json({ success: true });
+});
+
+
 router.get('/matchFound', ensureAuthenticated, async (req, res) => {
     await matchUsers();
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: req.user.email }, { user2: req.user.email }] });
@@ -118,7 +134,7 @@ router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
             message: message
         });
         await chatRoom.save();
-        res.json({ success: true});
+        res.json({ success: true });
     } else
         res.status(404).json({ success: false, message: 'Chat room not found' });
 });

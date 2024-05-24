@@ -238,4 +238,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function for back button
 function goBack() {
     window.history.back();
+    window.location.reload();
 }
+
+function autoLeave() {
+    $.get('/chat/autoleave', function (data) {
+        if (data.success) {
+            console.log("not on waiting page");
+        }
+    });
+}
+
+$(document).ready(function () {
+    autoLeave();
+    setInterval(autoLeave, 5000);
+});
