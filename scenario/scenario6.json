@@ -10,7 +10,7 @@
         "questions": [
           {
             "id": 1,
-            "text": "You are at a dinner party with people from various cultural backgrounds. How do you make sure your conversation is inclusive?",
+            "narrator": "You are at a dinner party with people from various cultural backgrounds. How do you make sure your conversation is inclusive?",
             "type": "text",
             "options": [
               { "text": "Ask open-ended questions about their cultures and listen actively.", "correct": true, "feedback": "Asking open-ended questions and listening actively shows respect and interest in their backgrounds." },
@@ -21,7 +21,7 @@
           },
           {
             "id": 2,
-            "text": "During a conversation, someone shares a cultural practice that is unfamiliar to you. How do you respond?",
+            "narrator": "During a conversation, someone shares a cultural practice that is unfamiliar to you. How do you respond?",
             "type": "text",
             "options": [
               { "text": "Express curiosity and ask them to tell you more about it.", "correct": true, "feedback": "Expressing curiosity and asking for more information shows respect and a willingness to learn." },
@@ -32,8 +32,7 @@
           },
           {
             "id": 3,
-            "narrator": "You notice that some people are not participating in a group activity, possibly due to cultural differences.",
-            "text": "How do you address this?",
+            "narrator": "You notice that some people are not participating in a group activity, possibly due to cultural differences. How do you address this?",
             "type": "text",
             "options": [
               { "text": "Respect their choice and offer alternative ways for them to engage if they want to.", "correct": true, "feedback": "Respecting their choice and offering alternatives shows cultural sensitivity and inclusiveness." },
@@ -44,8 +43,7 @@
           },
           {
             "id": 4,
-            "narrator": "Someone uses a term you find culturally insensitive.",
-            "text": "What is the best way to handle this situation?",
+            "narrator": "Someone uses a term you find culturally insensitive. What is the best way to handle this situation?",
             "type": "text",
             "options": [
               { "text": "Privately explain why the term is insensitive and suggest a better alternative.", "correct": true, "feedback": "Privately explaining and suggesting an alternative shows respect and helps educate them without causing embarrassment." },
@@ -56,8 +54,7 @@
           },
           {
             "id": 5,
-            "narrator": "You want to show respect for cultural practices that are different from your own.",
-            "text": "What is a good approach to take?",
+            "narrator": "You want to show respect for cultural practices that are different from your own. What is a good approach to take?",
             "type": "text",
             "options": [
               { "text": "Learn about the practices in advance and participate respectfully.", "correct": true, "feedback": "Learning and participating respectfully shows that you value and respect their cultural practices." },

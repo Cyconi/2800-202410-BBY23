@@ -42,7 +42,7 @@ body {
   margin: 10px 0;
   padding: 10px 20px;
   background-color: #ffffff;
-  border: 2px solid blue;
+  border: 2px solid #2d24d8;
   border-radius: var(--button-border-radius);
   text-align: center;
   cursor: pointer;
@@ -64,30 +64,14 @@ body {
 /* Narrator Box Styles */
 .narrator-box {
   background-color: #ffffff;
-  border: 2px solid blue;
+  border: 9px solid;
+  border-image: linear-gradient(to right, #40afc8, #2d24d8) 1;
+  clip-path: inset(0 round 10px);
   color: var(--text-color);
   font-size: 1.25rem;
   padding: 15px;
   border-radius: var(--button-border-radius);
   margin-bottom: 20px;
-}
-
-/* Image Grid Styles */
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  justify-items: center;
-  align-items: center;
-  margin-top: 20px;
-  padding: 20px;
-}
-
-.image-grid img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 2px solid black;
 }
 
 /* Modal Styles */
@@ -108,7 +92,6 @@ body {
 }
 
 .modal-content {
-  background-color: var(--background-color);
   border-radius: var(--button-border-radius);
   padding: 20px;
 }
