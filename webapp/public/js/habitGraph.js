@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const ctx = document.getElementById('habitGraph').getContext('2d');
+    const canvas = document.getElementById('habitGraph');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        var aspectRatio = 2; // Adjust the aspect ratio as needed
+        canvas.width = canvas.parentElement.clientWidth;
+        console.log(canvas.width)
+        if(canvas.width <= 400){
+            aspectRatio = 1;
+        }
+        canvas.height = canvas.width / aspectRatio;
+    }
+
+    resizeCanvas(); // Initial resize
+
+    window.addEventListener('resize', resizeCanvas); // Resize canvas on window resize
+
     let habitChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -62,7 +78,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             size: 14
                         }
                     }
-                }
+                },
+                maintainAspectRatio: false // Ensure the graph respects the container's aspect ratio
             }
         }
     });
@@ -80,7 +97,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const data = await response.json();
 
             if (data.success) {
-
                 const labels = [];
                 for (let i = 0; i < data.frequencyRatios.length; i++) {
                     labels.push(`Day ${i + 1}`);
@@ -97,7 +113,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             alert('Error fetching data. Please try again later.');
         }
     }
-
+    updateGraph();
+    resizeCanvas();
     const updateButton = document.getElementById('updateGraphButton');
     if (updateButton) {
         updateButton.addEventListener('click', updateGraph);
