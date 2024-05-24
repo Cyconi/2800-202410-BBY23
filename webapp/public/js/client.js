@@ -274,16 +274,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const faqButton = document.getElementById('faqButton');
     const modalFAQ = document.getElementById('modalFAQ');
     if (faqButton) {
-        if(modalFAQ){
+        if (modalFAQ) {
+            faqButton.style.display = 'block';
 
-        
-        faqButton.addEventListener('click', function() {
-            const faqModal = new bootstrap.Modal(modalFAQ);
-            faqModal.show();
-        });
-        // Hide the button immediately after setting up the click event
-        }else{
-            faqButton.style.display = 'none';    
+            faqButton.addEventListener('click', function() {
+                const faqModal = new bootstrap.Modal(modalFAQ);
+                faqModal.show();
+            });
         }
     }
     // Handle user already exists modal
