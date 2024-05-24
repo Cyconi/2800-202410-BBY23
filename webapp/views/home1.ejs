@@ -66,10 +66,10 @@
     <div class="row">
         <div class="col-12">
             <h1><%= user.username %></h1>
-            <img src="/img/avatar_lvl1.png" alt="User Avatar" class="img-fluid"> 
+            <img id="user-avatar" src="/img/avatar_lvl1.png" alt="User Avatar" class="img-fluid"> 
         </div>
     </div>
-    <div class="mt-4">
+    <div class="mt-4" id="hideable-section">
         <div class="row">
             <div class="col-4">
                 <div class="mt-3">
@@ -106,5 +106,28 @@
             </div>
         </div>
     </div>
+</div>
 
 <%- include('template/footer') %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const avatar = document.getElementById('user-avatar');
+        const hideableSection = document.querySelector('.mt-4');
+        const triggerWord = "betteru";
+        let typedInput = "";
+
+        document.addEventListener('keydown', (e) => {
+            typedInput += e.key;
+            if (typedInput.includes(triggerWord)) {
+                avatar.src = '/img/giphy.gif'; 
+                hideableSection.style.display = 'none';
+                typedInput = "";
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            typedInput = "";
+        });
+    });
+</script>
