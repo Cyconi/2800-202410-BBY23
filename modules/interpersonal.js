@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
 router.post('/completed', async (req, res) => {
     try{
         const {scenarioID} = req.body;
-        console.log(scenarioID);
         let index = scenarioID - 1;
         if(req.user.interpersonalCompleted[index] !== 1){
             req.user.interpersonalCompleted[index] = 1;

@@ -31,7 +31,6 @@ function getQueue() {
 function matchFound() {
     $.get('/chat/matchFound', function (data) {
         if (data.success) {
-            console.log('Match found! Joining chatroom...');
             window.location.href = data.redirectTo;
         }
     });
