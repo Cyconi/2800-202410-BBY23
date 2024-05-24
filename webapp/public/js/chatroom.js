@@ -23,6 +23,9 @@ function fetchMessages() {
                     </div>`;
                 chatMessages.appendChild(messageElement);
             });
+            // scroll with the chat
+            var chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         } else {
             roomNotFound();
         }

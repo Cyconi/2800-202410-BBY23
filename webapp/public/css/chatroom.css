@@ -59,11 +59,22 @@ html, body {
     display: flex;
     flex-direction: column;
 }
-
-#chat-messages {
+/* origin */
+/* #chat-messages {
     flex: 1;
     overflow-y: auto;
     padding: 10px;
+} */
+
+/* noscroll but works. removed flex-end and added js code */
+#chat-messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    overflow-y: auto;
+    /* height: 500px;  */
+    height: 60vh;
 }
 
 #message-form {
