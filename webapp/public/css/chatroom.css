@@ -1,3 +1,21 @@
+:root {
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
+}
+
+.btn-primary{
+    background: var(--button-color);
+}
+
+.btn-danger{
+    background: var(--button-danger);
+}
+
 body {
     margin: 0 auto;
     max-width: 800px;

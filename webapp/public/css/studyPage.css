@@ -5,7 +5,8 @@
     --card-background-color: #ffffff;
     --button-border-radius: 10px;
     --background-color: #bae6f5;
-    --button-font-size: 1.25rem;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
 }
 
 
