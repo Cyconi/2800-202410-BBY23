@@ -27,7 +27,6 @@ function startStop() {
             // When timer is started for the first time
             countDownDate = new Date().getTime() + totalSeconds * 1000;
             isPaused = false;
-            console.log("Starting new timer for total seconds:", totalSeconds); // Debugging log
             fetch('/study/serverTimer', {
                 method: 'POST',
                 headers: {
@@ -74,19 +73,21 @@ function startStop() {
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("demo").innerHTML = "TIMES UP";
+                document.getElementById('breakTimerPopup').style.display = 'inline-block';
                 startStopBtn.textContent = "Start";
-                startStopBtn.style.backgroundColor = "#5cb85c";
+                startStopBtn.style.backgroundColor = "#0719c3";
                 isRunning = false;
                 pausedTime = null;
             } else {
                 pausedTime = distance;
+                document.getElementById('breakTimerPopup').style.display = 'none';
             }
         }, 1000);
         isRunning = true;
     } else {
         clearInterval(x);
         startStopBtn.textContent = "Start";
-        startStopBtn.style.backgroundColor = "#5cb85c";
+        startStopBtn.style.backgroundColor = "#0719c3";
         isRunning = false;
         isPaused = true;
         fetch('/study/serverTimer', {
@@ -125,7 +126,7 @@ function resumeTimer(remainingTime) {
             clearInterval(x);
             document.getElementById("demo").innerHTML = "TIMES UP";
             startStopBtn.textContent = "Start";
-            startStopBtn.style.backgroundColor = "#5cb85c";
+            startStopBtn.style.backgroundColor = "#0719c3;";
             isRunning = false;
             pausedTime = null;
         } else {
@@ -147,7 +148,7 @@ function resetTimer() {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "0h 0m 0s";
     document.getElementById("startStopBtn").textContent = "Start";
-    document.getElementById("startStopBtn").style.backgroundColor = "#5cb85c";
+    document.getElementById("startStopBtn").style.backgroundColor = "#0719c3";
     isRunning = false;
     pausedTime = null;
     isPaused = false;
@@ -209,4 +210,5 @@ document.querySelectorAll('input[type="number"]').forEach(function (input) {
     });
 
     input.addEventListener('touchstart', handleTouchStart);
+    
 });

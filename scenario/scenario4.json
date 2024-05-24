@@ -2,12 +2,15 @@
     "scenarios": [
       {
         "id": 4,
-        "title": "Dealing with Awkward Situations",
+        "image": "img/scenario4.png",
+        "gif": "img/scenario4(gif).gif",
+        "title": "Handling Public Situations",
+        "description": "Dealing with Awkward Situations: How to recover from social faux pas.",
         "narrator": "You find yourself in an awkward situation in a public setting. You need to know how to recover gracefully and maintain your composure.",
         "questions": [
           {
             "id": 1,
-            "text": "You accidentally call someone by the wrong name in front of a group. How do you recover?",
+            "narrator": "You accidentally call someone by the wrong name in front of a group. How do you recover?",
             "type": "text",
             "options": [
               { "text": "Apologize and correct yourself immediately.", "correct": true, "feedback": "Apologizing and correcting yourself shows that you acknowledge the mistake and are willing to fix it." },
@@ -18,7 +21,7 @@
           },
           {
             "id": 2,
-            "text": "During a conversation, you accidentally interrupt someone. How do you handle it?",
+            "narrator": "During a conversation, you accidentally interrupt someone. How do you handle it?",
             "type": "text",
             "options": [
               { "text": "Apologize and let them continue speaking.", "correct": true, "feedback": "Apologizing and letting them continue shows respect for their turn to speak." },
@@ -29,8 +32,7 @@
           },
           {
             "id": 3,
-            "narrator": "You realize you've been talking too much about yourself and not letting others speak.",
-            "text": "What is the best way to recover from this?",
+            "narrator": "You realize you've been talking too much about yourself and not letting others speak. What is the best way to recover from this?",
             "type": "text",
             "options": [
               { "text": "Acknowledge it and ask others about themselves.", "correct": true, "feedback": "Acknowledging and shifting focus to others shows self-awareness and interest in others." },
@@ -41,8 +43,7 @@
           },
           {
             "id": 4,
-            "narrator": "During a group meeting, you mistakenly give incorrect information.",
-            "text": "How do you handle the situation?",
+            "narrator": "During a group meeting, you mistakenly give incorrect information. How do you handle the situation?",
             "type": "text",
             "options": [
               { "text": "Correct yourself as soon as you realize the mistake.", "correct": true, "feedback": "Correcting yourself promptly shows integrity and a commitment to accuracy." },
@@ -53,8 +54,7 @@
           },
           {
             "id": 5,
-            "narrator": "You accidentally spill a drink at a social event.",
-            "text": "What is the best way to handle this situation?",
+            "narrator": "You accidentally spill a drink at a social event. What is the best way to handle this situation?",
             "type": "text",
             "options": [
               { "text": "Apologize and clean up the spill immediately.", "correct": true, "feedback": "Apologizing and cleaning up shows responsibility and respect for the space and people around you." },

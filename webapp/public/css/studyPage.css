@@ -1,0 +1,82 @@
+/* Global Variables */
+:root {
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
+}
+
+
+/* Card Styles */
+.card {
+    background-color: var(--card-background-color);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-header {
+    padding: 20px;
+    background-color: var(--card-background-color);
+    color: var(--text-color);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.studycard {
+    padding: 20px;
+    display: none;
+    text-align: center;
+    font-size: var(--button-font-size);
+}
+
+.studycard p {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Button Styles */
+.btn-primary {
+    width: 90%;
+    background: var(--button-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px; 
+}
+
+/* Button Styles */
+.btn-primary {
+    background: var(--button-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

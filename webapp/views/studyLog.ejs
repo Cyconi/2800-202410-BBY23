@@ -1,21 +1,68 @@
 <%- include("template/header") %>
+
+<link rel="stylesheet" href="css/background.css">
 <link rel="stylesheet" href="css/studyLog.css">
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <span class="mx-auto">Study Log</span>
-    </div>
-</nav>
-
 <div class="container mt-4">
-    <div class="row">
-        <% sessions.forEach(session => { %>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= session.subject %></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><%= session.duration %> minutes</h6>
+    <!-- Total Study Time Display -->
+    <!-- <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Total Study Time</h4>
+                    <p class="card-text" id="total-study-time">0 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div style="display: flex; justify-content: center;">
+        <div class="card bg-dark text-white" style="display: inline-block;">
+            <div style="margin: 10px; margin-left: 50px; margin-right: 50px;">
+            <h4 class="text-center">
+                Total Study Time
+            </h4>
+            <p class="card-text text-center" id="total-study-time" style="margin-right: 10px; margin-left: 10px;">0 minutes</p>
+            </div>
+        </div>
+      </div>
+      <br><br>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% 
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const lastWeek = new Date(today);
+        lastWeek.setDate(lastWeek.getDate() - 7);
+
+        let totalDuration = 0;
+        sessions.forEach(session => { 
+            let sessionDate = new Date(session.date);
+            let displayDate;
+            if(sessionDate.toDateString() === today.toDateString()) {
+                displayDate = "Today";
+            } else if(sessionDate.toDateString() === yesterday.toDateString()) {
+                displayDate = "Yesterday";
+            } else if(sessionDate > lastWeek) {
+                displayDate = "Earlier this Week";
+            } else {
+                displayDate = session.date.toLocaleString();
+            }
+
+            totalDuration += session.duration;
+        %>
+            <div class="col mb-4">
+                <div class="card h-100 border-dark d-flex flex-column">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0"><%= displayDate %></h5> 
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-subtitle mb-2"><%= session.subject %></h5> 
                         <p class="card-text"><%= session.notes %></p>
+                        <p class="card-text mt-auto"><small class="text-muted"><%= session.duration %> minutes</small></p>
+                    </div>
+                    <div class="card-footer bg-transparent border-dark text-center">
                         <p class="card-text"><small class="text-muted"><%= session.date.toLocaleString() %></small></p>
                     </div>
                 </div>
@@ -23,5 +70,9 @@
         <% }) %>
     </div>
 </div>
+
+<script>
+    document.getElementById('total-study-time').textContent = '<%= totalDuration %> minutes';
+</script>
 
 <%- include("template/footer") %>

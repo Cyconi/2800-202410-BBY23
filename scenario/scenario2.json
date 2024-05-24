@@ -2,12 +2,15 @@
     "scenarios": [
       {
         "id": 2,
-        "title": "Handling Rejection",
+        "image": "img/scenario2.png",
+        "gif": "img/scenario2(gif).gif",
+        "title": "Dating and Romantic Relationships",
+        "description": "Handling Rejection: How to respond gracefully when things don't go as hoped.",
         "narrator": "You're on a date, and you notice that the other person seems uninterested. You want to handle the situation gracefully.",
         "questions": [
           {
             "id": 1,
-            "text": "You notice that your date seems distracted and isn't engaging much in the conversation. How do you address this?",
+            "narrator": "You notice that your date seems distracted and isn't engaging much in the conversation. How do you address this?",
             "type": "text",
             "options": [
               { "text": "Ask directly if something is wrong.", "correct": false, "feedback": "This might come off as too confrontational." },
@@ -18,7 +21,7 @@
           },
           {
             "id": 2,
-            "text": "Your date mentions they had a tough day and are not in the best mood. How do you respond?",
+            "narrator": "Your date mentions they had a tough day and are not in the best mood. How do you respond?",
             "type": "text",
             "options": [
               { "text": "Offer to reschedule the date.", "correct": true, "feedback": "This shows empathy and understanding of their situation." },
@@ -29,8 +32,7 @@
           },
           {
             "id": 3,
-            "narrator": "Despite your efforts, the date does not seem to improve and your date is still uninterested.",
-            "text": "How do you wrap up the date?",
+            "narrator": "Despite your efforts, the date does not seem to improve and your date is still uninterested.How do you wrap up the date?",
             "type": "text",
             "options": [
               { "text": "Express disappointment and ask why it didn't go well.", "correct": false, "feedback": "This can put your date on the spot and make them uncomfortable." },
@@ -41,8 +43,7 @@
           },
           {
             "id": 4,
-            "narrator": "After the date, you reflect on the experience.",
-            "text": "What is the best way to handle your own feelings of rejection?",
+            "narrator": "After the date, you reflect on the experience. What is the best way to handle your own feelings of rejection?",
             "type": "text",
             "options": [
               { "text": "Blame yourself and feel discouraged about dating.", "correct": false, "feedback": "This is not constructive and can negatively impact your self-esteem." },
@@ -53,8 +54,7 @@
           },
           {
             "id": 5,
-            "narrator": "You decide to send a message to your date to thank them for their time.",
-            "text": "What should you say in the message?",
+            "narrator": "You decide to send a message to your date to thank them for their time. What should you say in the message?",
             "type": "text",
             "options": [
               { "text": "Express frustration and ask for another chance.", "correct": false, "feedback": "This can come off as desperate and pushy." },

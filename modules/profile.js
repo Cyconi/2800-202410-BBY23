@@ -5,7 +5,9 @@ const passport = require("passport");
 const User = require('./user');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const StudySession = require('./studySession');
 
+const LEVELUPREQUIREMENT = 100;
 
 // Middleware
 router.use(express.json());
@@ -22,8 +24,20 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 
-router.get('/', ensureAuthenticated, (req, res) => {
-    res.render('profile', { user: req.user });
+router.get('/', ensureAuthenticated, async (req, res) => {
+    try {
+        const studySessions = await StudySession.find({ email: req.user.email });
+        let totalPoints = 0;
+        studySessions.forEach(sesh => {
+            totalPoints += sesh.duration / 5;
+        });
+        req.user.knowledgeAmount = totalPoints;
+        await req.user.save();
+        res.render('profile', { user: req.user});
+    } catch (error) {
+        console.error("Error fetching study sessions:", error);
+        res.status(500).send("Internal server error");
+    }
 });
 
 // Edit Profile route

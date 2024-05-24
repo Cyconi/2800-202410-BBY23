@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 const User = require("./modules/user.js");
 const Timer = require('./modules/timerSchema.js');
-const Habit = require('./modules/user.js');
+const Habit = require('./modules/habitSchema');
 
 // EJS 
 app.set('view engine', 'ejs');
@@ -30,6 +30,13 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     res.redirect('/');
+}
+
+function ensureAuthNoRed(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.sendStatus(204);
 }
 // Session
 app.use(session({
@@ -76,6 +83,68 @@ app.post('/logout', (req, res) => {
         });
     });
 });
+
+app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
+    try {
+        const oneHourAgo = new Date(Date.now() - 1000 * 60 * 3);
+        let notify = false;
+        if(req.user.openedNotification === 1){
+            return res.json({ success: true, notify: false });
+        }
+        if(req.user.lastCheckedNotification <= oneHourAgo){
+            const habits = await Habit.find({ email: req.user.email});
+            if (habits) {
+                for (const habit of habits) {
+                    if (habit.whenToAsk <= Date.now()) {
+                        notify = true;
+                        break;
+                    }
+                }
+            }
+            req.user.lastCheckedNotification = Date.now();
+            req.user.openedNotification = 1;
+            await req.user.save();
+        }
+        if (notify === true) {
+            res.json({ success: true, notify: true });
+        } else {
+            res.json({ success: false, notify: false });
+        }
+    } catch (error) {
+       
+        res.json({ success: false });
+    }
+});
+
+app.post('/checkAuth', (req, res) =>{
+    if(req.isAuthenticated()){
+        return res.json({success: true});
+    }
+    res.json({success: false});
+});
+
+app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
+    try {
+        const faqItem = req.body.faqItem;
+        if(req.user.faqUsed[faqItem] === 0){
+            return res.json({success: true});
+        } 
+        res.json({success:false});
+    } catch (error) {
+        
+        res.json({ success: false });
+    }
+});
+app.post('/updateFAQ', async (req, res)=> {
+    try{
+        const faqItem = req.body.faqItem;
+        req.user.faqUsed[faqItem] = 1;
+        await req.user.save();
+        return res.json({success: true});
+    } catch (error){
+        res.json({success: false});
+    }
+});
 app.post('/calculate', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});
@@ -96,6 +165,10 @@ app.post('/calculate', async (req, res) => {
         res.json({ success: false});
     }
 });
+app.use('/study', require('./modules/study'));
+
+app.use('/chat', require('./modules/chat'));
+
 app.get("*", (req, res) => {
     res.status(404);
     res.render("404");

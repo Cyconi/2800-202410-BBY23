@@ -1,24 +1,32 @@
-
+:root {
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
+}
 
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #f8f9fa;
+    background: url('../img/stars.png') no-repeat center center fixed;
 }
 
-.navbar {
+.btn-primary{
+    background: var(--button-color);
+}
+
+/* .navbar {
     margin-bottom: 20px;
 }
 
-.navbar .container-fluid {
+.container-fluid {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-}
-
-.navbar .navbar-brand, .navbar .btn-outline-secondary {
-    position: absolute;
 }
 
 .navbar .navbar-brand {
@@ -27,9 +35,9 @@ body {
 
 .navbar .btn-outline-secondary {
     right: 10px;
-}
+} */
 
-.navbar .mx-auto {
+.container-fluid{
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -72,4 +80,35 @@ body {
 
 .steps ul li a:hover {
     text-decoration: underline;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #0719c3;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #0719c3;
+    border-radius: 50%;
+}
+
+.carousel-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.carousel-item h2 {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+}
+
+.carousel-item p {
+    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.d-flex {
+    justify-content: center;
+    align-items: center;
 }

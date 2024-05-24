@@ -2,29 +2,32 @@
     "scenarios": [
       {
         "id": 1,
-        "title": "Approaching Someone New",
+        "image": "img/scenario1.png",
+        "gif": "img/scenario1(gif).gif",
+        "title": "Making Friends",
+        "description": "Approaching Someone New: How to start a conversation with a stranger.",
         "narrator": "You're at a community event and see someone standing alone. You want to introduce yourself and start a conversation.",
         "questions": [
           {
             "id": 1,
-            "text": "You're deciding whether to approach someone based on their body language. Look at the images below and choose the person whose body language suggests they are open to being approached.",
+            "narrator": "You're deciding whether to approach someone based on their body language. Look at the images below and choose the person whose body language suggests they are open to being approached.",
             "type": "image",
             "images": [
-              "image1.jpg",  
-              "image2.jpg",
-              "image3.jpg",
-              "image4.jpg"
+              "img/sc1_q1_ans4.png",  
+              "img/sc1_q1_ans1.png", 
+              "img/sc1_q1_ans3.png",
+              "img/sc1_q1_ans2.png" 
             ],
             "options": [
               { "text": "Person in Image 1", "correct": false, "feedback": "The person with arms crossed and looking away might seem closed off." },
-              { "text": "Person in Image 2", "correct": true, "feedback": "The person with arms at their sides, making eye contact with the room, appears approachable and open to conversation." },
-              { "text": "Person in Image 3", "correct": false, "feedback": "The person with hands in pockets and looking down might seem unapproachable or uninterested." },
-              { "text": "Person in Image 4", "correct": false, "feedback": "The person checking their phone might not be open to a conversation." }
+              { "text": "Person in Image 2", "correct": true, "feedback": "The person sitting on a couch with a relaxed posture, arms resting on the back of the couch, appears open and approachable" },
+              { "text": "Person in Image 3", "correct": false, "feedback": "The person lying down on a couch with their hand over their face appears to be resting and might not be open to a conversation." },
+              { "text": "Person in Image 4", "correct": false, "feedback": "The person sitting on a couch, looking down at their phone, might not be open to a conversation." }
             ]
           },
           {
             "id": 2,
-            "text": "How do you initiate the conversation?",
+            "narrator": "How do you initiate the conversation?",
             "type": "text",
             "options": [
               { "text": "Hi, I'm Alex. How are you enjoying the event?", "correct": true, "feedback": "This is a friendly and neutral way to start a conversation. It shows interest in the person's experience." },
@@ -35,8 +38,7 @@
           },
           {
             "id": 3,
-            "narrator": "They respond positively, mentioning they're enjoying the event and it's their first time here.",
-            "text": "What's your next move?",
+            "narrator": "They respond positively, mentioning they're enjoying the event and it's their first time here. What's your next move?",
             "type": "text",
             "options": [
               { "text": "So, what do you do for a living?", "correct": false, "feedback": "Asking about their job can feel too formal and might not be suitable early in the conversation." },
@@ -47,25 +49,24 @@
           },
           {
             "id": 4,
-            "text": "The conversation has been going well, and you want to know if the other person is interested in continuing the conversation. Look at the images below and choose the person who seems most interested in continuing.",
+            "narrator": "The conversation has been going well, and you want to know if the other person is interested in continuing the conversation. Look at the images below and choose the person who seems most interested in continuing.",
             "type": "image",
             "images": [
-              "image1.jpg",
-              "image2.jpg",
-              "image3.jpg",
-              "image4.jpg"
+              "img/sc1_q4_ans2.png",
+              "img/sc1_q4_ans3.png",
+              "img/sc1_q4_ans4.png",
+              "img/sc1_q4_ans1.png"
             ],
             "options": [
-              { "text": "Person in Image 1", "correct": true, "feedback": "The person leaning in, maintaining eye contact, and asking questions shows a clear interest in continuing the conversation." },
-              { "text": "Person in Image 2", "correct": false, "feedback": "The person checking their phone frequently and giving short responses appears distracted and not interested in continuing." },
-              { "text": "Person in Image 3", "correct": false, "feedback": "The person standing with arms crossed, glancing around the room might be looking for an opportunity to exit the conversation." },
-              { "text": "Person in Image 4", "correct": false, "feedback": "The person looking down appears disinterested or uncomfortable." }
+              { "text": "Person in Image 1", "correct": false, "feedback": "The person checking their phone frequently and giving short responses appears distracted and not interested in continuing." },
+              { "text": "Person in Image 2", "correct": false, "feedback": "The person with their hands on their temples, looking down, appears to be in thought or stressed, indicating disinterest or discomfort." },
+              { "text": "Person in Image 3", "correct": false, "feedback": "The person standing up and reaching for the door handle appears to be leaving, indicating disinterest in continuing the conversation." },
+              { "text": "Person in Image 4", "correct": true, "feedback": "The person leaning in, maintaining eye contact, and asking questions shows a clear interest in continuing the conversation." }
             ]
           },
           {
             "id": 5,
-            "narrator": "They mention they work in tech and are excited about a new project.",
-            "text": "How do you respond?",
+            "narrator": "They mention they work in tech and are excited about a new project. How do you respond?",
             "type": "text",
             "options": [
               { "text": "That's cool! What kind of projects do you work on?", "correct": true, "feedback": "This is an enthusiastic and engaging response that shows genuine interest." },
@@ -76,8 +77,7 @@
           },
           {
             "id": 6,
-            "narrator": "They explain their project enthusiastically and then ask about your interests.",
-            "text": "How do you answer?",
+            "narrator": "They explain their project enthusiastically and then ask about your interests. How do you answer?",
             "type": "text",
             "options": [
               { "text": "I enjoy reading and hiking. How about you?", "correct": true, "feedback": "This is a positive response that shares something personal and invites them to share as well." },
@@ -88,8 +88,7 @@
           },
           {
             "id": 7,
-            "narrator": "They seem interested in your hobbies and mention they enjoy hiking too.",
-            "text": "What's next?",
+            "narrator": "They seem interested in your hobbies and mention they enjoy hiking too. What's next?",
             "type": "text",
             "options": [
               { "text": "Would you like to join me for a hike sometime?", "correct": true, "feedback": "This is a direct and confident invitation, which can be great if the conversation has gone well so far." },
@@ -100,24 +99,7 @@
           },
           {
             "id": 8,
-            "narrator": "You suggest an idea during your conversation and want to know if the other person agrees with you. Look at the images below and choose the person who seems most agreeable.",
-            "type": "image",
-            "images": [
-              "image1.jpg",  
-              "image2.jpg",
-              "image3.jpg",
-              "image4.jpg"
-            ],
-            "options": [
-              { "text": "Person in Image 1", "correct": true, "feedback": "The person nodding and smiling is showing signs of agreement." },
-              { "text": "Person in Image 2", "correct": false, "feedback": "The person shaking their head slightly and frowning appears to disagree." },
-              { "text": "Person in Image 3", "correct": false, "feedback": "The person with a neutral expression and arms crossed might be indifferent or unsure." },
-              { "text": "Person in Image 4", "correct": false, "feedback": "The person looking down appears disinterested or uncomfortable." }
-            ]
-          },
-          {
-            "id": 9,
-            "text": "Planning the hike. What do you suggest?",
+            "narrator": "Planning the hike. What do you suggest?",
             "type": "text",
             "options": [
               { "text": "How about this weekend? We can go to the nearby park.", "correct": true, "feedback": "This is a proactive and specific suggestion, showing you're serious about making plans." },
@@ -127,15 +109,14 @@
             ]
           },
           {
-            "id": 10,
-            "narrator": "They agree to meet at the park this weekend.",
-            "text": "Finalizing details. What do you confirm?",
+            "id": 9,
+            "narrator": "They agree to meet at the park this weekend. What do you confirm?",
             "type": "text",
             "options": [
               { "text": "Great! Let’s meet at the main entrance at 9 AM.", "correct": true, "feedback": "This is a clear and specific arrangement, ensuring both parties are on the same page." },
               { "text": "Awesome! We’ll figure out the exact time later.", "correct": false, "feedback": "This leaves details unclear, which can cause confusion later." },
-              { "text": "Cool. Do you have any other plans for the day?", "correct": false, "feedback": "This might shift focus away from the current plan and add unnecessary complexity." },
-              { "text": "Sounds good. What time works best for you?", "correct": false, "feedback": "This is considerate and flexible, allowing them to choose a convenient time." }
+              { "text": "Cool. I'll let you know the time an hour before?", "correct": false, "feedback": "This might shift focus away from the current plan and add unnecessary complexity." },
+              { "text": "Sounds good. Just show up whenever you can?", "correct": false, "feedback": "This is considerate and flexible, allowing them to choose a convenient time." }
             ]
           }
         ]

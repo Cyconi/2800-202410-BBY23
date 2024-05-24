@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="css/scenarioSelect.css">
+<div class="col-md-6 mb-4">
+  <div class="card btn-scenario" onclick="toggleCard(this)">
+    <div class="card-header">
+      <img src="<%= image %>" data-static="<%= image %>" data-gif="<%= gif %>" alt="<%= title %> image" class="card-image" />
+      <h5 class="card-title"><%= title %></h5>
+    </div>
+    <div class="card-body studycard">
+      <p class="card-text"><%= description %></p>
+      <button class="btn btn-primary" onclick="event.stopPropagation(); selectScenario('<%= scenarioUrl %>')">Play Scenario</button>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const habitID = form.querySelector('input[name="habitID"]').value;
                 const habitGood = form.querySelector('input[name="habitGood"]').value;
-                
+
                 fetch('/habit/deleteHabit', {
                     method: 'POST',
                     headers: {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const modalElement = document.getElementById('modalTour');
+                        const modalElement = document.getElementById('modalDelete');
                         if (modalElement) {
                             const modal = new bootstrap.Modal(modalElement);
                             document.querySelector('.habitName').textContent = data.habit;
@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        const modalButton = document.querySelector('#modalTour button[data-bs-dismiss="modal"]');
+        const modalButton = document.querySelector('#modalDelete button[data-bs-dismiss="modal"]');
         if (modalButton) {
             modalButton.addEventListener('click', function () {
-                location.reload();
+                location.reload();  
             });
         }
     }
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (modalElement) {
                             const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
                             modal.hide();
-                            location.reload(); 
+                            location.reload();
                         }
                     } else {
                         alert('Failed to edit habit. Please try again.');
@@ -200,3 +200,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+
+function submitForm(button, actionUrl) {
+    // Disable all buttons within the same card
+    const card = button.closest('.card-body');
+    card.querySelectorAll('button').forEach(btn => {
+        btn.disabled = true;
+    });
+
+    // Create a new form and submit it
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = actionUrl;
+
+    const habitID = document.createElement('input');
+    habitID.type = 'hidden';
+    habitID.name = 'habitID';
+    habitID.value = button.closest('form').querySelector('input[name="habitID"]').value;
+
+    form.appendChild(habitID);
+    document.body.appendChild(form);
+    form.submit();
+}

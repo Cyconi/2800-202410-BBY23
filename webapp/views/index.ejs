@@ -1,50 +1,15 @@
 <%- include('template/header') %>
-<style>
-  .gradient-custom-2 {
-    background: #fccb90;
-    background: -webkit-linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-    background: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-  }
 
-  /* Remove because cause overflow and does not affect mobile page */
-  /* @media (min-width: 768px) {
-    .gradient-form {
-      height: 100vh !important;
-    }
-  } */
-  
-  /* Also removed because does not appear to do anything */
-  /* @media (min-width: 769px) {
-    .gradient-custom-2 {
-      border-top-right-radius: .3rem;
-      border-bottom-right-radius: .3rem;
-    }
-  } */
-
-  /* Curved edge for mobile */
-  @media (max-width: 991.98px) {
-    .gradient-border {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: .3rem;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: .3rem;
-    }
-  }
-
-  /* Curved edge for desktop */
-  @media (min-width: 992px) {
-    .gradient-border {
-      border-top-right-radius: .3rem;
-      border-bottom-right-radius: .3rem;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
-</style>
-
-<section class="gradient-form" style="background-color: #eee;">
+<section class="gradient-form">
   <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center">
+
+<link rel="stylesheet" href="css/background.css">
+<link rel="stylesheet" href="css/index.css">
+
+<section class="h-100 gradient-form">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
@@ -52,26 +17,26 @@
               <div class="card-body p-md-5 mx-md-4">
                 <div class="text-center">
                   <img src="/img/better_u_logo.png" style="width: 185px;" alt="logo">
-                  <h4 class="mt-1 mb-5 pb-1">Welcome to BetterYou.</h4>
+                  <h4 class="mt-1 mb-5 pb-1">Welcome to BetterU.</h4>
                 </div>
 
                 <form action="/login" method="post">
                   <p>Please login to your account</p>
                   <div class="form-outline mb-4">
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required />
-                    <label class="form-label" for="username">Username</label>
+                      <input type="text" id="identifier" name="identifier" class="form-control" placeholder="Enter your username or email" required />
+                      <label class="form-label" for="identifier">Username or Email</label>
                   </div>
                   <div class="form-outline mb-4">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
-                    <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password" required />
+                      <label class="form-label" for="password">Password</label>
                   </div>
                   <div class="text-center pt-1 mb-1 pb-1">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
+                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
                   </div>
                   <div class="text-center mb-5">
-                    <a class="text-muted" href="javascript:void(0);" id="forgotPasswordLink">Forgot password?</a>
+                      <a class="text-muted" href="javascript:void(0);" id="forgotPasswordLink">Forgot password?</a>
                   </div>
-                </form>
+              </form>              
 
                 <div class="d-flex align-items-center justify-content-center pb-4">
                   <p class="mb-0 me-2">Don't have an account?</p>
@@ -82,9 +47,10 @@
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2 gradient-border">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                 <h4 class="mb-4">We are more than just a self-help app</h4>
-                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p class="small mb-0">BetterU offers a comprehensive suite of features including a habit tracker, study helper, 
+                    interpersonal practice, and chat room, all designed to support your journey to self-improvement. Our app helps you
+                     build productive habits, enhance your study routines, practice social skills, and connect with a supportive community,
+                      empowering you to become the best version of yourself.</p>
               </div>
             </div>
           </div>
@@ -93,29 +59,57 @@
     </div>
   </div>
 </section>
+<!--Enter email before forget Modal-->
+<div class="modal fade" id="enterEmailModal" tabindex="-1" aria-labelledby="enterEmailModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content rounded-4 shadow-lg">
+          <div class="modal-header">
+              <h5 class="modal-title" id="enterEmailModalLabel">Enter Email</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="enter-email-form">
+                  <div class="mb-3">
+                      <label for="enter-email" class="form-label">Email</label>
+                      <input type="email" id="enter-email" name="email" class="form-control" placeholder="Enter your email" required />
+                  </div>
+                  <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 
 <!-- Forgot Password Modal -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-4 shadow-lg"> 
-            <div class="modal-header">
-                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="forgot-password-form">
-                    <div class="mb-3"> 
-                        <label for="forgot-email" class="form-label">Email</label> 
-                        <input type="email" id="forgot-email" name="email" class="form-control" placeholder="Enter your email" required />
-                    </div>
-                    <div class="d-flex justify-content-center"> 
+  <div class="modal-dialog">
+      <div class="modal-content rounded-4 shadow-lg"> 
+          <div class="modal-header">
+              <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="forgot-password-form" action="/forgot" method="post">
+                  <div class="mb-3"> 
+                      <label for="securityQuestion" class="form-label">Security Question</label> 
+                      <p id="securityQuestion"></p>
+                  </div>
+                  <div class="mb-3"> 
+                      <label for="forgot-security-answer" class="form-label">Security Answer</label> 
+                      <input type="text" id="forgot-security-answer" name="securityAnswer" class="form-control" placeholder="Enter your security answer" required />
+                  </div>
+                  <div class="d-flex justify-content-center"> 
                       <button type="submit" class="btn btn-primary mt-3">Submit</button>
                   </div>
-                </form>
-            </div>
-        </div>
-    </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </div>
+
+
 
 <!-- Email Sent Success Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
@@ -164,10 +158,109 @@
                       <label for="signup-password" class="form-label">Password</label>
                       <input type="password" id="signup-password" name="password" class="form-control" placeholder="Choose a Password" required />
                   </div>
+                  <div class="mb-3">
+                      <label for="signup-security-question" class="form-label">Security Question (optional)</label>
+                      <input type="text" id="signup-security-question" name="securityQuestion" class="form-control" placeholder="Enter a security question" />
+                  </div>
+                  <div class="mb-3">
+                      <label for="signup-security-answer" class="form-label">Security Answer (optional)</label>
+                      <input type="text" id="signup-security-answer" name="securityAnswer" class="form-control" placeholder="Enter the answer" />
+                  </div>
                   <div class="d-flex justify-content-center"> <!-- Center align the button -->
                       <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
                   </div>
               </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Incorrect user/password -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalLoginFailed">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Login Failed</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/loginFail.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">
+                            <span id="errorMessageH"></span> Incorrect!
+                          </h5>
+                          <!-- You have inputted the <span id="errorMessage"></span> please try again. -->
+                          The <span id="errorMessageB"></span> you have entered is incorrect. Please try again.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton" data-bs-dismiss="modal">Try Again</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Incorrect user/password -->
+<!-- <div class="modal modal-sheet position-fixed d-flex top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalLoginFail">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Login Failed</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/loginFail.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">
+                            <span> __ </span> Incorrect
+                          </h5>
+                          The <span> ___ </span> you have entered is incorrect. Please try again.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Okay</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+
+<!-- Internal Server Error -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalServerError">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Server Error</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/error-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">An error occurred</h5>
+                          Something went wrong on our end. Please try again later.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="errorButton">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- User already exists with that email. Modal -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalUserExists">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">SignUp Failed</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/fail-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                          <h5 class="mb-0">Failed to create account</h5>
+                          A user with that username/email already exists.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton" data-bs-dismiss="modal">Okay</button>
           </div>
       </div>
   </div>

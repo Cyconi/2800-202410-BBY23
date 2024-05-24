@@ -1,13 +1,8 @@
 <%- include("template/header") %>
 <link rel="stylesheet" href="css/studySession.css">
+<link rel="stylesheet" href="css/background.css">
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <span class="mx-auto">Study Session</span>
-    </div>
-</nav>
-
-<div class="container mt-4">
+<div class="container mt-4 studybody">
     <div class="timer-container">
         <div class="timer-display" id="demo">0h 0m 0s</div>
         <div class="timer-section">
@@ -24,11 +19,12 @@
         </div>
         <br>
         <br>
-        <button id="startStopBtn" onclick="startStop()">Start</button>
-        <button onclick="resetTimer()">Reset</button>
+        <button id="startStopBtn" class="btn-timer" onclick="startStop()">Start</button>
+        <button class="btn-timer" onclick="resetTimer()">Reset</button>
     </div>
 
-    <form action="/study/logSession" method="POST">
+    <form id="logSessionForm" class="study-log-form mt-5">
+        <h2 class="text-center mb-4">Log Your Session</h2>
         <div class="form-group">
             <label for="subject">Subject</label>
             <input type="text" name="subject" class="form-control" placeholder="Enter your Subject" required>
@@ -39,12 +35,89 @@
         </div>
         <div class="form-group">
             <label for="notes">Notes</label>
-            <input type="text" name="notes" class="form-control" placeholder="Write some notes" required>
+            <textarea name="notes" class="form-control" placeholder="Write some notes" rows="4" required></textarea>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Log Study Session</button>
+        <button type="submit" class="btn btn-primary w-100">Log Study Session</button>
     </form>
 </div>
+
+
+<!-- Negative mins Modal -->
+<!-- <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="responseModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="responseModalLabel">Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5" id="responseModalBody">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Negative mins Modal -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5 modal-custom" tabindex="-1" role="dialog" id="responseModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-5">
+                <h2 class="fw-bold mb-0">Error!</h2>
+                <ul class="d-grid gap-4 my-5 list-unstyled small">
+                    <li class="d-flex gap-4">
+                        <img src="/img/fail-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                        <div>
+                            <h5 class="mb-0">Invalid Input</h5>
+                            <div id="responseModalBody">
+                                <p>You can not enter a negative number for your "Duration". Please try again.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            
+
+<script>
+document.getElementById('logSessionForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value });
+
+    fetch('/study/logSession', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            window.location.href="/study/studyLog";
+        } else {
+        const modalBody = document.getElementById('responseModalBody');
+        modalBody.textContent = data.message;
+
+        const modal = new bootstrap.Modal(document.getElementById('responseModal'));
+        modal.show();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
 
 <script>
     var timeLeft = <%= timeLeft %>;

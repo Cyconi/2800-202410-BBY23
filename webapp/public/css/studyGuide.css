@@ -1,0 +1,34 @@
+:root {
+    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
+    --text-color: #000000;
+    --card-background-color: #ffffff;
+    --button-border-radius: 10px;
+    --background-color: #bae6f5;
+    --button-font-size: 1.5rem;
+    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
+}
+
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* This makes sure the container takes up the full height of the screen */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-info {
+    background: var(--button-color);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
