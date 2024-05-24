@@ -237,10 +237,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function for back button
 function goBack() {
+    localStorage.setItem('refresh', 'true');
     window.history.back();
-    window.location.reload();
 }
+window.onload = function () {
+    if (localStorage.getItem('refresh') === 'true') {
+        localStorage.removeItem('refresh');
+        location.reload();
+    }
+}
+window.onpageshow = function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+};
 
+// auto leave function for chat room
 function autoLeave() {
     $.get('/chat/autoleave', function (data) {
         if (data.success) {
@@ -248,7 +260,7 @@ function autoLeave() {
         }
     });
 }
-
+// auto leave function for chat room
 $(document).ready(function () {
     autoLeave();
     setInterval(autoLeave, 5000);

@@ -65,7 +65,7 @@ router.post('/leave', ensureAuthenticated, async (req, res) => {
 router.post('/autoleave', ensureAuthenticated, async (req, res) => {
 
     const currentRoot = req.originalUrl;
-    if (currentRoot !== '/') {
+    if (!currentRoot.toString().includes('/chat')) {
         console.log("not on /chat root, force leaving queue");
         const email = req.user.email;
         const userExists = await WaitQueue.findOne({ email: email });
