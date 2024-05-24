@@ -69,14 +69,6 @@
     padding: 20px; 
 }
 
-/* Center screen class */
-.center-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; /* This makes sure the container takes up 80% of the screen height */
-}
-
 /* Button Styles */
 .btn-primary {
     background: var(--button-color);
