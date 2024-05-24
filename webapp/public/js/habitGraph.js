@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function resizeCanvas() {
         var aspectRatio = 2; // Adjust the aspect ratio as needed
         canvas.width = canvas.parentElement.clientWidth;
-        console.log(canvas.width)
         if(canvas.width <= 400){
             aspectRatio = 1;
         }
