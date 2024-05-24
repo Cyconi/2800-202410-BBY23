@@ -112,6 +112,13 @@ app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     }
 });
 
+app.post('/checkAuth', (req, res) =>{
+    if(req.isAuthenticated()){
+        return res.json({success: true});
+    }
+    res.json({success: false});
+});
+
 app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
     try {
         const faqItem = req.body.faqItem;

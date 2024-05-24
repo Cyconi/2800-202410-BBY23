@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/';
         });
     }
-
+    
     // Handle FAQ modal
     const faqButton = document.getElementById('faqButton');
     const modalFAQ = document.getElementById('modalFAQ');
