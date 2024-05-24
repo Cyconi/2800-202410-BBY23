@@ -1,0 +1,30 @@
+/* styles.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#queueHeader {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.queueCount {
+    color: #007bff;
+}
+
+.buttons {
+    margin: auto;
+}
+
+.buttons form {
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+}
