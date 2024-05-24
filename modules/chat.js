@@ -5,7 +5,6 @@ const passport = require("passport");
 const User = require('./user');
 const WaitQueue = require('./queueSchema');
 const ChatRoom = require('./chatRoomSchema');
-const { NULL } = require('mysql/lib/protocol/constants/types');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
