@@ -1,36 +1,35 @@
 <%- include("template/header") %>
-    <link rel="stylesheet" href="css/waitingRoom.css">
-    <link rel="stylesheet" href="css/background.css">
-    <div class="container text-center">
+<link rel="stylesheet" href="css/waitingRoom.css">
+<link rel="stylesheet" href="css/background.css">
 
-        <div style="display: flex; justify-content: center;">
-            <div class="card bg-dark text-white" style="display: inline-block;">
-                <h1 id="queueHeader">
-                    <span class="queueCount text-center" style="margin: 10px;">
-                        <%= queueCount %>
-                    </span>
-                    Waiting In Queue...
-                </h1>
-            </div>
-        </div>
-
-        <!-- <h1 id="queueHeader"><span class="queueCount">
-                <%= queueCount %>
-            </span> Waiting In Queue... </h1> -->
-        <br>
-        <div class="row center-screen">
-            <div class="col-md-4 buttons">
-                <form action='/chat/join' method='POST'>
-                    <button type="submit" class="btn btn-primary">Join Queue</button>
-                </form>
-                <form action='/chat/leave' method='POST'>
-                    <button type="submit" class="btn btn-primary">Leave Queue</button>
-                </form>
+<!-- centered in middle of screen for height style -->
+<div class="d-flex flex-column justify-content-center" style="height: calc(100vh - 150px);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card text-center bg-dark text-white">
+                    <div class="card-body">
+                        <h1 id="queueHeader" class="card-title">
+                            <span class="queueCount">
+                                <%= queueCount %>
+                            </span>
+                            Waiting In Queue...
+                        </h1>
+                        <div class="mt-4 d-flex justify-content-between">
+                            <form action='/chat/join' method='POST'>
+                                <button type="submit" class="btn btn-primary mb-2">Join Queue</button>
+                            </form>
+                            <form action='/chat/leave' method='POST'>
+                                <button type="submit" class="btn btn-danger">Leave Queue</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/waitingRoom.js"></script>
-    <%- include("template/footer") %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/waitingRoom.js"></script>
+<%- include("template/footer") %>
