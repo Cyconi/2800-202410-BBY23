@@ -31,36 +31,33 @@ document.addEventListener('visibilitychange', () => {
 // Periodically check the timer every 30 seconds
 setInterval(checkTimer, 2000);
 
-
 function checkNotification() {
     fetch('/checkHabitNotification', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                if(data.notify){
-                    const notificationArea = document.getElementById('notification-area');
-                    const closeNotification = document.getElementById('close-notification');
-                    const explIcon = document.getElementById('expl-icon');
-                    if (notificationArea) {
-                        notificationArea.style.display = "block";
-                        closeNotification.addEventListener('click', function() {
-                            notificationArea.style.display = "none";
-                        });
-                    }
-                    if (explIcon) {
-                        explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
-                    }
+            if (data.success && data.notify) {
+                const notificationArea = document.getElementById('notification-area');
+                const closeNotification = document.getElementById('close-notification');
+                const explIcon = document.getElementById('expl-icon');
+                
+                if (notificationArea) {
+                    notificationArea.style.display = "block";
+                    closeNotification.addEventListener('click', function() {
+                        notificationArea.style.display = "none";
+                    });
+                }
+                if (explIcon) {
+                    explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
                 }
             }
         })
         .catch(error => {
-            setTimeout(checkNotification, 3600000); 
+            setTimeout(checkNotification, 3600000); // Retry after 1 hour if there's an error
         });
 }
 
 checkNotification();
 setInterval(checkNotification, 3600000);
-
 
 document.addEventListener('DOMContentLoaded', function() {
     let enterEmailModalInstance;
@@ -134,8 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             alert('Failed to send reset email. Please try again.');
                         });
                     }
-                } else {
-                    
                 }
             }
         });
@@ -275,14 +270,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalFAQ = document.getElementById('modalFAQ');
     if (faqButton) {
         if (modalFAQ) {
-            faqButton.style.display = 'block';
-
+            let enabled = false;
+            fetch('/checkFAQ', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ faqItem })
+            }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const spanElement = faqButton.querySelector('span');
+                    spanElement.style.color = 'red';
+                    faqButton.style.display = 'block';
+                    enabled = true;
+                } else {
+                    console.log('FAQ already used or other error');
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+            if(!enabled){
+                faqButton.style.display = 'block';
+            }
             faqButton.addEventListener('click', function() {
                 const faqModal = new bootstrap.Modal(modalFAQ);
                 faqModal.show();
             });
         }
     }
+
     // Handle user already exists modal
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
