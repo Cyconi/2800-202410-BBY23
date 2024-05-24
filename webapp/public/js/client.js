@@ -285,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     faqButton.style.display = 'block';
                     enabled = true;
                 } else {
-                    console.log('FAQ already used or other error');
                 }
             })
             .catch(error => {
