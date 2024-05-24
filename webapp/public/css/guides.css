@@ -1,10 +1,10 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background: url('img/stars.png') no-repeat center center fixed;
+    background: url('../img/stars.png') no-repeat center center fixed;
 }
 
-.navbar {
+/* .navbar {
     margin-bottom: 20px;
 }
 
@@ -15,17 +15,13 @@ body {
     position: relative;
 }
 
-.navbar .navbar-brand, .navbar .btn-outline-secondary {
-    position: absolute;
-}
-
 .navbar .navbar-brand {
     left: 10px;
 }
 
 .navbar .btn-outline-secondary {
     right: 10px;
-}
+} */
 
 .container-fluid{
     font-size: 1.5rem;
