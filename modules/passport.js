@@ -10,11 +10,11 @@ module.exports = function (passport) {
                 // Search for the user by either username or email
                 const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
                 if (!user) {
-                    return done(null, false, { message: 'Username or email' });
+                    return done(null, false, { message: 'username or email' });
                 }
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (!isMatch) {
-                    return done(null, false, { message: 'Password' });
+                    return done(null, false, { message: 'password' });
                 }
                 return done(null, user);
             } catch (err) {
