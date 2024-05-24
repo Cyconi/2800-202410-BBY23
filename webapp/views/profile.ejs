@@ -14,11 +14,16 @@
                 <div class="col-lg-4">
                     <div class="text-center card-box">
                         <div class="member-card pt-2 pb-2">
-                            <div class="thumb-lg member-thumb mx-auto">
-                                <img src="/img/avatar_lvl1.png" class="rounded-circle img-thumbnail profile-image" alt="profile-image">
-                            </div>
+                          <div class="thumb-lg member-thumb mx-auto profile-image-container">
+                            <div class="profile-image" style="background-image: url('<%= level == 1 ? '/img/avatar_lvl1.png' : '/img/avatar_lvl2.png' %>');"></div>
+                          </div>
                             <div class="">
                                 <h4 class="user-name"><%= user.name %></h4>
+                                <% if (level == 1) { %>
+                                  <h4>LEVEL 1</h4>
+                                <% } else { %>
+                                  <h4>LEVEL 2</h4>
+                                <% } %>
                                 <p class="text-muted"><span class="username">@<%= user.username %></span> <span>| </span><span class="text-pink user-email"> <%= user.email %> </span></p>
                             </div>
                             <button class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Edit Profile</button>
@@ -27,19 +32,19 @@
                                     <div class="col-4">
                                         <div class="mt-3">
                                             <h4><%= user.interpersonalAmount %></h4>
-                                            <p class="mb-0 text-muted">Interpersonal Points</p>
+                                            <p class="mb-0 text-muted">Confidence</p>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mt-3">
                                             <h4><%= user.knowledgeAmount %></h4>
-                                            <p class="mb-0 text-muted">Discipline</p>
+                                            <p class="mb-0 text-muted">Knowledge</p>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                       <div class="mt-3">
                                           <h4><%= user.habitAmount %></h4>
-                                          <p class="mb-0 text-muted">Knowledge</p>
+                                          <p class="mb-0 text-muted">Discipline</p>
                                       </div>
                                   </div>
                                 </div>
@@ -101,11 +106,11 @@
             </li>
             <li class="d-flex gap-4">
               <div>
-                <h5 class="mb-0">What are the percentages at the bottom?</h5>
+                <h5 class="mb-0">What are the points at the bottom?</h5>
                 <ul>
-                  <li>The confidence percent represents your use of the interpersonal section.</li>
-                  <li>The discipline percent represents your use of the habit tracker and consistent use of the daily MCQ's</li>
-                  <li>The knowledge percent represents your use of the study section by having study sessions and logging them.</li>
+                  <li>The confidence points represents your use of the interpersonal section.</li>
+                  <li>The discipline points represents your use of the habit tracker and consistent use of the daily MCQ's</li>
+                  <li>The knowledge points represents your use of the study section by having study sessions and logging them.</li>
                 </ul>
               </div>
             </li>
