@@ -1,9 +1,19 @@
 <%- include("template/header") %>
+<link rel="stylesheet" href="css/background.css">
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6">
-            <h1 class="text-center mb-4">Add A Habit</h1>
+
+            <div style="display: flex; justify-content: center;">
+                <div class="card bg-dark text-white" style="display: inline-block;">
+                    <h2 class="text-center" style="margin: 10px;">
+                      Add A Habit
+                    </h2>
+                </div>
+              </div>
+
+            <!-- <h1 class="text-center mb-4">Add A Habit</h1> -->
             <form id="habitForm" method='POST'>
                 <br><br>
                 <div class="mb-3">

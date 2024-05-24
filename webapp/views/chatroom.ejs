@@ -1,69 +1,26 @@
 <%- include("template/header") %>
-<style>
-    body {
-        margin: 0 auto;
-        max-width: 800px;
-        padding: 0 20px;
-    }
+    <link rel="stylesheet" href="css/chatroom.css">
+    <form action='/chat/closeRoom' method='POST'>
+        <button type="submit" class="btn btn-primary">Leave Queue</button>
+        <h2 id="timer">Time Left: 3m 0s</h2>
+    </form>
+    <!-- <button id="addMinute" class="btn btn-primary">Add a Minute</button> -->
+    <div class="container mt-4">
+        <h2 class="text-center">Chat Messages</h2>
 
-    .container {
-        border: 2px solid #dedede;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 5px 10px;
-        margin: 10px 0;
-    }
-
-    .darker {
-        border-color: #ccc;
-        background-color: #ddd;
-    }
-
-    .container::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-    .time-right {
-        float: right;
-        color: #aaa;
-    }
-</style>
-
-<h2>Chat Messages</h2>
-
-<div class="container">
-    <div><strong>User1</strong></div>
-    <div>
-        Hey!
-        <span class="time-right">11:00</span>
+        <div id="chat-messages" class="mt-4">
+            <!-- Existing chat messages will go here -->
+        </div>
+        <form id="message-form">
+            <div class="input-group">
+                <input type="text" id="message-input" class="form-control" placeholder="Type a message...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/chatroom.js"></script>
 
-<div class="container darker">
-    <div><strong>User2</strong></div>
-    <div>
-        Hey! I'm fine. Thanks for asking!
-        <span class="time-right">11:01</span>
-    </div>
-</div>
-
-<div class="container">
-    <div><strong>User1</strong></div>
-    <div>
-        Sweet! So, what do you wanna do today?
-        <span class="time-right">11:02</span>
-    </div>
-
-</div>
-
-<div class="container darker">
-    <div><strong>User2</strong></div>
-    <div>
-        Nah, I dunno. Play soccer.. or learn more coding perhaps?
-        <span class="time-right">11:05</span>
-    </div>
-</div>
-
-<%- include("template/footer") %>
+    <%- include("template/footer") %>

@@ -5,10 +5,10 @@
     
 
 <style>
-  .card-body {
+  .studycard {
       display: none;
   }
-  .card.expanded .card-body {
+  .card.expanded .studycard {
       display: block;
   }
   .card-header {
@@ -17,7 +17,15 @@
 </style>
 
 <div class="container text-center">
-  <h1>Study Page</h1>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h1 class="text-center" style="margin: 10px;">
+          Study Page
+        </h1>
+    </div>
+  </div>
+
   <div class="row center-screen">
       <!-- Study Guides Card -->
       <div class="col-md-4 mb-4">
@@ -26,7 +34,7 @@
                   <img src="/img/studyGuide.png" alt="Study Guides image" class="card-image" />
                   <h5 class="card-title">Study Guides</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Access guides to enhance your study sessions and make your time more efficient.</p>
                   <form action="/study/guides" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">Open Study Guides</button>
@@ -41,7 +49,7 @@
                   <img src="/img/studySession.png" alt="Study Session image" class="card-image" />
                   <h5 class="card-title">Study Session</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Start a focused study session with a timer and break intervals.</p>
                   <form action="/study/session" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">Start Study Session</button>
@@ -56,7 +64,7 @@
                   <img src="/img/studyLog.png" alt="Study Log image" class="card-image" />
                   <h5 class="card-title">Study Log</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">View and analyze your past study sessions and track your progress.</p>
                   <form action="/study/log" method="POST" onsubmit="event.stopPropagation();">
                       <button type="submit" class="btn btn-primary">View Study Log</button>
@@ -75,30 +83,30 @@
               <h2 class="fw-bold mb-0">Become More Effective in Your Studies</h2>
               <ul class="d-grid gap-4 my-5 list-unstyled small">
                 <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
                   <div>
-                    <h5 class="mb-0">Use a Guide Before Your Next Study Session</h5>
+                    <h5 class="mb-0">Try a Guide Before Your Next Study Session</h5>
                     <ul>
-                      <li>Under 'Study Guides' we provide guides that you can ttry to implement into your sessions to make your time most efficient</li>
+                      <li>Under 'Study Guides' we provide guides that you can try to implement into your sessions to make your time most efficient</li>
                     </ul>
                   </div>
                 </li>
                 <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
                   <div>
                     <h5 class="mb-0">Use the Study Session Properly</h5>
                     <ul>
-                      <li>Decide how long your going to study for and prepare the timer for that time.</li>
-                      <li>Set your break time amount that you'll use during a session.</li>
-                      <li>Fill out the form about the session to refer back later for yourself.</li>
+                      <li>Decide how long you're going to study for and prepare the timer for that time.</li>
+                      <li>Set your break time amount that you'll use during a session (automatically 5 minutes).</li>
+                      <li>Fill out the form about your session to refer back to it later for yourself.</li>
                     </ul>
                   </div>
                 </li>
                 <li class="d-flex gap-4">
-                    <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                    
                   <div>
                     <h5 class="mb-0">View Past Sessions</h5>
-                    <ul><li>Under 'Study Log' you'll be able to see all your past sessions and your total time for studying.</li></ul>
+                    <ul><li>Under 'Study Log' you'll be able to see all your past sessions and your total time for studying.</li>
+                      <li>The more sessions you have, the more your Knowledge Points will go up in your Profile page.</li>
+                    </ul>
                   </div>
                 </li>
               </ul>
