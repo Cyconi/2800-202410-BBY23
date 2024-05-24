@@ -31,7 +31,6 @@ function fetchMessages() {
 function roomNotFound() {
     $.get('/chat/pullMsg', function (data) {
         if (!data.success) {
-            console.log("leaving chatroom...");
             window.location.href = data.redirectTo;
         }
     });

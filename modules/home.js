@@ -127,7 +127,6 @@ router.post('/reset/:token', async (req, res) => {
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        console.log("HE");
         if (err) {
             return res.status(500).json({ success: false, message: "Internal server error" });
         }

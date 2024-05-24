@@ -66,7 +66,6 @@ router.post('/autoleave', ensureAuthenticated, async (req, res) => {
     try{
     const currentRoot = req.originalUrl;
     if (!currentRoot.toString().includes('/chat')) {
-        console.log("not on /chat root, force leaving queue");
         const email = req.user.email;
         const userExists = await WaitQueue.findOne({ email: email });
         if (userExists) {
@@ -118,7 +117,6 @@ router.post('/closeRoom', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const queueCount = await WaitQueue.getQueueCount();
     const chatRoom = await ChatRoom.deleteMany({ $or: [{ user1: email }, { user2: email }] });
-    console.log(`${chatRoom.deletedCount} document(s) were deleted.`);
 
     res.render('waitingRoom', { queueCount: queueCount });
 });

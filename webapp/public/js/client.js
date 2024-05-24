@@ -33,13 +33,10 @@ setInterval(checkTimer, 2000);
 
 
 function checkNotification() {
-    console.log("RAN IT");
     fetch('/checkHabitNotification', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.success) {
-                console.log("success");
                 if(data.notify){
                     const notificationArea = document.getElementById('notification-area');
                     const closeNotification = document.getElementById('close-notification');
@@ -206,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 identifier: formData.get('identifier'),
                 password: formData.get('password')
             };
-            console.log(data);
             const response = await fetch(form.action, {
                 method: 'POST',
                 headers: {
