@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     }
                 } else {
-                    alert(data.message || 'Failed to fetch security question. Please try again.');
+                    
                 }
             }
         });
