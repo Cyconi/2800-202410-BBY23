@@ -10,7 +10,7 @@
         "questions": [
           {
             "id": 1,
-            "text": "You've realized that your actions hurt someone's feelings. What is your first step?",
+            "narrator": "You've realized that your actions hurt someone's feelings. What is your first step?",
             "type": "text",
             "options": [
               { "text": "Acknowledge your mistake and prepare to apologize.", "correct": true, "feedback": "Acknowledging your mistake is the first step towards making a sincere apology." },
@@ -21,7 +21,7 @@
           },
           {
             "id": 2,
-            "text": "You approach the person to apologize. How do you start the conversation?",
+            "narrator": "You approach the person to apologize. How do you start the conversation?",
             "type": "text",
             "options": [
               { "text": "Express regret for your actions and how they affected them.", "correct": true, "feedback": "Expressing regret shows that you understand the impact of your actions." },
@@ -32,8 +32,7 @@
           },
           {
             "id": 3,
-            "narrator": "The person expresses their feelings about the situation.",
-            "text": "How do you respond to their feelings?",
+            "narrator": "The person expresses their feelings about the situation. How do you respond to their feelings?",
             "type": "text",
             "options": [
               { "text": "Listen without interrupting and acknowledge their feelings.", "correct": true, "feedback": "Listening and acknowledging their feelings shows that you respect and understand their perspective." },
@@ -44,8 +43,7 @@
           },
           {
             "id": 4,
-            "narrator": "You finish listening to their perspective.",
-            "text": "What should you include in your apology?",
+            "narrator": "You finish listening to their perspective. What should you include in your apology?",
             "type": "text",
             "options": [
               { "text": "Acknowledge your mistake, express regret, and offer to make amends.", "correct": true, "feedback": "A sincere apology includes acknowledging the mistake, expressing regret, and offering to make amends." },
@@ -56,8 +54,7 @@
           },
           {
             "id": 5,
-            "narrator": "The person accepts your apology.",
-            "text": "How do you ensure the relationship is mended?",
+            "narrator": "The person accepts your apology. How do you ensure the relationship is mended?",
             "type": "text",
             "options": [
               { "text": "Follow through on any promises to make amends and show through actions that you are sincere.", "correct": true, "feedback": "Following through on promises and showing sincerity through actions helps rebuild trust." },

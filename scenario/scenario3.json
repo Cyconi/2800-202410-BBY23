@@ -10,7 +10,7 @@
         "questions": [
           {
             "id": 1,
-            "text": "Your loved one confides in you about their struggles. What is your first response?",
+            "narrator": "Your loved one confides in you about their struggles. What is your first response?",
             "type": "text",
             "options": [
               { "text": "Listen attentively and acknowledge their feelings.", "correct": true, "feedback": "Listening and acknowledging their feelings shows empathy and understanding." },
@@ -21,7 +21,7 @@
           },
           {
             "id": 2,
-            "text": "They express feeling overwhelmed and unable to cope. How do you respond?",
+            "narrator": "They express feeling overwhelmed and unable to cope. How do you respond?",
             "type": "text",
             "options": [
               { "text": "Encourage them to take things one step at a time and offer your help.", "correct": true, "feedback": "This shows your willingness to support them in manageable ways." },
@@ -32,8 +32,7 @@
           },
           {
             "id": 3,
-            "narrator": "You notice that your loved one is withdrawing from social activities.",
-            "text": "What is a supportive way to address this?",
+            "narrator": "You notice that your loved one is withdrawing from social activities. What is a supportive way to address this?",
             "type": "text",
             "options": [
               { "text": "Invite them to a low-pressure activity and respect their response.", "correct": true, "feedback": "Inviting them to a low-pressure activity shows you care without putting too much pressure on them." },
@@ -44,8 +43,7 @@
           },
           {
             "id": 4,
-            "narrator": "Your loved one starts talking about their problems more openly.",
-            "text": "How do you keep the conversation supportive?",
+            "narrator": "Your loved one starts talking about their problems more openly. How do you keep the conversation supportive?",
             "type": "text",
             "options": [
               { "text": "Continue to listen without judgment and offer encouragement.", "correct": true, "feedback": "Listening without judgment and offering encouragement helps them feel supported." },
@@ -56,8 +54,7 @@
           },
           {
             "id": 5,
-            "narrator": "They mention feeling hopeless about their situation.",
-            "text": "What should you say?",
+            "narrator": "They mention feeling hopeless about their situation. What should you say?",
             "type": "text",
             "options": [
               { "text": "Express your concern and suggest seeking professional help if needed.", "correct": true, "feedback": "Expressing concern and suggesting professional help shows you care and understand the seriousness of their feelings." },

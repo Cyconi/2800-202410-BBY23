@@ -63,7 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.src = imageSrc;
                     img.alt = `Option ${index + 1}`;
                     img.classList.add('question-image');
-                    img.style.width = '300px';  // Set the width of the image to 100px
+                    img.style.width = '200px';
+                    img.style.display = 'block';
+                    img.style.margin = '0 auto';
+                    
 
                     const button = document.createElement('button');
                     button.textContent = question.options[index].text;
