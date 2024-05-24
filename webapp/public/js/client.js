@@ -359,10 +359,8 @@ async function autoLeave() {
         let response = await fetch('/chat/autoleave', { method: 'POST' });
     
         let data = await response.json();
-        if (data.success) {
-        }
-    } catch (error) {
-    }
+        //if (data.success) {}
+    } catch (error) {}
 }
 // auto leave function for chat room
 $(document).ready(function () {
