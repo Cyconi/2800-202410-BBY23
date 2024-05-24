@@ -30,7 +30,7 @@ router.post('/completed', async (req, res) => {
         let index = scenarioID - 1;
         if(req.user.interpersonalCompleted[index] !== 1){
             req.user.interpersonalCompleted[index] = 1;
-            req.user.interpersonalAmount += 25;
+            req.user.interpersonalAmount += 35;
             await req.user.save();
         }
         res.json({success: true});
