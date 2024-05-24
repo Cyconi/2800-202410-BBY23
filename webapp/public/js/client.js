@@ -48,7 +48,13 @@ function checkNotification() {
                 }
                 if (explIcon) {
                     explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
-                }
+                }   
+            }
+            if(data.success && !data.notify){
+                const explIcon = document.getElementById('expl-icon');
+                if (explIcon) {
+                    explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
+                }   
             }
         })
         .catch(error => {
@@ -353,10 +359,8 @@ async function autoLeave() {
         let response = await fetch('/chat/autoleave', { method: 'POST' });
     
         let data = await response.json();
-        if (data.success) {
-        }
-    } catch (error) {
-    }
+        //if (data.success) {}
+    } catch (error) {}
 }
 // auto leave function for chat room
 $(document).ready(function () {

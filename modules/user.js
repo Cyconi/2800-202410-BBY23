@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     interpersonalAmount: {type: Number, unique: false, required: true, default: 0},
     interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]},
     lastCheckedNotification: {type: Date, unique: false, required: true, default: oneHourAgo },
+    openedNotification: {type: Boolean, unique: false, required: true, default: 0},
     habitAmount: {type: Number, unique: false, required: true, default: 0 },
     interpersonalCompleted: {type: [Number], unique: false, required: true, default: [0, 0, 0, 0, 0, 0]},
     securityQuestion: { type: String, unique: false, required: false },

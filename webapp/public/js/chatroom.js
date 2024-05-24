@@ -95,7 +95,7 @@ function countdown() {
         timerElement.textContent = 'Time Left: 0m 0s';
         // Add a 3 second delay before submitting the form
         setTimeout(function () {
-            //document.querySelector("form[action='/chat/closeRoom']").submit();
+            document.querySelector("form[action='/chat/closeRoom']").submit();
         }, 3000);
     } else {
         timeLeft--;
@@ -104,7 +104,7 @@ function countdown() {
 }
 var intervalId = setInterval(countdown, 1000);
 
-document.getElementById('addMinute').addEventListener('click', function () {
-    timeLeft += 60; // Add a minute
-    updateTimer();
-});
+// document.getElementById('addMinute').addEventListener('click', function () {
+//     timeLeft += 60; // Add a minute
+//     updateTimer();
+// });
