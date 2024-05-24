@@ -14,10 +14,10 @@
             "text":"Look at the images below and choose the person whose body language suggests they are open to being approached.",
             "type": "image",
             "images": [
-              "image1.jpg",  
-              "image2.jpg",
-              "image3.jpg",
-              "image4.jpg"
+              "img/sc1_q1_ans1.png",  
+              "img/sc1_q1_ans2.png",
+              "img/sc1_q1_ans3.png",
+              "img/sc1_q1_ans4.png"
             ],
             "options": [
               { "text": "Person in Image 1", "correct": false, "feedback": "The person with arms crossed and looking away might seem closed off." },
@@ -55,10 +55,10 @@
             "text": "Look at the images below and choose the person who seems most interested in continuing.",
             "type": "image",
             "images": [
-              "image1.jpg",
-              "image2.jpg",
-              "image3.jpg",
-              "image4.jpg"
+              "/img/",
+              "scenario4.png",
+              "scenario4.png",
+              "scenario4.png"
             ],
             "options": [
               { "text": "Person in Image 1", "correct": true, "feedback": "The person leaning in, maintaining eye contact, and asking questions shows a clear interest in continuing the conversation." },
