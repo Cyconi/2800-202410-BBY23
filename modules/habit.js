@@ -32,6 +32,7 @@ router.post('/addFrequency', async (req, res) => {
             habit.whenToAsk = new Date(now.getTime() + 3 * 60 * 1000);
             await habit.save();
             req.user.habitAmount += 5;
+            req.user.openedNotification = 0;
             await req.user.save();
             res.sendStatus(204);
         } else {

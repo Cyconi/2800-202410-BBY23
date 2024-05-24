@@ -48,7 +48,13 @@ function checkNotification() {
                 }
                 if (explIcon) {
                     explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
-                }
+                }   
+            }
+            if(data.success && !data.notify){
+                const explIcon = document.getElementById('expl-icon');
+                if (explIcon) {
+                    explIcon.style.filter = "invert(21%) sepia(88%) saturate(6645%) hue-rotate(358deg) brightness(96%) contrast(125%)";
+                }   
             }
         })
         .catch(error => {

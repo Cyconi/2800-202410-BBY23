@@ -86,8 +86,11 @@ app.post('/logout', (req, res) => {
 
 app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     try {
-        const oneHourAgo = new Date(Date.now() - 300000);
+        const oneHourAgo = new Date(Date.now() - 1000);
         let notify = false;
+        if(req.user.openedNotification === 1){
+            return res.json({ success: true, notify: false });
+        }
         if(req.user.lastCheckedNotification <= oneHourAgo){
             const habits = await Habit.find({ email: req.user.email});
             if (habits) {
@@ -99,12 +102,13 @@ app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
                 }
             }
             req.user.lastCheckedNotification = Date.now();
+            req.user.openedNotification = 1;
             await req.user.save();
         }
         if (notify === true) {
             res.json({ success: true, notify: true });
         } else {
-            res.json({ success: true, notify: false });
+            res.json({ success: false, notify: false });
         }
     } catch (error) {
        
