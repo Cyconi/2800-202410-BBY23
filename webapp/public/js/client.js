@@ -272,13 +272,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle FAQ modal
     const faqButton = document.getElementById('faqButton');
+    const modalFAQ = document.getElementById('modalFAQ');
     if (faqButton) {
+        if(modalFAQ){
+
+        
         faqButton.addEventListener('click', function() {
-            const faqModal = new bootstrap.Modal(document.getElementById('modalFAQ'));
+            const faqModal = new bootstrap.Modal(modalFAQ);
             faqModal.show();
         });
+        // Hide the button immediately after setting up the click event
+        }else{
+            faqButton.style.display = 'none';    
+        }
     }
-
     // Handle user already exists modal
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
