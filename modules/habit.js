@@ -44,6 +44,28 @@ router.post('/addFrequency', async (req, res) => {
 });
 
 
+router.post('/thumbsDown', async (req, res) => {
+    const { habitID } = req.body;
+    try {
+        const habit = await Habit.findOne({ id: habitID });
+        if (habit) {
+            const now = new Date();
+            
+            habit.whenToAsk = new Date(now.getTime() + 3 * 60 * 1000);
+            await habit.save();
+            
+            req.user.openedNotification = 0;
+            await req.user.save();
+            res.sendStatus(204);
+        } else {
+            res.sendStatus(204);
+        }
+    } catch (error) {
+        res.json({ success: false, error: error.message });
+    }
+});
+
+
 async function updateFrequency() {
     try {
         const habits = await Habit.find();

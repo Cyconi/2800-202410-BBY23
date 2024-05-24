@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const modalButton = document.querySelector('#modalDelete button[data-bs-dismiss="modal"]');
         if (modalButton) {
             modalButton.addEventListener('click', function () {
-                location.reload();
+                location.reload();  
             });
         }
     }
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function submitForm(button) {
+function submitForm(button, actionUrl) {
     // Disable all buttons within the same card
     const card = button.closest('.card-body');
     card.querySelectorAll('button').forEach(btn => {
@@ -212,7 +212,7 @@ function submitForm(button) {
     // Create a new form and submit it
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'addFrequency';
+    form.action = actionUrl;
 
     const habitID = document.createElement('input');
     habitID.type = 'hidden';
