@@ -39,7 +39,7 @@ function matchFound() {
 
 $(document).ready(function () {
     getQueue(); // Check the queue when the page loads
-    setInterval(getQueue, 3000); // Check the queue every 3 seconds
+    setInterval(getQueue, 5000); // Check the queue every 3 seconds
     matchFound();
     setInterval(matchFound, 3000);
 });
