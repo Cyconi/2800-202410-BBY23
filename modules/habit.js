@@ -29,7 +29,7 @@ router.post('/addFrequency', async (req, res) => {
             
             habit.frequency.push(1);
 
-            habit.whenToAsk = new Date(now.setDate(now.getDate() + 1));
+            habit.whenToAsk = new Date(now.getTime() + 3 * 60 * 1000);
             await habit.save();
             req.user.habitAmount += 5;
             await req.user.save();
