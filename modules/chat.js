@@ -29,6 +29,8 @@ router.get('/chatroom', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: email }, { user2: email }] });
     if (chatRoom) {
+        req.user.interpersonalAmount += 10;
+        await req.user.save();
         return res.render("chatroom");
     }
     res.redirect('/chat');
@@ -82,10 +84,12 @@ router.post('/autoleave', ensureAuthenticated, async (req, res) => {
 router.get('/matchFound', ensureAuthenticated, async (req, res) => {
     await matchUsers();
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: req.user.email }, { user2: req.user.email }] });
-    if (chatRoom)
-        res.json({ success: true, redirectTo: '/chat/chatroom' });
-    else
-        res.json({ success: false });
+    if (chatRoom){
+        req.user.interpersonalAmount += 10;
+        await req.user.save();
+        return res.json({ success: true, redirectTo: '/chat/chatroom' });
+    }
+    res.json({ success: false });
 });
 
 

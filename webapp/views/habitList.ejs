@@ -116,22 +116,23 @@
 
 <!-- Graph -->
 <br>
-<div class="card mx-auto alert alert-primary boxAlert" role="alert" style="width: 85%;">
-  <div class="card-body boxAlert">
-    <div class="container mt-4">
-      <h2 class="text-center text-black">Consistency Graph</h2>
-      <div class="text-center">
-        <select id="timeRange" class="form-select w-auto d-inline-block smSelect">
-          <option value="week">Week</option>
-          <option value="month">Month</option>
-          <option value="year">Year</option>
-        </select>
-        <button id="updateGraphButton" class="btn btn-primary smBtn">Update Graph</button>
-      </div>
-      <canvas id="habitGraph" width="600" height="350"></canvas>
+<div class="container mt-4">
+  <h2 class="text-center text-black">Consistency Graph</h2>
+  <div class="text-center">
+    <select id="timeRange" class="form-select w-auto d-inline-block smSelect">
+      <option value="week">Week</option>
+      <option value="month">Month</option>
+      <option value="year">Year</option>
+    </select>
+    <button id="updateGraphButton" class="btn btn-primary smBtn">Update Graph</button>
+  </div>
+  <div class="card mx-auto alert alert-primary boxAlert" role="alert" style="width: 85%;">
+    <div class="card-body boxAlert">
+      <canvas id="habitGraph"></canvas>
     </div>
   </div>
 </div>
+
 
 
 

@@ -192,3 +192,9 @@ input[type="number"] {
 .study-log-form button:hover {
     background-color: #0056b3;
 }
+
+/* Negative mins Modal */
+.modal-custom {   
+    background-color: initial !important;
+    text-align: initial !important;
+}
