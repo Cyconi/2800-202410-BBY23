@@ -64,13 +64,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             },
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Consistency Graph',
-                    font: {
-                        size: 20
-                    }
-                },
                 legend: {
                     display: true,
                     labels: {
