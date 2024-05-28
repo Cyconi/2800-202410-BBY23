@@ -19,6 +19,55 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
+/**
+ * The amount by which the user's habit amount is increased each time a frequency is added.
+ * 
+ * This number represents the discipline a user gets every time they mark a habit as done for the day.
+ * 
+ * @constant {number}
+ * @default 5
+ */
+const INCREASECONFIDENCE = 5;
+
+/**
+ * The duration of one hour in milliseconds.
+ * 
+ * This constant is used to calculate time intervals in milliseconds.
+ * 
+ * @constant {number}
+ * @default 3600000
+ */
+const ONEHOUR = 3600000;
+
+/**
+ * The duration of one day in milliseconds.
+ * 
+ * This constant is used to calculate time intervals in milliseconds, representing a full day.
+ * 
+ * @constant {number}
+ * @default 86400000
+ */
+const ONEDAY = ONEHOUR * 24;
+
+
+/**
+ * Handles the POST request to add a frequency to a habit.
+ * 
+ * This logically represents a user doing a specific habit that day.
+ * 
+ * This post changes the date of habit.whenToAsk to 24 hours into the future. This is done so that
+ * a user can only update a habit's frequency once every 24 hours. We also record this time to find out
+ * when to give the user a notification.
+ * 
+ * The habit's frequency array is updated by adding a value of 1 to the last element of the array.
+ * 
+ * Habit amount is also increased by INCREASECONFIDENCE.
+ * 
+ * @route POST /habit/addFrequency
+ * @param {string} req.body.habitID - The ID of the habit to update.
+ * @returns {204} No Content - If the habit is successfully updated or if the habit is not found.
+ * @returns {Object} 500 - An error object is returned if there is an internal server error.
+ */
 router.post('/addFrequency', async (req, res) => {
     const { habitID } = req.body;
     try {
@@ -29,9 +78,9 @@ router.post('/addFrequency', async (req, res) => {
             
             habit.frequency.push(1);
 
-            habit.whenToAsk = new Date(now.getTime() + 3 * 60 * 1000);
+            habit.whenToAsk = new Date(now.getTime() + ONEDAY);
             await habit.save();
-            req.user.habitAmount += 5;
+            req.user.habitAmount += INCREASECONFIDENCE;
             req.user.openedNotification = 0;
             await req.user.save();
             res.sendStatus(204);
@@ -44,6 +93,18 @@ router.post('/addFrequency', async (req, res) => {
 });
 
 
+/**
+ * Handles the POST request to record a thumbs down action on a habit.
+ * 
+ * This logically represents a user who marks a habit as not done for the day.
+ * 
+ * Changese the habit.whenToAsk to 24 hours into the future.
+ * 
+ * @route POST /habit/thumbsDown
+ * @param {string} req.body.habitID - The ID of the habit to update.
+ * @returns {204} No Content - If the habit is successfully updated or if the habit is not found.
+ * @returns {Object} 500 - An error object is returned if there is an internal server error.
+ */
 router.post('/thumbsDown', async (req, res) => {
     const { habitID } = req.body;
     try {
@@ -51,7 +112,7 @@ router.post('/thumbsDown', async (req, res) => {
         if (habit) {
             const now = new Date();
             
-            habit.whenToAsk = new Date(now.getTime() + 3 * 60 * 1000);
+            habit.whenToAsk = new Date(now.getTime() + ONEDAY);
             await habit.save();
             
             req.user.openedNotification = 0;
@@ -73,7 +134,7 @@ async function updateFrequency() {
         habits.forEach(async habit => {
             const now = new Date();
             const habitStartDate = new Date(habit.whenMade);
-            const daysSinceStart = Math.floor((now - habitStartDate) / (1000 * 60 * 60 * 24));
+            const daysSinceStart = Math.floor((now - habitStartDate) / (ONEDAY));
             const intervalDifference = daysSinceStart;
 
             // Ensure the frequency array is long enough
