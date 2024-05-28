@@ -558,6 +558,8 @@ router.post('/addAHabit', ensureAuthenticated, async (req, res) => {
     }
 });
 
+//Simple get same as goodHabit or badHabit get. This one is for client side code that redirects
+//with a query instead of a server call.
 router.get('/habitList', async (req, res) => {
     const good = req.query.good === 'true';
 
