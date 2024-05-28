@@ -29,7 +29,7 @@
   <div class="row center-screen">
       <!-- Study Guides Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/studyGuide.png', '/img/studyGuide(gif).gif')">
               <div class="card-header">
                   <img src="/img/studyGuide.png" alt="Study Guides image" class="card-image" />
                   <h5 class="card-title">Study Guides</h5>
@@ -44,7 +44,7 @@
       </div>
       <!-- Study Session Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/studySession.png', '/img/studySession(gif).gif')">
               <div class="card-header">
                   <img src="/img/studySession.png" alt="Study Session image" class="card-image" />
                   <h5 class="card-title">Study Session</h5>
@@ -59,7 +59,7 @@
       </div>
       <!-- Study Log Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/studyLog.png', '/img/studyLog(gif).gif')">
               <div class="card-header">
                   <img src="/img/studyLog.png" alt="Study Log image" class="card-image" />
                   <h5 class="card-title">Study Log</h5>
@@ -117,10 +117,16 @@
       </div>
 
       <script>
-        function toggleCard(card) {
+        function toggleCard(card, pngSrc, gifSrc) {
             card.classList.toggle('expanded');
+            var img = card.querySelector('.card-image');
+            if (card.classList.contains('expanded')) {
+                img.src = gifSrc;
+            } else {
+                img.src = pngSrc;
+            }
         }
-    </script>
+      </script>
 <script>
   var faqItem = 4;
 </script>

@@ -13,11 +13,14 @@
   .card-header {
       cursor: pointer;
   }
+  .card-title {
+      font-size: 1.25rem; /* Increase the size of the card title */
+  }
 </style>
 
 <div class="container text-center">
 
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; padding-bottom: 20px;">
         <div class="card bg-dark text-white" style="display: inline-block;">
             <h1 class="text-center" style="margin: 10px;">
               Study Guides
@@ -29,9 +32,9 @@
   <div class="row center-screen">
       <!-- Pomodoro Method Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/pomodoro.png', '/img/pomodoro(gif).gif')">
               <div class="card-header">
-                  <img src="/img/pomodoro-technique.png" alt="Pomodoro Method image" class="card-image" />
+                  <img src="/img/pomodoro.png" alt="Pomodoro Method image" class="card-image" />
                   <h5 class="card-title">Pomodoro Method</h5>
               </div>
               <div class="card-body">
@@ -44,9 +47,9 @@
       </div>
       <!-- Active Recall Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/recall.png', '/img/recall(gif).gif')">
               <div class="card-header">
-                  <img src="/img/memory-recall.png" alt="Active Recall image" class="card-image" />
+                  <img src="/img/recall.png" alt="Active Recall image" class="card-image" />
                   <h5 class="card-title">Active Recall</h5>
               </div>
               <div class="card-body">
@@ -59,9 +62,9 @@
       </div>
       <!-- Feynman Technique Card -->
       <div class="col-md-4 mb-4">
-          <div class="card study-card" onclick="toggleCard(this)">
+        <div class="card study-card" onclick="toggleCard(this, '/img/feynman.png', '/img/feynman(gif).gif')">
               <div class="card-header">
-                  <img src="/img/teaching.png" alt="Feynman Technique image" class="card-image" />
+                  <img src="/img/feynman.png" alt="Feynman Technique image" class="card-image" />
                   <h5 class="card-title">Feynman Technique</h5>
               </div>
               <div class="card-body">
@@ -76,9 +79,15 @@
 </div>
 
 <script>
-  function toggleCard(card) {
-      card.classList.toggle('expanded');
-  }
-</script>
+    function toggleCard(card, pngSrc, gifSrc) {
+        card.classList.toggle('expanded');
+        var img = card.querySelector('.card-image');
+        if (card.classList.contains('expanded')) {
+            img.src = gifSrc;
+        } else {
+            img.src = pngSrc;
+        }
+    }
+  </script>
 
 <%- include("template/footer") %>
