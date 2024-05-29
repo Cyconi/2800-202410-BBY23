@@ -40,6 +40,10 @@ router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
 
+router.get("/guides", (req, res) => {
+    res.render("studyGuide");
+});
+
 /**
  * Renders the study session page and calculates the remaining timer.
  * This is for the URL.
@@ -108,6 +112,10 @@ router.post("/pomodoro", (req, res) => {
     res.render("pomodoro");
 });
 
+router.get("/pomodoro", (req, res) => {
+    res.render("pomodoro");
+});
+
 /**
  * Renders the Active Recall guide page.
  * @route POST /study/actRecall
@@ -116,11 +124,19 @@ router.post("/actRecall", (req, res) => {
     res.render("actRecall");
 });
 
+router.get("/actRecall", (req, res) => {
+    res.render("actRecall");
+});
+
 /**
  * Renders the Feynman Technique guide page.
  * @route POST /study/feynman
  */
 router.post("/feynman", (req, res) => {
+    res.render("feynman");
+});
+
+router.get("/feynman", (req, res) => {
     res.render("feynman");
 });
 
