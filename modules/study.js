@@ -1,6 +1,3 @@
-/**
- * Express router for handling study session, profile, and timer-related routes.
- */
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
@@ -29,6 +26,7 @@ function ensureAuthenticated(req, res, next) {
 
 /**
  * Renders the study page.
+ * @route GET /study
  */
 router.get('/', (req, res) => {
     res.render('studyPage');
@@ -36,6 +34,7 @@ router.get('/', (req, res) => {
 
 /**
  * Renders the study guide page.
+ * @route POST /study/guides
  */
 router.post("/guides", (req, res) => {
     res.render("studyGuide");
@@ -43,6 +42,9 @@ router.post("/guides", (req, res) => {
 
 /**
  * Renders the study session page and calculates the remaining timer.
+ * This is for the URL.
+ * @route GET /study/session
+ * @middleware ensureAuthenticated
  */
 router.get('/session', ensureAuthenticated, async (req, res) => {
     try {
@@ -52,11 +54,7 @@ router.get('/session', ensureAuthenticated, async (req, res) => {
         if (timer) {
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
-                if (elapsed >= timer.timer) {
-                    timeLeft = 0;
-                } else {
-                    timeLeft = timer.timer - elapsed;
-                }
+                timeLeft = elapsed >= timer.timer ? 0 : timer.timer - elapsed;
             } else {
                 timeLeft = timer.timer;
                 isPaused = true;
@@ -70,6 +68,9 @@ router.get('/session', ensureAuthenticated, async (req, res) => {
 
 /**
  * Handles the study session post request and calculates the remaining timer.
+ * This is for the button.
+ * @route POST /study/session
+ * @middleware ensureAuthenticated
  */
 router.post("/session", ensureAuthenticated, async (req, res) => {
     try {
@@ -79,11 +80,7 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
         if (timer) {
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
-                if (elapsed >= timer.timer) {
-                    timeLeft = 0;
-                } else {
-                    timeLeft = timer.timer - elapsed;
-                }
+                timeLeft = elapsed >= timer.timer ? 0 : timer.timer - elapsed;
             } else {
                 timeLeft = timer.timer;
                 isPaused = true;
@@ -97,6 +94,7 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
 
 /**
  * Redirects to the study log page.
+ * @route POST /study/studyLog
  */
 router.post("/log", (req, res) => {
     res.redirect("/study/studyLog");
@@ -104,6 +102,7 @@ router.post("/log", (req, res) => {
 
 /**
  * Renders the Pomodoro guide page.
+ * @route POST /study/pomodoro
  */
 router.post("/pomodoro", (req, res) => {
     res.render("pomodoro");
@@ -111,6 +110,7 @@ router.post("/pomodoro", (req, res) => {
 
 /**
  * Renders the Active Recall guide page.
+ * @route POST /study/actRecall
  */
 router.post("/actRecall", (req, res) => {
     res.render("actRecall");
@@ -118,13 +118,18 @@ router.post("/actRecall", (req, res) => {
 
 /**
  * Renders the Feynman Technique guide page.
+ * @route POST /study/feynman
  */
 router.post("/feynman", (req, res) => {
     res.render("feynman");
 });
 
 /**
- * Adds an additional points to the user's knowledge points after logging a session.
+ * Adds an additional percentage to the user's knowledge percentage after logging a session.
+ * @route POST /logSession
+ * @param {string} req.body.subject - The subject of the study session.
+ * @param {number} req.body.duration - The duration of the study session in minutes.
+ * @param {string} req.body.notes - Notes for the study session.
  */
 router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const { subject, duration, notes } = req.body;
@@ -134,17 +139,17 @@ router.post('/logSession', ensureAuthenticated, async (req, res) => {
     }
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
-    
-    const additionalNumber = (duration / 5); //heres the additional points
+
+    const additionalNumber = (duration / 5);
     req.user.knowledgeAmount = req.user.knowledgeAmount + additionalNumber;
     await req.user.save();
 
-    const sessions = await StudySession.find({ email: req.user.email }).sort({ date: -1 });
     return res.json({ success: true });
 });
 
 /**
  * Loads the knowledge level for the profile page based on all session durations.
+ * @route GET /profile
  */
 router.get('/profile', ensureAuthenticated, async (req, res) => {
     try {
@@ -152,7 +157,6 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
         if (!user) {
             return res.status(404).send("User not found");
         }
-
         res.render('profile', { user });
     } catch (error) {
         res.status(500).send("Internal server error");
@@ -161,6 +165,7 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
 
 /**
  * Renders the study log page with the user's study sessions.
+ * @route GET /study/studyLog
  */
 router.get('/studyLog', async (req, res) => {
     const sessions = await StudySession.find({ email: req.user.email }).sort({ date: -1 });
@@ -169,6 +174,10 @@ router.get('/studyLog', async (req, res) => {
 
 /**
  * Updates the timer in the database.
+ * @route POST /serverTimer
+ * @middleware ensureAuthenticated
+ * @param {boolean} req.body.isPaused - Indicates if the timer is paused.
+ * @param {number} req.body.timer - The timer value in milliseconds.
  */
 router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
     const { isPaused, timer } = req.body;
@@ -203,7 +212,7 @@ cron.schedule('0 * * * *', async () => {
     try {
         const elevenDaysAgo = new Date();
         elevenDaysAgo.setDate(elevenDaysAgo.getDate() - 11);
-        
+
         await StudySession.deleteMany({ date: { $lt: elevenDaysAgo } });
     } catch (error) {
         console.error('Error deleting old study sessions:', error);
