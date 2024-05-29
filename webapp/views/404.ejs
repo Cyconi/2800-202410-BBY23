@@ -1,3 +1,27 @@
 <%- include("template/header") %>
-    Page not found - 404
+<link rel="stylesheet" href="css/background.css">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8"> <!-- Adjust this for the desired width -->
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <div class="error-template text-center">
+                        <img src="/img/404.gif" alt="404 Error" class="img-fluid">
+                        <h1 class="display-1">Oops!</h1>
+                        <h2 class="display-4">404 Not Found</h2>
+                        <div class="error-details mt-3">
+                            Sorry, an error has occurred. The requested page could not be found!
+                        </div>
+                        <div class="error-actions mt-4">
+                            <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%- include("template/footer") %>
+
