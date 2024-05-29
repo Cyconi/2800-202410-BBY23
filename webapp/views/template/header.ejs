@@ -25,31 +25,25 @@
     <nav class="navbar fixed-top" style="pointer-events: none;">
         <div class="container-fluid d-flex justify-content-between">
 
-            <a id="navbar-toggle" class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                aria-controls="offcanvasExample">
-                <span class="material-symbols-outlined" alt="Sidebar" width="24" height="24"
-                    class="d-inline-block align-text-top" style="pointer-events: auto;"">menu</span>
+            <a id="navbar-toggle" class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"aria-controls="offcanvasExample">
+                <span class="material-symbols-outlined d-inline-block" alt="Sidebar" width="24" height="24" style="pointer-events: auto; color: #ffffff">menu</span>
             </a>
-            <a class=" mx-auto" role="button" id="faqButton" style="display: none; pointer-events: auto;">
-                    <span class="material-symbols-outlined d-inline-block align-text-top" width="24"
-                        height="24">help</span>
+            <a class="mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">help</span>
             </a>
             <a role="button" onclick="goBack()" style="pointer-events: auto;">
-                <!-- <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top"> -->
-                <span class="material-symbols-outlined" width="24" height="24">arrow_circle_left</span>
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">arrow_circle_left</span>
             </a>
         </div>
     </nav>
     <br><br><br>
-    <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
-                <button type="submit" id="expl-icon" class="btn"><img src="/img/expl.png" alt="EXO" width="24"
-                        height="24"></button>
+                <button type="submit" id="expl-icon" class="btn"><img src="/img/expl.png" alt="EXO" width="24" height="24"></button>
             </form>
             <a href="/home1">
-                <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3">
+                <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150">
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -60,9 +54,7 @@
                     Home Page
                 </a>
                 <a class="nav-link text-black" href="/chat">
-                    <span class="material-symbols-outlined">
-                        chat_bubble
-                    </span>
+                    <span class="material-symbols-outlined">chat_bubble</span>
                     Chat Room
                 </a>
                 <a class="nav-link text-black" href="/interpersonal/select-scenario">

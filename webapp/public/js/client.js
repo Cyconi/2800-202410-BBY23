@@ -291,7 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     spanElement.style.color = 'red';
                     faqButton.style.display = 'block';
                     enabled = true;
-                } else {
+                    if (window.location.href.includes("home1")) {
+                        const faqModal = new bootstrap.Modal(modalFAQ);
+                        faqModal.show();
+                    }
                 }
             })
             .catch(error => {
@@ -311,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log(error.message);
                 });
                 const spanElement = faqButton.querySelector('span');
-                spanElement.style.color = '#000000';
+                spanElement.style.color = '#FFFFFF';
                 const faqModal = new bootstrap.Modal(modalFAQ);
                 faqModal.show();
             });

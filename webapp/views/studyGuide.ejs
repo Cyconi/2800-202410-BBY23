@@ -4,10 +4,10 @@
 <link rel="stylesheet" href="css/background.css">
 
 <style>
-  .card-body {
+  .studycard {
       display: none;
   }
-  .card.expanded .card-body {
+  .card.expanded .studycard {
       display: block;
   }
   .card-header {
@@ -20,58 +20,60 @@
 
 <div class="container text-center">
 
-    <div style="display: flex; justify-content: center; padding-bottom: 20px;">
-        <div class="card bg-dark text-white" style="display: inline-block;">
-            <h1 class="text-center" style="margin: 10px;">
-              Study Guides
-            </h1>
-        </div>
-      </div>
+  <div style="display: flex; justify-content: center; padding-bottom: 20px;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h1 class="text-center" style="margin: 10px;">
+          Study Guides
+        </h1>
+    </div>
+  </div>
 
-  <!-- <h1>Study Guides</h1> -->
   <div class="row center-screen">
       <!-- Pomodoro Method Card -->
       <div class="col-md-4 mb-4">
-        <div class="card study-card" onclick="toggleCard(this, '/img/pomodoro.png', '/img/pomodoro(gif).gif')">
+        <div class="card study-card btn-scenario">
               <div class="card-header">
-                  <img src="/img/pomodoro.png" alt="Pomodoro Method image" class="card-image" />
+                  <button class="btn btn-link text-white help-button" onclick="toggleCard(this.parentElement.parentElement)">
+                    <span class="material-symbols-outlined">help</span>
+                  </button>
+                  <img src="/img/pomodoro.png" data-static="/img/pomodoro.png" data-gif="/img/pomodoro(gif).gif" alt="Pomodoro Method image" class="card-image" />
                   <h5 class="card-title">Pomodoro Method</h5>
+                  <button class="btn btn-primary" onclick="event.stopPropagation(); openPage('/study/pomodoro')">Open Pomodoro Guide</button>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Utilize short breaks to maintain long term focus.</p>
-                  <form action="/study/pomodoro" method="POST" onsubmit="event.stopPropagation();">
-                      <button type="submit" class="btn btn-primary">Open Pomodoro Guide</button>
-                  </form>
               </div>
           </div>
       </div>
       <!-- Active Recall Card -->
       <div class="col-md-4 mb-4">
-        <div class="card study-card" onclick="toggleCard(this, '/img/recall.png', '/img/recall(gif).gif')">
+        <div class="card study-card btn-scenario">
               <div class="card-header">
-                  <img src="/img/recall.png" alt="Active Recall image" class="card-image" />
+                  <button class="btn btn-link text-white help-button" onclick="toggleCard(this.parentElement.parentElement)">
+                    <span class="material-symbols-outlined">help</span>
+                  </button>
+                  <img src="/img/recall.png" data-static="/img/recall.png" data-gif="/img/recall(gif).gif" alt="Active Recall image" class="card-image" />
                   <h5 class="card-title">Active Recall</h5>
+                  <button class="btn btn-primary" onclick="event.stopPropagation(); openPage('/study/actRecall')">Open Active Recall Guide</button>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Train your memory to recall important information on any topic.</p>
-                  <form action="/study/actRecall" method="POST" onsubmit="event.stopPropagation();">
-                      <button type="submit" class="btn btn-primary">Open Active Recall Guide</button>
-                  </form>
               </div>
           </div>
       </div>
       <!-- Feynman Technique Card -->
       <div class="col-md-4 mb-4">
-        <div class="card study-card" onclick="toggleCard(this, '/img/feynman.png', '/img/feynman(gif).gif')">
+        <div class="card study-card btn-scenario">
               <div class="card-header">
-                  <img src="/img/feynman.png" alt="Feynman Technique image" class="card-image" />
+                  <button class="btn btn-link text-white help-button" onclick="toggleCard(this.parentElement.parentElement)">
+                    <span class="material-symbols-outlined">help</span>
+                  </button>
+                  <img src="/img/feynman.png" data-static="/img/feynman.png" data-gif="/img/feynman(gif).gif" alt="Feynman Technique image" class="card-image" />
                   <h5 class="card-title">Feynman Technique</h5>
+                  <button class="btn btn-primary" onclick="event.stopPropagation(); openPage('/study/feynman')">Open Feynman Guide</button>
               </div>
-              <div class="card-body">
+              <div class="card-body studycard">
                   <p class="card-text">Practice teaching your studies to others to understand even better for yourself.</p>
-                  <form action="/study/feynman" method="POST" onsubmit="event.stopPropagation();">
-                      <button type="submit" class="btn btn-primary">Open Feynman Guide</button>
-                  </form>
               </div>
           </div>
       </div>
@@ -79,15 +81,23 @@
 </div>
 
 <script>
-    function toggleCard(card, pngSrc, gifSrc) {
-        card.classList.toggle('expanded');
-        var img = card.querySelector('.card-image');
-        if (card.classList.contains('expanded')) {
-            img.src = gifSrc;
-        } else {
-            img.src = pngSrc;
-        }
-    }
-  </script>
+  function toggleCard(card) {
+      card.classList.toggle('expanded');
+      var img = card.querySelector('.card-image');
+      if (card.classList.contains('expanded')) {
+          img.src = img.dataset.gif;
+          img.classList.add('gif-image');
+          img.classList.remove('static-image');
+      } else {
+          img.src = img.dataset.static;
+          img.classList.add('static-image');
+          img.classList.remove('gif-image');
+      }
+  }
+
+  function openPage(url) {
+      window.location.href = url;
+  }
+</script>
 
 <%- include("template/footer") %>

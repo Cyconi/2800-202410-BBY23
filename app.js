@@ -127,6 +127,10 @@ app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
     try {
         const faqItem = req.body.faqItem;
         if(req.user.faqUsed[faqItem] === 0){
+            if (faqItem === 1) {
+                req.user.faqUsed[faqItem] = 1;
+                await req.user.save();
+            }
             return res.json({success: true});
         } 
         res.json({success:false});
