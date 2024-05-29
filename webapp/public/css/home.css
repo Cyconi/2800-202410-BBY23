@@ -8,14 +8,18 @@
     --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
 }
 
-
+body::-webkit-scrollbar {
+    display: none;
+}
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
     overflow-x: hidden;
+    overflow-y:visible;
 }
+
 .img-fluid {
     max-width: 100%;
     width: 350px;
