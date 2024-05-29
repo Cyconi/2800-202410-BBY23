@@ -29,7 +29,7 @@
         </svg>
         <div>
           You have no good habits! Add some! Everyone wants good habits!
-        </div>
+        </div>  
       </div>
     </div>
     <% } else { %>
@@ -46,10 +46,10 @@
           <button type="button" class="btn btn-secondary smBtn">Edit</button>
         </form>
 
-        <form action="/habit/deleteHabit" method="POST" class="delete-form">
+        <form class="delete-button" data-bs-toggle="modal" data-bs-target="#DeleteWarningModal">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
-          <button type="submit" class="btn btn-danger smBtn">Delete</button>
+          <button type="button" class="btn btn-danger smBtn">Delete</button>
         </form>
       </div>
     </li>
@@ -98,10 +98,10 @@
 
 
 
-        <form action="/habit/deleteHabit" method="POST" class="delete-form">
+        <form class="delete-button" data-bs-toggle="modal" data-bs-target="#DeleteWarningModal">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
-          <button type="submit" class="btn btn-danger smBtn">Delete</button>
+          <button type="button" class="btn btn-danger smBtn">Delete</button>
         </form>
       </div>
     </li>
@@ -199,12 +199,28 @@
               <p id="duplicateModalBody">Are you sure you want to delete this habit? You will not be able to recover it if you do.</p>
           </div>
           <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-              <button type="button" class="btn btn-lg btn-danger" id="addAnywayButton">Delete</button>
-              <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <form action="/habit/deleteHabit" method="POST" class="delete-form">
+              <input type="hidden" name="habitID" id="deleteHabitID">
+              <input type="hidden" name="habitGood" id="deleteHabitGood">
+              <button type="submit" class="btn btn-lg btn-danger w-100" id="addAnywayButton" data-bs-dismiss="modal">Delete</button>
+            </form>
+              <button type="button" class="btn btn-lg btn-secondary w-100" data-bs-dismiss="modal">Cancel</button>
           </div>
       </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+      $('.delete-button').on('click', function(){
+          var habitID = $(this).find('input[name="habitID"]').val();
+          var habitGood = $(this).find('input[name="habitGood"]').val();
+          $('#deleteHabitID').val(habitID);
+          $('#deleteHabitGood').val(habitGood);
+      });
+  });
+  </script>
 
 <script>
   var goodOrBad = <%= good %>;
