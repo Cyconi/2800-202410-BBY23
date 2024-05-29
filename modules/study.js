@@ -1,3 +1,6 @@
+/**
+ * Express router for handling study session, profile, and timer-related routes.
+ */
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
@@ -14,6 +17,9 @@ router.use("/js", express.static("./webapp/public/js"));
 router.use("/css", express.static("./webapp/public/css"));
 router.use("/img", express.static("./webapp/public/img"));
 
+/**
+ * Middleware to ensure the user is authenticated.
+ */
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -21,15 +27,24 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 
+/**
+ * Renders the study page.
+ */
 router.get('/', (req, res) => {
     res.render('studyPage');
 });
 
+/**
+ * Renders the study guide page.
+ */
 router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
 
-router.get('/session', ensureAuthenticated, async(req, res) => {
+/**
+ * Renders the study session page and calculates the remaining timer.
+ */
+router.get('/session', ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
         let timeLeft = 0;
@@ -38,12 +53,12 @@ router.get('/session', ensureAuthenticated, async(req, res) => {
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
                 if (elapsed >= timer.timer) {
-                    timeLeft = 0; 
+                    timeLeft = 0;
                 } else {
-                    timeLeft = timer.timer - elapsed; 
+                    timeLeft = timer.timer - elapsed;
                 }
             } else {
-                timeLeft = timer.timer; 
+                timeLeft = timer.timer;
                 isPaused = true;
             }
         }
@@ -53,6 +68,9 @@ router.get('/session', ensureAuthenticated, async(req, res) => {
     }
 });
 
+/**
+ * Handles the study session post request and calculates the remaining timer.
+ */
 router.post("/session", ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
@@ -62,12 +80,12 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
                 if (elapsed >= timer.timer) {
-                    timeLeft = 0; 
+                    timeLeft = 0;
                 } else {
-                    timeLeft = timer.timer - elapsed; 
+                    timeLeft = timer.timer - elapsed;
                 }
             } else {
-                timeLeft = timer.timer; 
+                timeLeft = timer.timer;
                 isPaused = true;
             }
         }
@@ -77,65 +95,57 @@ router.post("/session", ensureAuthenticated, async (req, res) => {
     }
 });
 
+/**
+ * Redirects to the study log page.
+ */
 router.post("/log", (req, res) => {
     res.redirect("/study/studyLog");
 });
 
+/**
+ * Renders the Pomodoro guide page.
+ */
 router.post("/pomodoro", (req, res) => {
     res.render("pomodoro");
 });
 
+/**
+ * Renders the Active Recall guide page.
+ */
 router.post("/actRecall", (req, res) => {
     res.render("actRecall");
 });
 
-router.post("/feynman", (req, res) =>{
+/**
+ * Renders the Feynman Technique guide page.
+ */
+router.post("/feynman", (req, res) => {
     res.render("feynman");
 });
 
-router.get('/studySession', ensureAuthenticated, async (req, res) => {
-    try {
-        const timer = await Timer.findOne({ email: req.user.email });
-        let timeLeft = 0;
-        let isPaused = false;
-        if (timer) {
-            if (!timer.isPaused) {
-                const elapsed = Date.now() - timer.timeNow;
-                if (elapsed >= timer.timer) {
-                    timeLeft = 0; 
-                } else {
-                    timeLeft = timer.timer - elapsed; 
-                }
-            } else {
-                timeLeft = timer.timer; 
-                isPaused = true;
-            }
-        }
-        res.render('studySession', { timeLeft, isPaused });
-    } catch (error) {
-        res.status(500).send("Internal server error");
-    }
-});
-//Adds additional Percentage to a user's knoweldge percentage after logging a session.
+/**
+ * Adds an additional points to the user's knowledge points after logging a session.
+ */
 router.post('/logSession', ensureAuthenticated, async (req, res) => {
     const { subject, duration, notes } = req.body;
     const email = req.user.email;
-    if(duration < 0){
-        return res.json({success: false, message: "You entered a negative time, are you Chronos?"});
+    if (duration < 0) {
+        return res.json({ success: false, message: "You entered a negative time, are you Chronos?" });
     }
     const newSession = new StudySession({ email: email, subject: subject, duration: duration, notes: notes, date: Date.now() });
     await newSession.save();
     
-        const additionalNumber = (duration / 5);
-        req.user.knowledgeAmount =  req.user.knowledgeAmount + additionalNumber;
-        await req.user.save();
-    
+    const additionalNumber = (duration / 5); //heres the additional points
+    req.user.knowledgeAmount = req.user.knowledgeAmount + additionalNumber;
+    await req.user.save();
 
-    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
-    return res.json({success: true});
+    const sessions = await StudySession.find({ email: req.user.email }).sort({ date: -1 });
+    return res.json({ success: true });
 });
 
-//loads the knowledge level for the profile page based on all sessions durations loaded up.
+/**
+ * Loads the knowledge level for the profile page based on all session durations.
+ */
 router.get('/profile', ensureAuthenticated, async (req, res) => {
     try {
         const user = await User.findOne({ email: req.user.email });
@@ -149,25 +159,28 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
     }
 });
 
-
+/**
+ * Renders the study log page with the user's study sessions.
+ */
 router.get('/studyLog', async (req, res) => {
-    const sessions = await StudySession.find({email: req.user.email}).sort({ date: -1 });
+    const sessions = await StudySession.find({ email: req.user.email }).sort({ date: -1 });
     res.render('studyLog', { sessions });
 });
 
+/**
+ * Updates the timer in the database.
+ */
 router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
     const { isPaused, timer } = req.body;
     try {
         const timerExists = await Timer.findOne({ email: req.user.email });
 
         if (timerExists) {
-            const updateResult = await timerExists.updateOne({
+            await timerExists.updateOne({
                 timer: timer,
                 isPaused: isPaused,
                 timeNow: Date.now()
             });
-          
-            const updatedTimer = await Timer.findOne({ email: req.user.email });
         } else {
             const newTimer = new Timer({
                 email: req.user.email,
@@ -175,7 +188,7 @@ router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
                 isPaused: isPaused,
                 timeNow: Date.now()
             });
-            const saveResult = await newTimer.save();
+            await newTimer.save();
         }
         res.status(200).send("Timer updated successfully");
     } catch (error) {
@@ -183,6 +196,9 @@ router.post('/serverTimer', ensureAuthenticated, async (req, res) => {
     }
 });
 
+/**
+ * Cron job to delete old study sessions every hour.
+ */
 cron.schedule('0 * * * *', async () => {
     try {
         const elevenDaysAgo = new Date();

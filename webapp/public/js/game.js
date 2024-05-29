@@ -1,6 +1,12 @@
+/**
+ * This script manages the gameplay flow for the interpersonal scenarios.
+ * It fetches scenario data, handles user interactions, and updates the game progress.
+ */
+
 let currentQuestionIndex = -1;
 let scenario = null;
 let scenarioID = null;
+
 document.addEventListener('DOMContentLoaded', () => {
     const narratorDiv = document.getElementById('narrator');
     const questionDiv = document.getElementById('question');
@@ -13,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const completionModal = new bootstrap.Modal(document.getElementById('completionModal'));
     const completionImage = document.getElementById('completionImage');
 
+    /**
+     * Starts the game by fetching the scenario data from the provided URL.
+     * @param {string} scenarioUrl - The URL of the scenario JSON file.
+     */
     function startGame(scenarioUrl) {
         fetch(scenarioUrl)
             .then(response => response.json())
@@ -24,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error fetching scenario:', error));
     }
 
+    /**
+     * Shows the introduction text from the scenario.
+     */
     function showIntroduction() {
         if (scenario.narrator) {
             narratorDiv.textContent = scenario.narrator;
@@ -37,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Displays the narrator text.
+     * @param {string} text - The text to display in the narrator div.
+     */
     function showNarrator(text) {
         if (text) {
             narratorDiv.textContent = text;
@@ -46,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Displays the current question and its options.
+     */
     function showQuestion() {
         if (currentQuestionIndex >= 0 && currentQuestionIndex < scenario.questions.length) {
             const question = scenario.questions[currentQuestionIndex];
@@ -64,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.style.width = '200px';
                     img.style.display = 'block';
                     img.style.margin = '0 auto';
-                    
 
                     const button = document.createElement('button');
                     button.textContent = question.options[index].text;
@@ -97,6 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Displays feedback in a modal window.
+     * @param {string} feedbackText - The feedback text to display.
+     */
     function showFeedbackInModal(feedbackText) {
         const gifSrc = 'img/incorrect.png';
         modalFeedbackText.textContent = feedbackText;
@@ -104,6 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackModal.show();
     }
 
+    /**
+     * Handles the user's answer selection.
+     * @param {object} option - The selected option object.
+     * @param {HTMLElement} button - The button element that was clicked.
+     */
     function handleAnswer(option, button) {
         if (option.correct) {
             button.classList.add('correct');
@@ -116,11 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Advances to the next question in the scenario.
+     */
     function nextQuestion() {
         currentQuestionIndex++;
         showQuestion();
     }
 
+    /**
+     * Shows the completion modal when the scenario is finished.
+     */
     function showCompletionModal() {
         fetch('/interpersonal/completed', {
             method: 'POST',

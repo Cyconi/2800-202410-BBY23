@@ -1,3 +1,7 @@
+/**
+ * Fetches profile elements and updates the profile page with the user's data.
+ * Also handles the edit profile modal functionality.
+ */
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch(`/profile/profileElements`, { method: "POST" });
@@ -13,6 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+/**
+ * Initializes the edit profile modal and handles form submission for editing the profile.
+ */
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('/profile/profileElements', { method: "POST" });
@@ -83,5 +90,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 });
-
-
