@@ -192,9 +192,15 @@
     if (cardBody.style.display === 'none' || !cardBody.style.display) {
       cardBody.style.display = 'block';
       cardImage.src = gifSrc;
+      cardImage.classList.add('gif-image');
+      cardImage.classList.remove('static-image');
+      
+    
     } else {
       cardBody.style.display = 'none';
       cardImage.src = staticSrc;
+      cardImage.classList.add('static-image');
+      cardImage.classList.remove('gif-image');
     }
   }
 </script>
