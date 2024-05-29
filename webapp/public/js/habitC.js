@@ -1,3 +1,8 @@
+/**
+ * This script manages the interactions on the habit management page,
+ * including deleting, editing, and adding habits, as well as handling modals for feedback.
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     const deleteForms = document.querySelectorAll('.delete-form');
 
@@ -201,7 +206,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
+/**
+ * Submits a form by creating a new form element and submitting it.
+ * Disables all buttons within the same card to prevent multiple submissions.
+ * @param {HTMLElement} button - The button element that triggered the form submission.
+ * @param {string} actionUrl - The URL to which the form will be submitted.
+ */
 function submitForm(button, actionUrl) {
     // Disable all buttons within the same card
     const card = button.closest('.card-body');

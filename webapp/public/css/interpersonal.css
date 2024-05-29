@@ -13,7 +13,6 @@
 /* General Styles */
 body {
   background-color: var(--background-color);
-  font-family: Arial, sans-serif;
 }
 
 .hidden {
