@@ -59,7 +59,8 @@
     </div>
   </div>
 </section>
-<!--Enter email before forget Modal-->
+
+<!-- Forgot Password part 1 - Enter email for reset password link Pop-Up Modal -->
 <div class="modal fade" id="enterEmailModal" tabindex="-1" aria-labelledby="enterEmailModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content rounded-4 shadow-lg">
@@ -82,7 +83,7 @@
   </div>
 </div>
 
-<!-- Forgot Password Modal -->
+<!-- Forgot Password part 2 - Enter Security Question Answer Pop-Up Modal -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content rounded-4 shadow-lg"> 
@@ -111,7 +112,7 @@
 
 
 
-<!-- Email Sent Success Modal -->
+<!-- Forgot Password part 3 - Email Sent Success Pop-Up Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalForgot">
   <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
@@ -132,7 +133,7 @@
   </div>
 </div>
 
-<!-- Sign Up Modal -->
+<!-- Sign Up - Create an account Pop-Up Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content rounded-4 shadow-lg"> <!-- Use shadow-lg for a larger shadow -->
@@ -175,7 +176,7 @@
   </div>
 </div>
 
-<!-- Incorrect user/password -->
+<!-- Login - Entered Incorrect user/password Pop-Up Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalLoginFailed">
   <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
@@ -199,31 +200,7 @@
   </div>
 </div>
 
-<!-- Incorrect user/password -->
-<!-- <div class="modal modal-sheet position-fixed d-flex top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalLoginFail">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content rounded-4 shadow">
-          <div class="modal-body p-5">
-              <h2 class="fw-bold mb-0">Login Failed</h2>
-              <ul class="d-grid gap-4 my-5 list-unstyled small">
-                  <li class="d-flex gap-4">
-                      <img src="/img/loginFail.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
-                      <div>
-                          <h5 class="mb-0">
-                            <span> __ </span> Incorrect
-                          </h5>
-                          The <span> ___ </span> you have entered is incorrect. Please try again.
-                      </div>
-                  </li>
-              </ul>
-              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Okay</button>
-          </div>
-      </div>
-  </div>
-</div> -->
-
-
-<!-- Internal Server Error -->
+<!-- Internal Server Error Pop-Up Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalServerError">
   <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
@@ -245,7 +222,7 @@
 </div>
 
 
-<!-- User already exists with that email. Modal -->
+<!-- Sign Up - Account with that Username/Email already exists Pop-Up Modal -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalUserExists">
   <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
