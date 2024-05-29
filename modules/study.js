@@ -29,7 +29,7 @@ router.post("/guides", (req, res) => {
     res.render("studyGuide");
 });
 
-router.get('/session', ensureAuthenticated, async(req, res) => {
+router.get('/session', ensureAuthenticated, async (req, res) => {
     try {
         const timer = await Timer.findOne({ email: req.user.email });
         let timeLeft = 0;

@@ -6,6 +6,8 @@ const User = require('./user');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const StudySession = require('./studySession');
+const Habit = require('./habitSchema');
+const Timer = require('./timerSchema');
 
 const LEVELUPREQUIREMENT = 100;
 
@@ -89,6 +91,18 @@ router.post('/profileElements', ensureAuthenticated, (req, res) => {
     const name = req.user.name;
     const email = req.user.email;
     res.json({username: username, name: name, email: email});
+});
+
+router.post("/deleteUser", ensureAuthenticated, async (req, res) => {
+    try{
+        await Habit.deleteMany({email: req.user.email});
+        await StudySession.deleteMany({email: req.user.email});
+        await Timer.deleteOne({email: req.user.email});
+        await User.deleteOne({email: req.user.email});
+        res.json({success: true});
+    } catch (Error){
+        res.json({success: false, message: Error.message});
+    }
 });
 
 module.exports = router;
