@@ -11,13 +11,14 @@
 body::-webkit-scrollbar {
     display: none;
 }
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
     overflow-x: hidden;
-    overflow-y:visible;
+    overflow-y: visible;
 }
 
 .img-fluid {
@@ -25,6 +26,7 @@ body {
     width: 350px;
     height: auto;
 }
+
 .progress {
     position: relative;
     width: 60px;
@@ -34,6 +36,7 @@ body {
     border: 3px solid black;
     border-radius: 20px;
 }
+
 .progress-bar {
     position: absolute;
     bottom: 0;
@@ -43,20 +46,25 @@ body {
     border-radius: 0 0 10px 10px;
     transition: height 0.6s ease;
 }
+
 .text-center {
     text-align: center;
 }
+
 .mt-4 {
     margin-top: 1.5rem;
 }
+
 .progress-label {
     margin-top: 10px;
 }
+
 .progress-text h4 {
     font-size: 2rem;
     color: #000000;
     font-weight: bold;
 }
+
 .progress-text p {
     font-size: 1.2rem;
     color: #000000;

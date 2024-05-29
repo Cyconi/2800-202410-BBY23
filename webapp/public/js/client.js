@@ -291,7 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     spanElement.style.color = 'red';
                     faqButton.style.display = 'block';
                     enabled = true;
-                } else {
+                    if (window.location.href.includes("home1")) {
+                        const faqModal = new bootstrap.Modal(modalFAQ);
+                        faqModal.show();
+                    }
                 }
             })
             .catch(error => {
