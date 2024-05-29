@@ -26,13 +26,13 @@
         <div class="container-fluid d-flex justify-content-between">
 
             <a id="navbar-toggle" class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"aria-controls="offcanvasExample">
-                <span class="material-symbols-outlined d-inline-block" alt="Sidebar" width="24" height="24" style="pointer-events: auto;">menu</span>
+                <span class="material-symbols-outlined d-inline-block" alt="Sidebar" width="24" height="24" style="pointer-events: auto; color: #ffffff">menu</span>
             </a>
-            <a class=" mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
-                <span class="material-symbols-outlined d-inline-block" width="24" height="24">help</span>
+            <a class="mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">help</span>
             </a>
             <a role="button" onclick="goBack()" style="pointer-events: auto;">
-                <span class="material-symbols-outlined d-inline-block" width="24" height="24">arrow_circle_left</span>
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">arrow_circle_left</span>
             </a>
         </div>
     </nav>
@@ -41,9 +41,7 @@
         aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
-                <button type="submit" id="expl-icon" class="btn">
-                    <span class="material-symbols-outlined" width="24" height="24">help</span>
-                </button>
+                <button type="submit" id="expl-icon" class="btn"><img src="/img/expl.png" alt="EXO" width="24" height="24"></button>
             </form>
             <a href="/home1">
                 <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3">
