@@ -99,9 +99,9 @@ router.post("/deleteUser", ensureAuthenticated, async (req, res) => {
         await StudySession.deleteMany({email: req.user.email});
         await Timer.deleteOne({email: req.user.email});
         await User.deleteOne({email: req.user.email});
-        res.json({success: true});
+        return res.redirect('/');
     } catch (Error){
-        res.json({success: false, message: Error.message});
+        return res.redirect('/');
     }
 });
 

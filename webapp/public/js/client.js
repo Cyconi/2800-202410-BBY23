@@ -318,6 +318,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const faqModal = new bootstrap.Modal(modalFAQ);
                 faqModal.show();
             });
+        } else {
+                const spanElement = faqButton.querySelector('span');
+                spanElement.style.setProperty('display', 'none', 'important');              
         }
     }
 
