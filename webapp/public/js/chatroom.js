@@ -23,6 +23,10 @@ function fetchMessages() {
                     </div>`;
                 chatMessages.appendChild(messageElement);
             });
+            // Display the other user's hobbies
+            var otherUserHobbies = data.email == data.chatRoom.user1 ? data.user2Hobbies : data.user1Hobbies;
+            var hobbiesElement = document.getElementById('hobbies');
+            hobbiesElement.textContent = 'Hobbies: ' + otherUserHobbies.join(', ');
             // scroll with the chat
             var chatMessages = document.getElementById('chat-messages');
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -31,6 +35,7 @@ function fetchMessages() {
         }
     });
 }
+
 function roomNotFound() {
     $.get('/chat/pullMsg', function (data) {
         if (!data.success) {

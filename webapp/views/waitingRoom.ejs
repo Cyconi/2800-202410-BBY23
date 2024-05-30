@@ -1,37 +1,104 @@
 <%- include("template/header") %>
-<link rel="stylesheet" href="css/waitingRoom.css">
-<link rel="stylesheet" href="css/background.css">
+  <link rel="stylesheet" href="css/waitingRoom.css">
+  <link rel="stylesheet" href="css/background.css">
 
-<!-- centered in middle of screen for height style -->
-<div class="d-flex flex-column justify-content-center" style="height: calc(100vh - 150px);">
+  <!-- centered in middle of screen for height style -->
+  <div class="d-flex flex-column justify-content-center" style="height: calc(100vh - 150px);">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card text-center bg-dark text-white">
-                    <div class="card-body">
-                        <h1 id="queueHeader" class="card-title">
-                            <span class="queueCount">
-                                <%= queueCount %>
-                            </span>
-                            Waiting In Queue...
-                        </h1>
-                        <div class="mt-4 d-flex justify-content-between">
-                            <form action='/chat/join' method='POST'>
-                                <button type="submit" class="btn btn-primary mb-2">Join Queue</button>
-                            </form>
-                            <form action='/chat/leave' method='POST'>
-                                <button type="submit" class="btn btn-danger">Leave Queue</button>
-                            </form>
-                        </div>
-                    </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card text-center bg-dark text-white">
+            <div class="card-body">
+              <h1 id="queueHeader" class="card-title">
+                <span class="queueCount">
+                  <%= queueCount %>
+                </span>
+                Waiting In Queue...
+              </h1>
+              <div class="mt-4 d-flex justify-content-between">
+                <button id="joinQueue" class="btn btn-primary mb-2">Join Queue</button>
+                <form action='/chat/leave' method='POST'>
+                  <button type="submit" class="btn btn-danger">Leave Queue</button>
+                </form>
+              </div>
+              <h4>Hobbies and interests:</h4>
+              <div class="interests">
+                <div class="hob">
+                  <input type="checkbox" id="hobby1" name="interests[]" value="Music">
+                  <label for="hobby1"> Music</label>
                 </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby2" name="interests[]" value="Sports">
+                  <label for="hobby2"> Sports</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby3" name="interests[]" value="Reading">
+                  <label for="hobby3"> Reading</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby4" name="interests[]" value="Video Games">
+                  <label for="hobby1"> Video Games</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby5" name="interests[]" value="Outdoor">
+                  <label for="hobby2"> Outdoor</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby6" name="interests[]" value="Art">
+                  <label for="hobby3"> Art</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby7" name="interests[]" value="Technology">
+                  <label for="hobby1"> Technology</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby8" name="interests[]" value="Movies/Shows">
+                  <label for="hobby2"> Movies/Shows</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby9" name="interests[]" value="Cooking">
+                  <label for="hobby3"> Cooking</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby10" name="interests[]" value="Animals">
+                  <label for="hobby1"> Animals</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby11" name="interests[]" value="Writing">
+                  <label for="hobby2"> Writing</label>
+                </div>
+                <div class="hob">
+                  <input type="checkbox" id="hobby12" name="interests[]" value="Photography">
+                  <label for="hobby3"> Photography</label>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-    <!-- Page info pop-up Modal -->
- <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $('#joinQueue').click(function () {
+      var interests = [];
+      $('input[name="interests[]"]:checked').each(function () {
+        interests.push($(this).val());
+      });
+
+      $.post('/chat/join', { interests: interests })
+        .done(function () {
+          console.log('Successfully joined the queue with hobbies!');
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+          console.log('There was an error: ' + textStatus + ' ' + errorThrown);
+        });
+    });
+</script>
+
+  <!-- Page info pop-up Modal -->
+  <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
     <div class="modal-dialog" role="document">
       <div class="modal-content rounded-4 shadow">
         <div class="modal-body p-5">
@@ -41,7 +108,8 @@
               <div>
                 <h5 class="mb-0">Queue System</h5>
                 <ul>
-                  <li>Join the queue and get matched up randomly with another in the queue! Needs 2 users in the queue at a time to work.</li>
+                  <li>Join the queue and get matched up randomly with another in the queue! Needs 2 users in the queue
+                    at a time to work.</li>
                 </ul>
               </div>
             </li>
@@ -51,25 +119,28 @@
               <div>
                 <h5 class="mb-0">Go Chat!</h5>
                 <ul>
-                  <li>Experience live chatting with a user, talk about your hobbies, skills, and whatever else comes to mind.</li>
-                  <li>Be sure to make use of your time as you only have 3 minutes to learn and talk with the other person on the chat!<br>
-                      These fast pace interactions will help you start conversions easily over time.</li>
-                  
+                  <li>Experience live chatting with a user, talk about your hobbies, skills, and whatever else comes to
+                    mind.</li>
+                  <li>Be sure to make use of your time as you only have 3 minutes to learn and talk with the other
+                    person on the chat!<br>
+                    These fast pace interactions will help you start conversions easily over time.</li>
+
                 </ul>
               </div>
             </li>
             <li class="d-flex gap-4">
             </li>
           </ul>
-          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great,
+            thanks!</button>
         </div>
       </div>
     </div>
   </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/waitingRoom.js"></script>
-    <script>
-        var faqItem = 2;
-      </script>
-    <%- include("template/footer") %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/waitingRoom.js"></script>
+  <script>
+    var faqItem = 2;
+  </script>
+  <%- include("template/footer") %>
