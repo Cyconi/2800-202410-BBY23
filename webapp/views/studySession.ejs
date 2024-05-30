@@ -84,8 +84,28 @@
     </div>
 </div>
 
-
-            
+<!-- Study Logged Pop-Up Modal -->
+<div class="modal modal-sheet position-fixed d-flex top-0 start-0 p-4 py-md-5 modal-custom" tabindex="-1" role="dialog" id="studyLoggedModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-5">
+                <h2 class="fw-bold mb-0">Success</h2>
+                <ul class="d-grid gap-4 my-5 list-unstyled small">
+                    <li class="d-flex gap-4">
+                        <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                        <div>
+                            <h5 class="mb-0">Logged Successfully</h5>
+                            <div id="responseModalBody">
+                                <p>The study session has successfully been logged.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 document.getElementById('logSessionForm').addEventListener('submit', function(event) {
