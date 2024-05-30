@@ -2,9 +2,14 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const bodyParser = require('body-parser');
 const User = require('./user');
 const WaitQueue = require('./queueSchema');
 const ChatRoom = require('./chatRoomSchema');
+
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -39,18 +44,21 @@ router.get('/chatroom', ensureAuthenticated, async (req, res) => {
 
 router.post('/join', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
+    let hobbies = req.body.interests || []; // get the hobbies from req.body.interests
     let userExists = await WaitQueue.findOne({ email: email });
-    //const queueCount = await WaitQueue.getQueueCount();
+
     if (userExists) {
         userExists.inQueue = true;
         userExists.time = Date.now();
+        userExists.hobbies = hobbies; // update the hobbies
         await userExists.save();
     } else {
-        userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
+        userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now(), hobbies: hobbies });
         await userExists.save();
     }
     res.sendStatus(204);
 });
+
 
 router.post('/leave', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
@@ -101,15 +109,20 @@ async function matchUsers() {
         await WaitQueue.updateMany({ email: { $in: [usersInQueue[0].email, usersInQueue[1].email] } }, { inQueue: false });
 
         // Create a chat room for these users
-        const chatRoom = new ChatRoom({ user1: usersInQueue[0].email, user2: usersInQueue[1].email });
+        const chatRoom = new ChatRoom({
+            user1: usersInQueue[0].email,
+            user2: usersInQueue[1].email,
+            user1Hobbies: usersInQueue[0].hobbies, // pass user1's hobbies
+            user2Hobbies: usersInQueue[1].hobbies  // pass user2's hobbies
+        });
         await chatRoom.save();
 
         return true;
     } else {
         return false;
-        //res.render('waitingRoom', { queueCount: queueCount });
     }
 };
+
 
 router.get('/updateQueue', ensureAuthenticated, async (req, res) => {
     const queueCount = await WaitQueue.getQueueCount();
@@ -124,7 +137,6 @@ router.post('/closeRoom', ensureAuthenticated, async (req, res) => {
 
     res.render('waitingRoom', { queueCount: queueCount });
 });
-
 
 router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
@@ -145,11 +157,15 @@ router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
 
 router.get('/pullMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] });
-    if (chatRoom)
-        res.json({ success: true, chatRoom: chatRoom.messages, email: user.email });
-    else
+    const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] })
+        .populate('user1', 'hobbies')
+        .populate('user2', 'hobbies');
+    if (chatRoom) {
+        let otherUserHobbies = chatRoom.user1 === user.email ? chatRoom.user2Hobbies : chatRoom.user1Hobbies;
+        res.json({ success: true, chatRoom: chatRoom.messages, email: user.email, otherUserHobbies: otherUserHobbies });
+    } else {
         res.json({ success: false, redirectTo: '/chat' });
+    }
 });
 
 module.exports = router;
