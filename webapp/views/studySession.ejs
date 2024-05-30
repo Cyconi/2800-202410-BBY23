@@ -82,44 +82,15 @@
                         </div>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-document.getElementById('logSessionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {};
-    formData.forEach((value, key) => { data[key] = value });
 
-    fetch('/study/logSession', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success){
-            window.location.href="/study/studyLog";
-        } else {
-        const modalBody = document.getElementById('responseModalBody');
-        modalBody.textContent = data.message;
-
-        const modal = new bootstrap.Modal(document.getElementById('responseModal'));
-        modal.show();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
-</script>
-
+<script src="js/study.js"></script>
+    
 <script>
     var timeLeft = <%= timeLeft %>;
     var isPaused = <%= isPaused %>; // Pass the isPaused state from the server
