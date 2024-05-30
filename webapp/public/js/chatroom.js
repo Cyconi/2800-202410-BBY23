@@ -5,16 +5,13 @@ window.addEventListener('beforeunload', function () {
 // Fetch the chat messages when the page loads
 function fetchMessages() {
     $.get('/chat/pullMsg', function (data) {
+        console.log(data); // Debug: Log the data received from the server
         var chatMessages = document.getElementById('chat-messages');
-        // Clear the chat messages
-        chatMessages.innerHTML = '';
+        chatMessages.innerHTML = ''; // Clear the chat messages
         if (data.success && data.chatRoom) {
             data.chatRoom.forEach(function (message) {
                 var messageElement = document.createElement('div');
-                if (data.email == message.email)
-                    messageElement.className = 'container lighter bg-primary text-white';
-                else
-                    messageElement.className = 'container darker bg-dark text-white';
+                messageElement.className = data.email == message.email ? 'container lighter bg-primary text-white' : 'container darker bg-dark text-white';
                 messageElement.innerHTML = `
                     <div><strong>${message.sender}</strong></div>
                     <div>
@@ -23,14 +20,21 @@ function fetchMessages() {
                     </div>`;
                 chatMessages.appendChild(messageElement);
             });
-            // scroll with the chat
-            var chatMessages = document.getElementById('chat-messages');
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Display the other user's hobbies
+            var oUserHobbies = data.otherUserHobbies;
+            var hobbiesElement = document.getElementById('hobbies');
+            if (hobbiesElement && oUserHobbies && Array.isArray(oUserHobbies)) {
+                hobbiesElement.innerHTML = ' Other Users Hobbies: ' + oUserHobbies.join(', ');
+            } else {
+                console.error('Hobbies element or data is missing, or not an array.'); // Debug: Log an error if hobbies data or element is missing or not an array
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll with the chat
         } else {
             roomNotFound();
         }
     });
 }
+
 function roomNotFound() {
     $.get('/chat/pullMsg', function (data) {
         if (!data.success) {

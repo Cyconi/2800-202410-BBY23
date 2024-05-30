@@ -39,10 +39,20 @@
     font-size: 18px;
 }
 
-.btn-primary{
+.btn-primary {
     background: var(--button-color);
 }
 
-.btn-danger{
-    background:var(--button-danger);
+.btn-danger {
+    background: var(--button-danger);
+}
+
+.interests {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
+
+.hob {
+    text-align: left;
 }
