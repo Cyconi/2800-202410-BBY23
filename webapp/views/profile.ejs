@@ -197,6 +197,29 @@
   </div>
 </div>
 
+<!-- Update Profile - Account with that Username/Email already exists Pop-Up Modal -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="userTaken">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Update Unsuccessful</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled small">
+                  <li class="d-flex gap-4">
+                      <img src="/img/fail-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                      <div>
+                        <h5 class="mb-0">
+                          <span id="takenHeader"></span> Already Taken
+                        </h5>
+                        The <span id="takenBody"></span> you’re trying to use is already taken. Please try a different one.
+                      </div>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton" data-bs-dismiss="modal">Okay</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 <script>
   var faqItem = 0;
 </script>
