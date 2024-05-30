@@ -138,7 +138,6 @@ router.post('/closeRoom', ensureAuthenticated, async (req, res) => {
     res.render('waitingRoom', { queueCount: queueCount });
 });
 
-
 router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const message = req.body.message; // Extract the message string from the request body
@@ -162,7 +161,7 @@ router.get('/pullMsg', ensureAuthenticated, async (req, res) => {
         .populate('user1', 'hobbies')
         .populate('user2', 'hobbies');
     if (chatRoom) {
-        let otherUserHobbies = chatRoom.user1.email === user.email ? chatRoom.user2.hobbies : chatRoom.user1.hobbies;
+        let otherUserHobbies = chatRoom.user1 === user.email ? chatRoom.user2Hobbies : chatRoom.user1Hobbies;
         res.json({ success: true, chatRoom: chatRoom.messages, email: user.email, otherUserHobbies: otherUserHobbies });
     } else {
         res.json({ success: false, redirectTo: '/chat' });
