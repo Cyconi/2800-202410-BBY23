@@ -13,6 +13,7 @@ function checkTimer() {
                         if (backdrop) {
                             backdrop.remove();
                         }
+                        breakResetTimer();
                     });
                 }
             }
@@ -25,7 +26,6 @@ function checkTimer() {
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden' || document.visibilityState === 'visible') {
         checkTimer();
-        breakResetTimer();
     }
 });
 

@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function breakStartStop() {
     var startStopBtn = document.getElementById("breakStartStopBtn");
     if (!isRunning) {
+        
         var hours = parseInt(document.getElementById("breakHoursInput").value) || 0;
         var minutes = parseInt(document.getElementById("breakMinutesInput").value) || 0;
         var seconds = parseInt(document.getElementById("breakSecondsInput").value) || 0;
