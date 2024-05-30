@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
  * 
  * @returns {number} The user's level, either 1 or 2.
  */
-function getUserLevel(){
+function getUserLevel(req){
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
@@ -63,14 +63,14 @@ router.get('/home1', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
-    res.render('home1', { user: req.user, level: getUserLevel() });
+    res.render('home1', { user: req.user, level: getUserLevel(req) });
 });
 
 router.get('/profile', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/');
     }
-    res.render('profile', { user: req.user, level: getUserLevel() });
+    res.render('profile', { user: req.user, level: getUserLevel(req) });
 });
 
 /**
