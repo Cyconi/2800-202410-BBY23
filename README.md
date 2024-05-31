@@ -69,10 +69,15 @@ Specifically, AI was employed to:
    - toggleCard function in select_scenario.ejs, studyGuide.ejs, and studyPage.ejs
    - showQuestion function in game.js
 4. ChatGPT helped in understanding how to read each JSON file synchronously and parse the JSON content of each file in interpersonal.js.
+
 Nathan Hilde:
 I used Copilot and ChatGPT to create base templates for EJS files.
+
 Jonathan Hilde:
+
 Jeremy Testa:
+
+Radmir Garipov:
 
 
 ## Contact information 
