@@ -132,10 +132,7 @@ app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
         } else {
             res.json({ success: false, notify: false });
         }
-    } catch (error) {
-       
-        res.json({ success: false });
-    }
+    } catch (Error){};
 });
 
 
@@ -217,11 +214,8 @@ app.post('/calculateTimeLeft', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});
         if (timer) {
-            console.log(!timer.isPaused);
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
-                console.log("elapsed = " + elapsed);
-                console.log("timer = " + timer.timer);
                 if (elapsed >= timer.timer) {
                     timer.isPaused = true;
                     timer.timer = 0;

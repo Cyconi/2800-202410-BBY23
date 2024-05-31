@@ -398,6 +398,25 @@ function normalizeText(text) {
 }
 
 /**
+ * Helper method for calculating frequency ratios.
+ * 
+ * @param {String} timeRange 
+ * @returns returns a number based on the time range inputed. Week = 7, month = 30, year = 365.
+ */
+const calculateIntervalCount = (timeRange) => {
+    switch (timeRange) {
+        case 'week':
+            return DAYSINWEEK;
+        case 'month':
+            return DAYSINMONTH;
+        case 'year':
+            return DAYSINYEAR;
+        default:
+            throw new Error('Invalid time range');
+    }
+}
+
+/**
  * Handles the POST request to calculate frequency ratios for good or bad habits within a specified time range.
  * 
  * Logically this code calculates how consistent a user has been depending on their habit.frequency and returning it as a percentage.
@@ -420,27 +439,11 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
     try {
         const { goodOrBad, timeRange } = req.body;
         const now = new Date();
-        let intervalCount;
-
-        switch (timeRange) {
-            case 'week':
-                //It's the amount of days + 1. So a week is 7 days + 1.
-                //This is because we are doing habit.frequency.length - intervalCount. But obviously the array starts at .length - 1.
-                intervalCount = DAYSINWEEK + 1;
-                break;
-            case 'month':
-                intervalCount = DAYSINMONTH + 1;
-                break;
-            case 'year':
-                intervalCount = DAYSINYEAR + 1;
-                break;
-            default:
-                return res.json({ success: false, error: 'Invalid time range' });
-        }
         
-        //Getting the habits.
+        let intervalCount;
+        //Adding 1 to interval count to account for .length being 1 extra than the index.
+        intervalCount = calculateIntervalCount(timeRange) + 1;
         const habits = await Habit.find({ email: req.user.email, good: goodOrBad });
-
         //This is an array because we dont just want a total percentage we want a percentage for every day in a given time range.
         const totalMaxFrequencies = new Array(intervalCount).fill(0);
         const totalFrequencies = new Array(intervalCount).fill(0);
@@ -474,7 +477,6 @@ router.post('/getFrequencyRatios', ensureAuthenticated, async (req, res) => {
                 }
             }
         });
-        
         // Calculate the frequency ratios as percentages for each interval.
         // For each index, divide the total frequency by the total maximum frequency and multiply by 100 to get the percentage.
         // If the total maximum frequency for an index is 0, set the ratio to 0 to avoid division by zero.
