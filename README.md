@@ -291,6 +291,7 @@ Image Extension: Phot.AI has been particularly useful for image manipulation tas
 Both tools have significantly contributed to the project’s success, with Copilot enhancing the technical quality and Phot.AI enriching the visual experience.
 
 Jeremy Testa:
+I used chatGPT for study Log page for each logged session on study session page, create the study log card. I also used chatGPT for creating a notification if your MCQ's are ready for your habit tracker.
 
 Radmir Garipov:
 I used chatGPT for habitGraph.js as well as helping me debug stuff by writing console logs and giving me tips on how to fix problems.
