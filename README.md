@@ -57,6 +57,8 @@ API keys:
 ## Running the Project
 (Describe how to run your project after setting up the development environment)
 
+## How to use the product
+
 ## Credots, References, and Licenses
 
 ## AI services and products
