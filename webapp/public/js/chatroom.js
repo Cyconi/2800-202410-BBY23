@@ -2,19 +2,19 @@ window.addEventListener('beforeunload', function () {
     navigator.sendBeacon('/chat/closeRoom');
 });
 
+//Represents the time to fetch messages.
+//default 2000.
+const FETCHMESSAGES = 2000;
+
 // Fetch the chat messages when the page loads
 function fetchMessages() {
     $.get('/chat/pullMsg', function (data) {
         var chatMessages = document.getElementById('chat-messages');
-        // Clear the chat messages
-        chatMessages.innerHTML = '';
+        chatMessages.innerHTML = ''; 
         if (data.success && data.chatRoom) {
             data.chatRoom.forEach(function (message) {
                 var messageElement = document.createElement('div');
-                if (data.email == message.email)
-                    messageElement.className = 'container lighter bg-primary text-white';
-                else
-                    messageElement.className = 'container darker bg-dark text-white';
+                messageElement.className = data.email == message.email ? 'container lighter bg-primary text-white' : 'container darker bg-dark text-white';
                 messageElement.innerHTML = `
                     <div><strong>${message.sender}</strong></div>
                     <div>
@@ -23,14 +23,19 @@ function fetchMessages() {
                     </div>`;
                 chatMessages.appendChild(messageElement);
             });
-            // scroll with the chat
-            var chatMessages = document.getElementById('chat-messages');
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            var oUserHobbies = data.otherUserHobbies;
+            var hobbiesElement = document.getElementById('hobbies');
+            if (hobbiesElement && oUserHobbies && Array.isArray(oUserHobbies)) {
+                hobbiesElement.innerHTML = ' Other Users Hobbies: ' + oUserHobbies.join(', ');
+            } else {
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll with the chat
         } else {
             roomNotFound();
         }
     });
 }
+
 function roomNotFound() {
     $.get('/chat/pullMsg', function (data) {
         if (!data.success) {
@@ -41,19 +46,18 @@ function roomNotFound() {
 
 $(document).ready(function () {
     fetchMessages(); // Fetch messages when the page loads
-    setInterval(fetchMessages, 2000); // Fetch messages every 5 seconds
-    //setInterval(leaveRoom, 2000); // removes user from chat room if it no long exists
+    setInterval(fetchMessages, FETCHMESSAGES);
 });
 
 // Send a new message when the form is submitted
 document.getElementById('message-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+    event.preventDefault();
 
     var messageInput = document.getElementById('message-input');
     var msg = messageInput.value;
 
     if (msg) {
-        // TODO: Send the message to the server
+        //Sends the message to the server with a fetch.
         fetch('/chat/pushMsg',
             {
                 method: 'POST',
@@ -96,15 +100,10 @@ function countdown() {
         // Add a 3 second delay before submitting the form
         setTimeout(function () {
             document.querySelector("form[action='/chat/closeRoom']").submit();
-        }, 3000);
+        }, FETCHMESSAGES);
     } else {
         timeLeft--;
         updateTimer();
     }
 }
 var intervalId = setInterval(countdown, 1000);
-
-// document.getElementById('addMinute').addEventListener('click', function () {
-//     timeLeft += 60; // Add a minute
-//     updateTimer();
-// });

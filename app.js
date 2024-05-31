@@ -6,7 +6,6 @@ const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
-const User = require("./modules/user.js");
 const Timer = require('./modules/timerSchema.js');
 const Habit = require('./modules/habitSchema');
 
@@ -72,6 +71,17 @@ app.post('/habit/habitQuestion', ensureAuthenticated, async (req, res) => {
     res.redirect('/habit/habitQuestion');
 });
 
+/**
+ * Logs out the user and destroys the session.
+ * 
+ * This post handles user logout, destroying the session after the user is logged out.
+ * If there is an error during the logout process, it responds with a 500 status code and an error message.
+ * 
+ * @route POST /logout
+ * @returns {Object} 200 - Redirects to the home page after successful logout.
+ * @returns {Object} 500 - Sends an error message if there is an error during logout.
+ */
+
 app.post('/logout', (req, res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
@@ -84,9 +94,21 @@ app.post('/logout', (req, res) => {
     });
 });
 
+/**
+ * Checks for habit notifications for the authenticated user.
+ * 
+ * This post checks if there are any habit notifications to be sent to the user.
+ * If the user's last checked notification was more than an hour ago and there are habits that need attention,
+ * it updates the user's notification status and responds accordingly.
+ * 
+ * @route POST /checkHabitNotification
+ * @middleware ensureAuthNoRed - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 200 - JSON response indicating whether there are notifications to be sent.
+ * @returns {Object} 500 - JSON response with success: false if there is an error.
+ */
 app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     try {
-        const oneHourAgo = new Date(Date.now() - 1000 * 60 * 3);
+        const oneHourAgo = new Date(Date.now() - 60 * 60* 1000);
         let notify = false;
         if(req.user.openedNotification === 1){
             return res.json({ success: true, notify: false });
@@ -116,6 +138,15 @@ app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
     }
 });
 
+
+/**
+ * Checks if the user is authenticated.
+ * 
+ * This post checks if the user is authenticated and responds with a JSON indicating the authentication status.
+ * 
+ * @route POST /checkAuth
+ * @returns {Object} 200 - JSON response indicating the success status based on user authentication.
+ */
 app.post('/checkAuth', (req, res) =>{
     if(req.isAuthenticated()){
         return res.json({success: true});
@@ -123,10 +154,26 @@ app.post('/checkAuth', (req, res) =>{
     res.json({success: false});
 });
 
+
+/**
+ * Checks the FAQ item usage for the authenticated user.
+ * 
+ * This post checks if the user has used a specific FAQ item and updates the user's FAQ usage status if necessary.
+ * 
+ * @route POST /checkFAQ
+ * @middleware ensureAuthNoRed - Middleware to ensure the user is authenticated before accessing this route.
+ * @params {number} req.body.faqItem - The FAQ item to be checked.
+ * @returns {Object} 200 - JSON response indicating whether the FAQ item usage was updated.
+ * @returns {Object} 500 - JSON response with success: false if there is an error.
+ */
 app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
     try {
         const faqItem = req.body.faqItem;
         if(req.user.faqUsed[faqItem] === 0){
+            if (faqItem === 1) {
+                req.user.faqUsed[faqItem] = 1;
+                await req.user.save();
+            }
             return res.json({success: true});
         } 
         res.json({success:false});
@@ -135,6 +182,17 @@ app.post('/checkFAQ', ensureAuthNoRed, async (req, res) => {
         res.json({ success: false });
     }
 });
+
+/**
+ * Updates the FAQ item usage for the authenticated user.
+ * 
+ * This endpoint updates the user's FAQ usage status for a specific FAQ item.
+ * 
+ * @route POST /updateFAQ
+ * @params {Number} 
+ * @returns {Object} 200 - JSON response indicating the success status of the update operation.
+ * @returns {Object} 500 - JSON response with success: false if there is an error.
+ */
 app.post('/updateFAQ', async (req, res)=> {
     try{
         const faqItem = req.body.faqItem;
@@ -145,14 +203,26 @@ app.post('/updateFAQ', async (req, res)=> {
         res.json({success: false});
     }
 });
+
+/**
+ * Calculates the remaining time for a user's timer.
+ * 
+ * This post checks the user's timer and updates its status if the timer has elapsed.
+ * 
+ * @route POST /calculate
+ * @returns {Object} 200 - JSON response indicating the success status of the calculation operation.
+ * @returns {Object} 500 - JSON response with success: false if there is an error.
+ */
 app.post('/calculate', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});
         if (timer) {
+            console.log(!timer.isPaused);
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
+                console.log("elapsed = " + elapsed);
+                console.log("timer = " + timer.timer);
                 if (elapsed >= timer.timer) {
-
                     timer.isPaused = true;
                     timer.timer = 0;
                     await timer.save();

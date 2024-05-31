@@ -71,13 +71,34 @@
         </div>
     </div>
 </div>
- <!-- ? Modal -->
- <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-body p-5">
-          <h2 class="fw-bold mb-0">The Home Page</h2>
-          <ul class="d-grid gap-4 my-5 list-unstyled small">
+  
+  <!-- Page info pop-up Modal (Bootstrap template) -->
+  <div class="modal fade" id="modalFAQ" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">The Home Page</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="d-grid gap-4 list-unstyled small">
+            <li class="d-flex gap-4">
+                <div>
+                  <h5 class="mb-0">How to Navigate BetterYou</h5>
+                  <ul>
+                    <li>By clicking the 3 lines in the top left you'll be able to navigate through all the features of the app. On any 
+                        main feature page you'll see a '?' at the top that explains that page (similiar to this one). 
+                        The circled arrow if the back button for going back a page.
+                        <br>
+                        Example icons: 
+                        <br>
+                        <span class="material-symbols-outlined d-inline-block" width="24" height="24">menu</span>
+                        <span class="material-symbols-outlined d-inline-block" width="24" height="24">help</span>
+                        <span class="material-symbols-outlined d-inline-block" width="24" height="24">arrow_circle_left</span>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             <li class="d-flex gap-4">
               <div>
                 <h5 class="mb-0">Robo, Your Character</h5>
@@ -86,8 +107,6 @@
                 </ul>
               </div>
             </li>
-            <br>
-            <br>
             <li class="d-flex gap-4">
               <div>
                 <h5 class="mb-0">The Progress/Level Up Bars</h5>
@@ -99,19 +118,32 @@
               </div>
             </li>
             <li class="d-flex gap-4">
-            </li>
+                <div>
+                  <h5 class="mb-0">What is BetterU about?</h5>
+                  <ul>
+                    <li> BetterU is a self-improvement app designed to help users enhance their discipline, confidence,
+                         and knowledge. With features like a habit tracker, interpersonal skills trainer, hobby finder, and study section, 
+                         BetterU guides you to become the best version of yourself. The app includes a text-based game for practicing social skills,
+                         a chatroom for real-time interactions, and study/habit tools to optimize learning and productivity. </li>
+                  </ul>
+                </div>
+              </li>
           </ul>
-          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-primary w-100" data-bs-dismiss="modal">Great, thanks!</button>
       </div>
     </div>
-  </div><script>
+  </div>
+</div>
+  
+  
+  <script>
     var faqItem = 1;
   </script>
-<%- include('template/footer') %>
 
 <script>
-
+  //Easter egg code. Type betterU for easter egg.
     document.addEventListener('DOMContentLoaded', (event) => {
         const avatar = document.getElementById('user-avatar');
         const hideableSection = document.querySelector('.mt-4');
@@ -129,5 +161,6 @@
             typedInput = "";
         });
     });
-    
 </script>
+
+<%- include('template/footer') %>

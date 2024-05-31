@@ -42,26 +42,7 @@
     </form>
 </div>
 
-
-<!-- Negative mins Modal -->
-<!-- <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="responseModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content rounded-4 shadow">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="responseModalLabel">Message</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-5" id="responseModalBody">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-lg btn-secondary w-100" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- Negative mins Modal -->
+<!-- Cannot Enter Negative minutes Pop-Up Modal (Bootstrap template) -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5 modal-custom" tabindex="-1" role="dialog" id="responseModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
@@ -84,41 +65,32 @@
     </div>
 </div>
 
+<!-- Study Logged Pop-Up Modal (Bootstrap template) -->
+<div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5 modal-custom" tabindex="-1" role="dialog" id="studyLoggedModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-5">
+                <h2 class="fw-bold mb-0">Success</h2>
+                <ul class="d-grid gap-4 my-5 list-unstyled small">
+                    <li class="d-flex gap-4">
+                        <img src="/img/success-icon.png" alt="Icon" width="48" height="48" class="text-body-secondary flex-shrink-0">
+                        <div>
+                            <h5 class="mb-0">Logged Successfully</h5>
+                            <div id="responseModalBody">
+                                <p>The study session has successfully been logged.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-primary mt-5 w-100" id="successButton">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            
 
-<script>
-document.getElementById('logSessionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {};
-    formData.forEach((value, key) => { data[key] = value });
-
-    fetch('/study/logSession', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success){
-            window.location.href="/study/studyLog";
-        } else {
-        const modalBody = document.getElementById('responseModalBody');
-        modalBody.textContent = data.message;
-
-        const modal = new bootstrap.Modal(document.getElementById('responseModal'));
-        modal.show();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
-</script>
-
+<script src="js/study.js"></script>
+    
 <script>
     var timeLeft = <%= timeLeft %>;
     var isPaused = <%= isPaused %>; // Pass the isPaused state from the server

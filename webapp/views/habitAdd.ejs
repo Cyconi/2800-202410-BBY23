@@ -5,7 +5,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6">
-
             <div style="display: flex; justify-content: center;">
                 <div class="card bg-dark text-white" style="display: inline-block;">
                     <h2 class="text-center" style="margin: 10px;">
@@ -13,19 +12,15 @@
                     </h2>
                 </div>
               </div>
-
-            <!-- <h1 class="text-center mb-4">Add A Habit</h1> -->
             <form id="habitForm" method='POST'>
                 <br><br>
                 <div class="mb-3">
                     <label for="habit" class="form-label card bg-dark text-white" style="display: inline-block; padding-left: 5px; padding-right: 5px;">Your Habit e.g., "I smoke"</label>
-                    <!-- <label for="habit" class="form-label">Your Habit e.g., "I smoke"</label> -->
                     <input type="text" id="habit" name="habit" class="form-control" placeholder="Enter a habit">
                 </div>
                 <br><br>
                 <div class="mb-3">
                     <label for="question" class="form-label card bg-dark text-white" style="display: inline-block; padding-left: 5px; padding-right: 5px;">Daily Question e.g., "Did you smoke today?"</label>
-                    <!-- <label for="question" class="form-label">Daily Question e.g., "Did you smoke today?"</label> -->
                     <input type="text" id="question" name="question" class="form-control" placeholder="Daily question we ask you">
                 </div>
                 <br><br>
@@ -37,7 +32,7 @@
     </div>
 </div>
 
-<!-- Duplicate Habit Modal -->
+<!-- Duplicate Habit Pop-Up Modal (Bootstrap template) -->
 <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="duplicateModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
@@ -56,7 +51,7 @@
     </div>
 </div>
 
-<!-- Habit Successfully Added Modal -->
+<!-- Habit Successfully Added Pop-Up Modal (Bootstrap template) -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalSuccess">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
@@ -78,6 +73,7 @@
 </div>
 
 <script>
+    //Gives habitC.js goodOrBad value.
     var goodOrBad = <%= good ? 'true' : 'false' %>;
 </script>
 <script src="/js/habitC.js"></script>

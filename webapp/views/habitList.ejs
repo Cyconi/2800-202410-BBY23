@@ -14,8 +14,6 @@
     </div>
   </div>
   <br>
-
-  <!-- <h2 class="text-center"><span class="name"></span>'s<br> Good Habits</h2> -->
   <div class="card alert alert-primary text-black boxAlert" role="alert">
     <div class="card-header">
       Habit List
@@ -29,7 +27,7 @@
         </svg>
         <div>
           You have no good habits! Add some! Everyone wants good habits!
-        </div>
+        </div>  
       </div>
     </div>
     <% } else { %>
@@ -37,7 +35,6 @@
     <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #aec0da;">
       <%= habit.habit %>
       <div class="d-flex justify-content-between align-items-center">
-
         <form class="me-1 me-sm-2 edit-button" data-bs-toggle="modal" data-bs-target="#modalSignin">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
@@ -45,11 +42,10 @@
           <input type="hidden" name="habitQuestion" value="<%= habit.dailyQuestion %>">
           <button type="button" class="btn btn-secondary smBtn">Edit</button>
         </form>
-
-        <form action="/habit/deleteHabit" method="POST" class="delete-form">
+        <form class="delete-button" data-bs-toggle="modal" data-bs-target="#DeleteWarningModal">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
-          <button type="submit" class="btn btn-danger smBtn">Delete</button>
+          <button type="button" class="btn btn-danger smBtn">Delete</button>
         </form>
       </div>
     </li>
@@ -62,9 +58,14 @@
   </form>
 </div>
 <% } else { %>
-<div class="container mt-4">
-  <h2 class="text-center"><span class="name"></span>'s<br> Bad Habits</h2>
-  <br><br>
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-white" style="display: inline-block;">
+        <h2 class="text-center" style="margin: 10px;">
+          <span class="name"></span>'s<br> Bad Habits
+        </h2>
+    </div>
+  </div>
+  <br>
   <div class="card alert alert-primary text-black boxAlert" role="alert">
     <div class="card-header">
       Habit List
@@ -86,8 +87,6 @@
       <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #aec0da;">
       <%= habit.habit %>
       <div class="d-flex justify-content-between align-items-center">
-
-
         <form class="me-1 me-sm-2 edit-button" data-bs-toggle="modal" data-bs-target="#modalSignin">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
@@ -95,13 +94,10 @@
           <input type="hidden" name="habitQuestion" value="<%= habit.dailyQuestion %>">
           <button type="button" class="btn btn-secondary smBtn">Edit</button>
         </form>
-
-
-
-        <form action="/habit/deleteHabit" method="POST" class="delete-form">
+        <form class="delete-button" data-bs-toggle="modal" data-bs-target="#DeleteWarningModal">
           <input type="hidden" name="habitID" value="<%= habit.id %>">
           <input type="hidden" name="habitGood" value="<%= habit.good %>">
-          <button type="submit" class="btn btn-danger smBtn">Delete</button>
+          <button type="button" class="btn btn-danger smBtn">Delete</button>
         </form>
       </div>
     </li>
@@ -114,7 +110,7 @@
 </div>
 <% } %>
 
-<!-- Graph -->
+<!-- Habit Consistency Graph (ChatGPT)-->
 <br>
 <div class="container mt-4 alert alert-primary boxAlert">
   <h2 class="text-center text-black">Consistency Graph</h2>
@@ -134,10 +130,7 @@
   </div>
 </div>
 
-
-
-
-<!-- Delete Modal -->
+<!-- Delete Habit Pop-Up Modal (Bootstrap template) -->
 <div class="modal modal-sheet position-fixed top-0 start-0 p-4 py-md-5" tabindex="-1" role="dialog" id="modalDelete">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
@@ -153,8 +146,6 @@
               "<strong><span class="habitName"></span></strong>" from your habit tracker!
             </div>
           </li>
-
-
         </ul>
         <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
       </div>
@@ -162,7 +153,7 @@
   </div>
 </div>
 
-<!-- Edit Modal  -->
+<!-- Edit Habit Pop-Up Modal  (Bootstrap template) -->
 <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
@@ -189,7 +180,44 @@
   </div>
 </div>
 
+<!-- Delete Habit Confirmation Pop-Up Modal (Bootstrap template) -->
+<div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="DeleteWarningModal">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0">
+              <h1 class="modal-title fs-5">Delete Habit?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-0">
+              <p id="duplicateModalBody">Are you sure you want to delete this habit? This action is irreversible.</p>
+          </div>
+          <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+            <form action="/habit/deleteHabit" method="POST" class="delete-form">
+              <input type="hidden" name="habitID" id="deleteHabitID">
+              <input type="hidden" name="habitGood" id="deleteHabitGood">
+              <button type="submit" class="btn btn-lg btn-danger w-100" id="addAnywayButton" data-bs-dismiss="modal">Delete</button>
+            </form>
+              <button type="button" class="btn btn-lg btn-secondary w-100" data-bs-dismiss="modal">Cancel</button>
+          </div>
+      </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
+  //Handles the event on delete buttons to populate the modal form with the details of the habit.
+  $(document).ready(function(){
+      $('.delete-button').on('click', function(){
+          var habitID = $(this).find('input[name="habitID"]').val();
+          var habitGood = $(this).find('input[name="habitGood"]').val();
+          $('#deleteHabitID').val(habitID);
+          $('#deleteHabitGood').val(habitGood);
+      });
+  });
+  </script>
+
+<script>
+  //Gives habitC.js the variable goodOrBad.
   var goodOrBad = <%= good %>;
 </script>
 <script src="/js/habitC.js"></script>

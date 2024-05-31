@@ -2,9 +2,14 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const bodyParser = require('body-parser');
 const User = require('./user');
 const WaitQueue = require('./queueSchema');
 const ChatRoom = require('./chatRoomSchema');
+
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -25,6 +30,19 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     res.render('waitingRoom', { queueCount: queueCount });
 });
 
+/**
+ * Handles the GET request to access the chatroom for the authenticated user.
+ * 
+ * This get searches for a chat room associated with the authenticated user's email.
+ * If a chat room is found, it increments the user's interpersonal amount by 10, saves the updated user information,
+ * and renders the chatroom view. If no chat room is found, it redirects the user to the chat page.
+ * 
+ * @route GET /chat/chatroom
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 200 - Renders the 'chatroom' view if a chat room is found.
+ * @returns {Object} 302 - Redirects to the chat page if no chat room is found.
+ * @returns {Object} 500 - Sends an error message if there is an internal server error.
+ */
 router.get('/chatroom', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: email }, { user2: email }] });
@@ -37,33 +55,64 @@ router.get('/chatroom', ensureAuthenticated, async (req, res) => {
 
 });
 
+/**
+ * Adds the authenticated user to the wait queue.
+ * 
+ * This post updates the wait queue with the user's email, current time, and hobbies.
+ * If the user already exists in the queue, it updates their information; otherwise, it adds them to the queue.
+ * 
+ * @route POST /chat/join
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @params {Array} [req.body.interests] - An array of hobbies or interests.
+ * @returns {Object} 204 - Sends a 204 No Content status if the operation is successful.
+ */
 router.post('/join', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
+    let hobbies = req.body.interests || []; 
     let userExists = await WaitQueue.findOne({ email: email });
-    //const queueCount = await WaitQueue.getQueueCount();
+
     if (userExists) {
         userExists.inQueue = true;
         userExists.time = Date.now();
+        userExists.hobbies = hobbies;
         await userExists.save();
     } else {
-        userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now() });
+        userExists = new WaitQueue({ email: email, inQueue: true, time: Date.now(), hobbies: hobbies });
         await userExists.save();
     }
     res.sendStatus(204);
 });
 
+
+/**
+ * Removes the authenticated user from the wait queue.
+ * 
+ * This post updates the wait queue by setting the user's inQueue status to false.
+ * If the user exists in the queue, it updates their information; otherwise, it does nothing.
+ * 
+ * @route POST /chat/leave
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 204 - Sends a 204 No Content status if the operation is successful.
+ */
 router.post('/leave', ensureAuthenticated, async (req, res) => {
     const email = req.user.email;
     const userExists = await WaitQueue.findOne({ email: email });
-    //const queueCount = await WaitQueue.getQueueCount();
     if (userExists) {
         userExists.inQueue = false;
         await userExists.save();
     }
     res.sendStatus(204);
-    //res.render('waitingRoom', { queueCount: queueCount });
 });
 
+/**
+ * Automatically removes the authenticated user from the wait queue if they navigate away from the chat.
+ * 
+ * This post checks the current route and updates the wait queue by setting the user's inQueue status to false if they are not on the chat page.
+ * 
+ * @route POST /chat/autoleave
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 200 - Sends a JSON response indicating success.
+ */
 router.post('/autoleave', ensureAuthenticated, async (req, res) => {
     try{
     const currentRoot = req.originalUrl;
@@ -80,7 +129,16 @@ router.post('/autoleave', ensureAuthenticated, async (req, res) => {
     }
 });
 
-
+/**
+ * Matches users in the wait queue to create a chat room.
+ * 
+ * This get attempts to match two users from the wait queue and create a new chat room if a match is found.
+ * If a chat room is created, it redirects the user to the chat room.
+ * 
+ * @route GET /chat/matchFound
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 200 - Sends a JSON response indicating success and redirects to the chat room.
+ */
 router.get('/matchFound', ensureAuthenticated, async (req, res) => {
     await matchUsers();
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: req.user.email }, { user2: req.user.email }] });
@@ -92,24 +150,33 @@ router.get('/matchFound', ensureAuthenticated, async (req, res) => {
     res.json({ success: false });
 });
 
-
+/**
+ * Matches users in the wait queue to create a chat room.
+ * 
+ * This function matches two users from the wait queue and creates a new chat room if a match is found.
+ * It updates the wait queue to set inQueue status to false for the matched users.
+ * 
+ * @returns {boolean} - Returns true if a match is found and a chat room is created, otherwise false.
+ */
 async function matchUsers() {
-    // After adding to the queue, try to match users
     const usersInQueue = await WaitQueue.find({ inQueue: true }).limit(2);
     if (usersInQueue.length === 2) {
-        // Remove users from the queue
         await WaitQueue.updateMany({ email: { $in: [usersInQueue[0].email, usersInQueue[1].email] } }, { inQueue: false });
 
-        // Create a chat room for these users
-        const chatRoom = new ChatRoom({ user1: usersInQueue[0].email, user2: usersInQueue[1].email });
+        const chatRoom = new ChatRoom({
+            user1: usersInQueue[0].email,
+            user2: usersInQueue[1].email,
+            user1Hobbies: usersInQueue[0].hobbies, 
+            user2Hobbies: usersInQueue[1].hobbies  
+        });
         await chatRoom.save();
 
         return true;
     } else {
         return false;
-        //res.render('waitingRoom', { queueCount: queueCount });
     }
 };
+
 
 router.get('/updateQueue', ensureAuthenticated, async (req, res) => {
     const queueCount = await WaitQueue.getQueueCount();
@@ -125,10 +192,20 @@ router.post('/closeRoom', ensureAuthenticated, async (req, res) => {
     res.render('waitingRoom', { queueCount: queueCount });
 });
 
-
+/**
+ * Pushes a message to the chat room for the authenticated user.
+ * 
+ * This post adds a message to the chat room associated with the authenticated user's email.
+ * 
+ * @route POST /chat/pushMsg
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @params {string} req.body.message - The message to be added to the chat room.
+ * @returns {Object} 200 - Sends a JSON response indicating success.
+ * @returns {Object} 404 - Sends a JSON response if the chat room is not found.
+ */
 router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    const message = req.body.message; // Extract the message string from the request body
+    const message = req.body.message; 
     const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] });
 
     if (chatRoom) {
@@ -143,13 +220,27 @@ router.post('/pushMsg', ensureAuthenticated, async (req, res) => {
         res.status(404).json({ success: false, message: 'Chat room not found' });
 });
 
+/**
+ * Pulls messages from the chat room for the authenticated user.
+ * 
+ * This get retrieves messages from the chat room associated with the authenticated user's email.
+ * 
+ * @route GET /chat/pullMsg
+ * @middleware ensureAuthenticated - Middleware to ensure the user is authenticated before accessing this route.
+ * @returns {Object} 200 - Sends a JSON response with the chat room messages and other user's hobbies.
+ * @returns {Object} 302 - Redirects to the chat page if no chat room is found.
+ */
 router.get('/pullMsg', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] });
-    if (chatRoom)
-        res.json({ success: true, chatRoom: chatRoom.messages, email: user.email });
-    else
+    const chatRoom = await ChatRoom.findOne({ $or: [{ user1: user.email }, { user2: user.email }] })
+        .populate('user1', 'hobbies')
+        .populate('user2', 'hobbies');
+    if (chatRoom) {
+        let otherUserHobbies = chatRoom.user1 === user.email ? chatRoom.user2Hobbies : chatRoom.user1Hobbies;
+        res.json({ success: true, chatRoom: chatRoom.messages, email: user.email, otherUserHobbies: otherUserHobbies });
+    } else {
         res.json({ success: false, redirectTo: '/chat' });
+    }
 });
 
 module.exports = router;

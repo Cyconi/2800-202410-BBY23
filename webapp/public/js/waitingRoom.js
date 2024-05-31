@@ -1,22 +1,16 @@
 // trigger the leave queue when page is unloaded. 
-// Currantly theres an issue where leave/join causes the page to reload making this not function properly
+
+//Represents how fast we check if the user is still in queue.
+//@default 5000
+const GETQUEUETIME = 5000;
+
+//Represents how fast we check if the user is in a chatroom.
+//@default 3000
+const GETMATCHFOUND = 3000;
+
 window.addEventListener('beforeunload', function () {
     navigator.sendBeacon('/chat/leave');
 });
-//    function getQueue() {
-//         fetch('/chat/updateQueue', { method: 'POST' })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data.success) {
-//                     document.querySelector('.queueCount').textContent = data.queueCount;
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error checking queue:', error);
-//                 setTimeout(getQueue, 5000);
-//             });
-//     }
-//     setTimeout(getQueue, 3000);
 
 function getQueue() {
     $.get('/chat/updateQueue', function (data) {
@@ -28,6 +22,7 @@ function getQueue() {
         setTimeout(getQueue, 5000);
     });
 }
+
 function matchFound() {
     $.get('/chat/matchFound', function (data) {
         if (data.success) {
@@ -37,8 +32,8 @@ function matchFound() {
 }
 
 $(document).ready(function () {
-    getQueue(); // Check the queue when the page loads
-    setInterval(getQueue, 5000); // Check the queue every 3 seconds
+    getQueue(); 
+    setInterval(getQueue, GETQUEUETIME); 
     matchFound();
-    setInterval(matchFound, 3000);
+    setInterval(matchFound, GETMATCHFOUND);
 });

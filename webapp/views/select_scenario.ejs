@@ -1,5 +1,8 @@
+<!-- Manual Header Start -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,85 +13,73 @@
     <!-- Google Icons/Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- BootStrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
-<style>
-    .sidebarBg {
-    background-color: #96ccff;
-}
-.material-symbols-outlined {
-    color: #000000;
-}
 
-.btn-danger{
-    background: linear-gradient(to right, #fd1d1d, #fcb045);
-}
-</style>
 <body>
     <nav class="navbar fixed-top" style="pointer-events: none;">
         <div class="container-fluid d-flex justify-content-between">
-            
-            <a id="navbar-toggle" class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                <img src="/img/hamburg.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top" style="pointer-events: auto;">
+
+            <a id="navbar-toggle" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"aria-controls="offcanvasExample">
+                <span class="material-symbols-outlined d-inline-block" alt="Sidebar" width="24" height="24" style="pointer-events: auto; color: #ffffff">menu</span>
+            </a>
+            <a class="mx-auto" role="button" id="faqButton" style="pointer-events: auto;">
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">help</span>
             </a>
             <script>
                 const navBar = document.getElementById('navbar-toggle');
                 fetch('/checkAuth', {
                     method: "POST"
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        navBar.style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error.message);
-                });
-    
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            navBar.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error.message);
+                    });
+        
             </script>
-            <a class="mx-auto" role="button" id="faqButton" style="display: none; pointer-events: auto;">
-                <span class="material-symbols-outlined d-inline-block align-text-top" width="24" height="24">help</span>
-            </a>
             <a role="button" onclick="goBack()" style="pointer-events: auto;">
-                <!-- <img src="/img/back-arrow.png" alt="Sidebar" width="24" height="24" class="d-inline-block align-text-top"> -->
-                <span class="material-symbols-outlined" width="24" height="24">arrow_circle_left</span>
+                <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">arrow_circle_left</span>
             </a>
         </div>
     </nav>
+    <br>
     <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
                 <button type="submit" id="expl-icon" class="btn"><img src="/img/expl.png" alt="EXO" width="24" height="24"></button>
             </form>
             <a href="/home1">
-                <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150" class="mb-3">
+                <img src="/img/better_u_logo.png" alt="Better U Logo" width="150" height="150">
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <nav class="nav flex-column">
-                <a class="nav-link text-black" href="/home1">  
+                <a class="nav-link text-black" href="/home1">
                     <span class="material-symbols-outlined">home</span>
                     Home Page
                 </a>
-                <a class="nav-link text-black" href="/chat">  
-                    <span class="material-symbols-outlined">
-                        chat_bubble
-                    </span>
+                <a class="nav-link text-black" href="/chat">
+                    <span class="material-symbols-outlined">chat_bubble</span>
                     Chat Room
                 </a>
                 <a class="nav-link text-black" href="/interpersonal/select-scenario">
                     <span class="material-symbols-outlined">groups</span>
                     Interpersonal Practice
                 </a>
-                <a class="nav-link text-black" href="/habit">  
+                <a class="nav-link text-black" href="/habit">
                     <span class="material-symbols-outlined">sports_handball</span>
                     Habit Tracker
                 </a>
@@ -107,12 +98,13 @@
         </div>
     </div>
 
+<!-- Manual Header End  -->
+
 
 <link rel="stylesheet" href="css/background.css">
 <link rel="stylesheet" href="css/scenarioSelect.css">
 
 <div class="container mt-4">
-
   <div style="display: flex; justify-content: center;">
     <div class="card bg-dark text-white" style="display: inline-block;">
         <h1 class="text-center" style="margin: 10px;">
@@ -121,8 +113,6 @@
     </div>
   </div>
   <br>
-
-  <!-- <h1 class="text-center">Select Scenario</h1> -->
   <div class="row">
     <% scenarios.forEach(scenario => { %>
       <%- include('template/scenarioCard', {
@@ -136,15 +126,17 @@
   </div>
 </div>
 
-<!-- ? Modal -->
-<div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0">Learn about the Interpersonal Helper</h2>
-        <ul class="d-grid gap-4 my-5 list-unstyled small">
+<!-- Page info pop-up Modal (Bootstrap template) -->
+<div class="modal fade" id="modalFAQ" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-black" id="exampleModalScrollableTitle">Learn about the Interpersonal Helper</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="d-grid gap-4 list-unstyled small">
           <li class="d-flex gap-4">
-             
             <div>
               <h5 class="mb-0">How to Use</h5>
               <ul>
@@ -152,8 +144,7 @@
               </ul>
             </div>
           </li>
-          <li class="d-flex gap-4">
-              
+          <li class="d-flex gap-4"> 
             <div>
               <h5 class="mb-0">To Keep in Mind</h5>
               <ul>
@@ -161,8 +152,7 @@
               </ul>
             </div>
           </li>
-          <li class="d-flex gap-4">
-              
+          <li class="d-flex gap-4"> 
             <div>
               <h5 class="mb-0">Benefits</h5>
               <ul>
@@ -171,34 +161,66 @@
             </div>
           </li>
         </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-primary w-100" data-bs-dismiss="modal">Great, thanks!</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+
+  /**
+   * Select a scenario and navigate to the interpersonal practice page.
+   * Stores the selected scenario URL in session storage and redirects the user to the interpersonal page.
+   */
   function selectScenario(scenarioUrl) {
+    // Store the selected scenario URL in session storage
     sessionStorage.setItem('scenarioUrl', scenarioUrl);
+    // Redirect to the interpersonal practice page
     window.location.href = '/interpersonal';
   }
 
+   /**
+   * Toggle the display of the card body and switch between static and GIF images.
+   * 
+   * This function was created with the help of ChatGPT.
+   */
   function toggleCard(card) {
     const cardBody = card.querySelector('.card-body');
     const cardImage = card.querySelector('.card-image');
+    // Get the GIF image source
     const gifSrc = cardImage.getAttribute('data-gif');
+    // Get the static image source
     const staticSrc = cardImage.getAttribute('data-static');
 
+    // Toggle the display of the card body
     if (cardBody.style.display === 'none' || !cardBody.style.display) {
+       // Show the card body
       cardBody.style.display = 'block';
+      // Change the image source to the GIF
       cardImage.src = gifSrc;
+      // Add the GIF image class
+      cardImage.classList.add('gif-image');
+      // Remove the static image class
+      cardImage.classList.remove('static-image');
+      
+    
     } else {
+      // Hide the card body
       cardBody.style.display = 'none';
+      // Change the image source to the static image
       cardImage.src = staticSrc;
+      // Add the static image class
+      cardImage.classList.add('static-image');
+      // Remove the GIF image class
+      cardImage.classList.remove('gif-image');
     }
   }
 </script>
 <script>
+  //Gives faqItem to interpersonal.js
   var faqItem = 5;
 </script>
 <%- include('template/footer') %>

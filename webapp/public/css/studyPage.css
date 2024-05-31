@@ -1,14 +1,8 @@
-/* Global Variables */
-:root {
-    --button-color: linear-gradient(to right, #40afc8, #1e6cd2, #2d24d8, #150973);
-    --text-color: #000000;
-    --card-background-color: #ffffff;
-    --button-border-radius: 10px;
-    --background-color: #bae6f5;
-    --button-font-size: 1.5rem;
-    --button-danger: linear-gradient(to right, #fd1d1d, #fcb045);
-}
 
+/* General Styles */
+h1 {
+    color: white;
+}
 
 /* Card Styles */
 .card {
@@ -30,9 +24,22 @@
     border: none;
 }
 
+.help-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
 .card-image {
     width: 100px;
     height: 100px;
+    margin-bottom: 10px;
+}
+
+.gif-image {
+    width: 140px; 
+    height: 140px;
     margin-bottom: 10px;
 }
 
@@ -69,14 +76,9 @@
     padding: 20px; 
 }
 
-/* Button Styles */
-.btn-primary {
-    background: var(--button-color);
-    border: none;
-    padding: 10px 15px;
-    font-size: var(--button-font-size);
-    border-radius: var(--button-border-radius);
-    color: #fff;
+.card.expanded .studycard {
+    display: block;
+}
+.card-header {
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }

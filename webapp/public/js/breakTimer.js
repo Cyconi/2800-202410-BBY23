@@ -5,6 +5,16 @@ var pausedTime = 0;
 var isPaused = isPaused;
 var timeLeft;
 
+
+
+/**
+ * !IMPORTANT!
+ * !IMPORTANT!
+ * !IMPORTANT!
+ * This is the same as timer.js because we needed 2 different codes so that if the user is on studySession.ejs the timer 
+ * would technically be running twice if we used the same script. Probably an easier way to do it. but thats how we did it.
+ * If you want more detailed comments look at timer.js
+ */
 document.addEventListener("DOMContentLoaded", function () {
     if(!timeLeft)
         return;
@@ -22,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function breakStartStop() {
     var startStopBtn = document.getElementById("breakStartStopBtn");
     if (!isRunning) {
+        
         var hours = parseInt(document.getElementById("breakHoursInput").value) || 0;
         var minutes = parseInt(document.getElementById("breakMinutesInput").value) || 0;
         var seconds = parseInt(document.getElementById("breakSecondsInput").value) || 0;
@@ -45,7 +56,7 @@ function breakStartStop() {
                 },
                 body: JSON.stringify({
                     isPaused: false,
-                    timer: pausedTime // Send the correct timer value
+                    timer: pausedTime 
                 })
             }).catch(error => console.error('Error:', error));
 
@@ -91,7 +102,7 @@ function breakStartStop() {
             },
             body: JSON.stringify({
                 isPaused: true,
-                timer: pausedTime // Send the correct paused time
+                timer: pausedTime 
             })
         }).catch(error => console.error('Error:', error));
     }
