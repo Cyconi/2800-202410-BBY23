@@ -1,15 +1,11 @@
+//Shows the session modal that we successfully logged your session into the database.
 document.getElementById('logSessionForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
-    // Show the confirmation modal
-    const studyLoggedModal = new bootstrap.Modal(document.getElementById('studyLoggedModal'));
-    studyLoggedModal.show();
-
     // Handle the form submission
     const formData = new FormData(document.getElementById('logSessionForm'));
     const data = {};
     formData.forEach((value, key) => { data[key] = value });
-
+    //Actually put it into the database.
     fetch('/study/logSession', {
         method: 'POST',
         headers: {
@@ -20,6 +16,7 @@ document.getElementById('logSessionForm').addEventListener('submit', function(ev
     .then(response => response.json())
     .then(data => {
         if(data.success){
+            //Only then show the modal.
             const successModal = new bootstrap.Modal(document.getElementById('studyLoggedModal'));
             successModal.show();
             document.getElementById('successButton').addEventListener('click', function() {

@@ -297,7 +297,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalFAQ = document.getElementById('modalFAQ');
     if (faqButton) {
         if (modalFAQ) {
+            //If the modal exists for the FAQ we show the ? image. If the modal does not exist
+            //We do not show the ? image.
             let enabled = false;
+            //fetches if the user has ever seen this FAQ page. If they have not it will make the ? red.
+            //if they have it will be black.
             fetch('/checkFAQ', {
                 method: 'POST',
                 headers: {
@@ -320,6 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.log(error.message);
             });
+            //Making the ? black instead of red.
             if(!enabled){
                 faqButton.style.display = 'block';
             }
@@ -339,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 faqModal.show();
             });
         } else {
+            //if no modal exists do not display the ? image.
                 const spanElement = faqButton.querySelector('span');
                 spanElement.style.setProperty('display', 'none', 'important');              
         }

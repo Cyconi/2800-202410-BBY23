@@ -90,6 +90,7 @@ function startStop() {
         startStopBtn.style.backgroundColor = "#0719c3";
         isRunning = false;
         isPaused = true;
+        //Update the database.
         fetch('/study/serverTimer', {
             method: 'POST',
             headers: {
@@ -97,7 +98,7 @@ function startStop() {
             },
             body: JSON.stringify({
                 isPaused: true,
-                timer: pausedTime // Send the correct paused time
+                timer: pausedTime 
             })
         })
         .catch(error => console.error('Error:', error));
@@ -144,6 +145,7 @@ function updateTimerDisplay(remainingTime) {
     document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
 }
 
+//This is for reseting the timer.
 function resetTimer() {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "0h 0m 0s";
@@ -152,6 +154,7 @@ function resetTimer() {
     isRunning = false;
     pausedTime = null;
     isPaused = false;
+    //Update the timer in the database.
     fetch('/study/serverTimer', {
         method: 'POST',
         headers: {

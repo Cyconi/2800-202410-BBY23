@@ -1,9 +1,13 @@
+/**
+ * Most of this code is chatGPT'd we did not know how to make a graph display properly at the time.
+ * We will still comment it to show we understand the code.
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
     const canvas = document.getElementById('habitGraph');
     const ctx = canvas.getContext('2d');
-
+    //Resizes the canvas.
     function resizeCanvas() {
-        var aspectRatio = 2; // Adjust the aspect ratio as needed
+        var aspectRatio = 2;
         canvas.width = canvas.parentElement.clientWidth;
         if(canvas.width <= 400){
             aspectRatio = 1;
@@ -11,11 +15,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         canvas.height = canvas.width / aspectRatio;
     }
 
-    resizeCanvas(); // Initial resize
-
-    window.addEventListener('resize', resizeCanvas); // Resize canvas on window resize
-
+    resizeCanvas(); 
+    window.addEventListener('resize', resizeCanvas);
+    //Actually makes the chart with the given values.
     let habitChart = new Chart(ctx, {
+        //This is the Y axis.
         type: 'line',
         data: {
             labels: [],
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 fill: false
             }]
         },
+        //This is the X axis.
         options: {
             scales: {
                 x: {
@@ -39,11 +44,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     },
                     ticks: {
                         callback: function(value, index, values) {
-                            return `Day ${index + 1}`; // Label as Day 1, Day 2, etc.
+                            return `Day ${index + 1}`; 
                         }
                     }
                 },
                 y: {
+                    //Make sure it goes from 0%->100%
                     beginAtZero: true,
                     min: 0,
                     max: 100,
@@ -56,9 +62,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     },
                     ticks: {
                         callback: function(value) {
-                            return value + '%'; // Convert to percentage
+                            return value + '%'; 
                         },
-                        reverse: true // Make y-axis go from 100% to 0%
+                        reverse: true
                     }
                 }
             },
@@ -71,23 +77,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                     }
                 },
-                maintainAspectRatio: false // Ensure the graph respects the container's aspect ratio
+                maintainAspectRatio: false 
             }
         }
     });
-
+    //Puts in the values into the graph.
     async function updateGraph() {
         const timeRange = document.getElementById('timeRange').value;
         try {
+            //Calls a fetch which calculates frequency ratios.
             const response = await fetch('/habit/getFrequencyRatios', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ goodOrBad: true, timeRange }) 
+                //Only displays the good or bad habits.
+                body: JSON.stringify({ goodOrBad: goodOrBad, timeRange }) 
             });
             const data = await response.json();
-
+            //If successful fetch fill in the data.
             if (data.success) {
                 const labels = [];
                 for (let i = 0; i < data.frequencyRatios.length; i++) {
