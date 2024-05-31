@@ -113,10 +113,7 @@ router.post('/forgot', async (req, res) => {
 
     const resetURL = `http://${req.headers.host}/reset/${resetToken}`;
     const sendEmail = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Password Reset",
-        text: `You (or someone) has requested a password reset for BetterU. To reset the password, please click this link: ${resetURL}.\n\nIf this is not you, please ignore this email and your password will remain unchanged.`
+        from: process.env.EMAIL_USER, to: email, subject: "Password Reset", text: `You (or someone) has requested a password reset for BetterU. To reset the password, please click this link: ${resetURL}.\n\nIf this is not you, please ignore this email and your password will remain unchanged.`
     };
 
     transporter.sendMail(sendEmail, (error, info) => {
@@ -246,7 +243,6 @@ router.post('/signup', async (req, res) => {
     if (!username || !name || !email || !password) {
         return res.status(400).send('Signup Failed: All fields are required.');
     }
-
     if (username.trim() === "" || name.trim() === "" || email.trim() === "" || password.trim() === "") {
         return res.status(400).send('Signup Failed: All fields must be non-empty strings.');
     }
@@ -257,12 +253,7 @@ router.post('/signup', async (req, res) => {
             return res.json({ success: false, message: "User already exists." });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ 
-            username, 
-            name, 
-            email, 
-            password: hashedPassword, 
-            numberOfHabits: 0, 
+        const newUser = new User({ username, name, email, password: hashedPassword, numberOfHabits: 0, 
             securityQuestion: securityQuestion || null,
             securityAnswer: securityAnswer ? bcrypt.hashSync(securityAnswer, 10) : null 
         });
