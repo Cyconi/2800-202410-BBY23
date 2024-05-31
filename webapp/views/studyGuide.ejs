@@ -66,20 +66,34 @@
 </div>
 
 <script>
+
+     /**
+     * Function to toggle the card expansion and switch between static and GIF images
+     * 
+     * This function was created with the help of ChatGPT.
+     */
   function toggleCard(card) {
       card.classList.toggle('expanded');
+      // Select the image element within the card
       var img = card.querySelector('.card-image');
       if (card.classList.contains('expanded')) {
+         // Change to GIF image when expanded
           img.src = img.dataset.gif;
+          // Add the 'gif-image' class
           img.classList.add('gif-image');
+          // Remove the 'static-image' class;
           img.classList.remove('static-image');
       } else {
+          // Change to static image when collapsed
           img.src = img.dataset.static;
+          // Add the 'static-image' class
           img.classList.add('static-image');
+          // Remove the 'gif-image' class
           img.classList.remove('gif-image');
       }
   }
 
+  // Function to open a new page when a guide is clicked
   function openPage(url) {
       window.location.href = url;
   }
