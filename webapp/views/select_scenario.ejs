@@ -170,28 +170,51 @@
 </div>
 
 <script>
+
+  /**
+   * Select a scenario and navigate to the interpersonal practice page.
+   * Stores the selected scenario URL in session storage and redirects the user to the interpersonal page.
+   */
   function selectScenario(scenarioUrl) {
+    // Store the selected scenario URL in session storage
     sessionStorage.setItem('scenarioUrl', scenarioUrl);
+    // Redirect to the interpersonal practice page
     window.location.href = '/interpersonal';
   }
 
+   /**
+   * Toggle the display of the card body and switch between static and GIF images.
+   * 
+   * This function was created with the help of ChatGPT.
+   */
   function toggleCard(card) {
     const cardBody = card.querySelector('.card-body');
     const cardImage = card.querySelector('.card-image');
+    // Get the GIF image source
     const gifSrc = cardImage.getAttribute('data-gif');
+    // Get the static image source
     const staticSrc = cardImage.getAttribute('data-static');
 
+    // Toggle the display of the card body
     if (cardBody.style.display === 'none' || !cardBody.style.display) {
+       // Show the card body
       cardBody.style.display = 'block';
+      // Change the image source to the GIF
       cardImage.src = gifSrc;
+      // Add the GIF image class
       cardImage.classList.add('gif-image');
+      // Remove the static image class
       cardImage.classList.remove('static-image');
       
     
     } else {
+      // Hide the card body
       cardBody.style.display = 'none';
+      // Change the image source to the static image
       cardImage.src = staticSrc;
+      // Add the static image class
       cardImage.classList.add('static-image');
+      // Remove the GIF image class
       cardImage.classList.remove('gif-image');
     }
   }
