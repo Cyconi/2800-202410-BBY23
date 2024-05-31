@@ -94,6 +94,10 @@ const DAYSINYEAR = 365;
  * 
  * The habit's frequency array is updated by adding a value of 1 to the last element of the array.
  * 
+ * This was done so that it's easier to keep track of if the user had done that habit on that day.
+ * It makes calculating specifically that much easier. For example did the user do x habit 8 days ago?
+ * Well we know habit.frequency.length is today, so is .length - 9 an entry?
+ * 
  * Habit amount is also increased by INCREASECONFIDENCE.
  * 
  * @route POST /habit/addFrequency
