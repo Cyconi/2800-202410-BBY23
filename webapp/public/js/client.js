@@ -322,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                console.log(error.message);
             });
             //Making the ? black instead of red.
             if(!enabled){
@@ -336,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({ faqItem })
                 }).catch(error => {
-                    console.log(error.message);
                 });
                 const spanElement = faqButton.querySelector('span');
                 spanElement.style.color = '#FFFFFF';

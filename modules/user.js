@@ -6,6 +6,14 @@ const oneHourAgo = () => {
     return date;
 };
 
+/**
+ * Mongoose schema for User.
+ * 
+ * This schema defines the structure of the User document, including fields for username, name, email, password,
+ * password reset tokens and dates, various user metrics (number of habits, knowledge amount, interpersonal amount, etc.),
+ * and additional fields like security questions and answers, notification settings, and FAQ usage.
+ * 
+ */
 const userSchema = new mongoose.Schema({
     username: {type: String, unique: true, required: true},
     name: { type: String, unique: false, required: true },

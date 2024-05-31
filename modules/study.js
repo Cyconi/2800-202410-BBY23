@@ -190,7 +190,7 @@ router.get('/studyLog', async (req, res) => {
 
 /**
  * Updates the timer in the database.
- * @route POST /serverTimer
+ * @route POST /study/serverTimer
  * @middleware ensureAuthenticated
  * @param {boolean} req.body.isPaused - Indicates if the timer is paused.
  * @param {number} req.body.timer - The timer value in milliseconds.
