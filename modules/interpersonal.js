@@ -24,6 +24,20 @@ router.get('/', (req, res) => {
     res.render('interpersonal');
 });
 
+/**
+ * Handles the POST request to mark a scenario as completed for the authenticated user.
+ * 
+ * This post updates the user's progress by marking the specified scenario as completed. 
+ * If the scenario was not previously completed, it updates the `interpersonalCompleted` array 
+ * and increments the `interpersonalAmount` by 35. The changes are then saved to the database.
+ * 
+ * @route POST /interpersonal/completed
+ * @param {Object} req - The request object containing the scenario ID.
+ * @param {number} req.body.scenarioID - The ID of the scenario to mark as completed.
+ * @param {Object} res - The response object used to send the response.
+ * @returns {Object} 200 - A JSON object with success status if the scenario is marked completed.
+ * @returns {Object} 200 - A JSON object with success status false if there was an error.
+ */
 router.post('/completed', async (req, res) => {
     try{
         const {scenarioID} = req.body;
