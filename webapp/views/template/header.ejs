@@ -32,6 +32,7 @@
                 <span class="material-symbols-outlined d-inline-block" width="24" height="24" style="color: #ffffff">help</span>
             </a>
             <script>
+                //Displays the navbar if the user is authenticated. If not it does not display it.
                 const navBar = document.getElementById('navbar-toggle');
                 fetch('/checkAuth', {
                     method: "POST"
