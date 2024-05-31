@@ -83,15 +83,17 @@
 <script>
   $('#joinQueue').click(function () {
       var interests = [];
+      //Get all checked interests
       $('input[name="interests[]"]:checked').each(function () {
         interests.push($(this).val());
       });
-
+      // Send a POST request to join the chat queue with the selected interests
       $.post('/chat/join', { interests: interests })
         .done(function () {
           console.log('Successfully joined the queue with hobbies!');
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
+          // Failure callback
           console.log('There was an error: ' + textStatus + ' ' + errorThrown);
         });
     });
