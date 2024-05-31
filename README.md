@@ -10,10 +10,9 @@ Team Members:
 - Radmir Garipov
 
 ## Project Description
-(Provide a brief description of what your project is about)
+We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology advances, we become more isolated, lose vital social skills, and feel lonelier. That’s where Better U comes in—a self-improvement app designed to help you become the person you want to be, the better version of you! Our app includes an interpersonal skills trainer to enhance your social interactions, a habit tracker and hobby finder to develop new interests, and a study section to optimize learning.
 
 ## Technologies used
-We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology advances, we become more isolated, lose vital social skills, and feel lonelier. That’s where Better U comes in—a self-improvement app designed to help you become the person you want to be, the better version of you! Our app includes an interpersonal skills trainer to enhance your social interactions, a habit tracker and hobby finder to develop new interests, and a study section to optimize learning.
 
 ### Frontend
 - HTML
