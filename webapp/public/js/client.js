@@ -1,3 +1,8 @@
+/**
+ * Checks the timer by making a POST request to the server.
+ * If the response is successful, shows a modal with a timer.
+ * The timer modal is configured to reset upon being hidden.
+ */
 function checkTimer() {
     fetch('/calculate', { method: 'POST' })
         .then(response => response.json())
@@ -23,15 +28,24 @@ function checkTimer() {
         });
 }
 
+/**
+ * Event listener for visibility change.
+ * Calls checkTimer function when the document's visibility changes.
+ */
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden' || document.visibilityState === 'visible') {
         checkTimer();
     }
 });
 
-// Periodically check the timer every 30 seconds
+// Periodically checks the timer every 2 seconds
 setInterval(checkTimer, 2000);
 
+/**
+ * Checks for habit notifications by making a POST request to the server.
+ * If the response indicates a notification, shows a notification area.
+ * Changes the explorer icon's appearance based on notification status.
+ */
 function checkNotification() {
     fetch('/checkHabitNotification', { method: 'POST' })
         .then(response => response.json())
@@ -59,13 +73,19 @@ function checkNotification() {
             }
         })
         .catch(error => {
-            setTimeout(checkNotification, 60 * 60* 1000); // Retry after 1 hour if there's an error
+            setTimeout(checkNotification, 60 * 60 * 1000); // Retry after 1 hour if there's an error
         });
 }
 
+// Initial check for notifications
 checkNotification();
-setInterval(checkNotification, 60 * 60* 1000);
+// Periodically checks for notifications every 1 hour
+setInterval(checkNotification, 60 * 60 * 1000);
 
+/**
+ * Event listener for DOMContentLoaded.
+ * Initializes various modal instances and handles form submissions and button clicks.
+ */
 document.addEventListener('DOMContentLoaded', function() {
     let enterEmailModalInstance;
     let forgotPasswordModalInstance;
@@ -343,33 +363,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Function for back button
+/**
+ * Sets a flag in localStorage to refresh the page and navigates back in browser history.
+ */
 function goBack() {
     localStorage.setItem('refresh', 'true');
     window.history.back();
 }
+
+/**
+ * Event listener for window load.
+ * Reloads the page if the refresh flag is set in localStorage.
+ */
 window.onload = function () {
     if (localStorage.getItem('refresh') === 'true') {
         localStorage.removeItem('refresh');
         location.reload();
     }
 }
+
+/**
+ * Event listener for page show.
+ * Reloads the page if it was loaded from the cache.
+ * 
+ * @param {PageTransitionEvent} event - The event object.
+ */
 window.onpageshow = function (event) {
     if (event.persisted) {
         window.location.reload();
     }
 };
 
-// auto leave function for chat room
+/**
+ * Automatically leaves the chat room by making a POST request to the server.
+ */
 async function autoLeave() {
     try {
         let response = await fetch('/chat/autoleave', { method: 'POST' });
-    
         let data = await response.json();
-        //if (data.success) {}
-    } catch (error) {}
+        // Handle success or error if needed
+    } catch (error) {
+        console.error('Error in autoLeave:', error);
+    }
 }
-// auto leave function for chat room
+
+/**
+ * Event listener for document ready.
+ * Calls autoLeave function periodically every 5 seconds.
+ */
 $(document).ready(function () {
     autoLeave();
     setInterval(autoLeave, 5000);
