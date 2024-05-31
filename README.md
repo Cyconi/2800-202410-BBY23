@@ -75,9 +75,6 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
 /public (folder)
 /views (folder)
     /public
-        /css (folder)
-        /img (folder)
-        /js (folder)
             /css
                 /addHabit.css
                 /background.css
@@ -99,7 +96,6 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
                 /studySession.css
                 /style.css
                 /waitingRoom.css
-
             /img
                 /404.gif
                 /avatar_lvl1.png
@@ -152,8 +148,7 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
                 /studySession(gif).gif
                 /success/icon.png
                 /teaching.png
-                /wall/e/pixar.gif
-                
+                /wall/e/pixar.gif        
             /js
                 /breakTimer.js
                 /chatroom.js
@@ -165,7 +160,6 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
                 /habitGraph.js
                 /timer.js
                 /waitingRoom.js
-    
     /views
         /template
             /footer.ejs
@@ -192,7 +186,6 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
         /studyPage.ejs
         /studySession.ejs
         /waitingRoom.ejs
-
 /.env
 /.gitignore
 /app.js
