@@ -263,6 +263,7 @@ Specifically:
    - toggleCard function in select_scenario.ejs, studyGuide.ejs, and studyPage.ejs
    - showQuestion function in game.js
 4. ChatGPT helped in understanding how to read each JSON file synchronously and parse the JSON content of each file in interpersonal.js.
+5. ChatGPT wrote habitGraph.js as we did not know how to add a graph into our project. The code has been commented by us.
 
 Nathan Hilde:
 I used Copilot and ChatGPT to create base templates for EJS files.
@@ -272,7 +273,8 @@ Jonathan Hilde:
 Jeremy Testa:
 
 Radmir Garipov:
-
+I used chatGPT for habitGraph.js as well as helping me debug stuff by writing console logs and giving me tips on how to fix problems.
+All console logs written by chat have been removed.
 
 ## Contact information 
 Jeremy Testa:
