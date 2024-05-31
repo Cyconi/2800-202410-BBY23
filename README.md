@@ -42,6 +42,7 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
 - ChatGPT 4.0/4o
 - Copilot
 
+
 ## Listing of File Contents of folder
 Modules
 -chat.js
@@ -196,7 +197,7 @@ webApp
 -README.md
 
 
-## Setting Up the Development Environment
+## How to install or run the project
 What does the developer need to install
     Languages
     IDEs
@@ -207,8 +208,6 @@ APIs:
 
 API keys:
 
-## Running the Project
-(Describe how to run your project after setting up the development environment)
 
 ## How to use the product
 
