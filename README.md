@@ -181,6 +181,11 @@ webApp
         -studyPage.ejs
         -studySession.ejs
         -waitingRoom.ejs
+
+        template
+            -footer.ejs
+            -header.ejs
+            -scenarioCard.ejs
 -.env
 -.gitignore
 -app.js
