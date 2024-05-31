@@ -63,8 +63,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             const duplicateResult = await duplicateResponse.json();
+            // if (!duplicateResult.success) {
+            //     alert(duplicateResult.message);
+            //     return;
+            // }
+
             if (!duplicateResult.success) {
-                alert(duplicateResult.message);
+                // Get the modal element
+                const userTakenModalElement = document.getElementById('userTaken');
+                // Initialize the modal
+                const userTakenModal = new bootstrap.Modal(userTakenModalElement);
+            
+                // Get the span elements by their IDs and update their text content
+                const takenHeader = document.getElementById('takenHeader');
+                const takenBody = document.getElementById('takenBody');
+                const takenBodyTemp = duplicateResult.message.charAt(0).toLowerCase() + duplicateResult.message.slice(1);
+                takenHeader.textContent = duplicateResult.message; // Assuming `field` contains either 'username' or 'email'
+                takenBody.textContent = takenBodyTemp;
+            
+                // Show the modal
+                userTakenModal.show();
+            
                 return;
             }
 
