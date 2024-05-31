@@ -199,15 +199,24 @@ webApp
 
 ## How to install or run the project
 What does the developer need to install
-    Languages
+    Languages 
+    - Install node
+    - Using package.json do npm i in terminal
     IDEs
+    - We used visual studio code. The IDE used does not matter
     Database
+    - We used mongoDB
     Other software
+    - No other software was used.
 
-APIs:
+We did not use any API's other than the ones in node. And mongodb.
 
-API keys:
+the order of which you install things does not matter.
+You can't do npm i without node anyway.
 
+https://docs.google.com/spreadsheets/d/1NEOkIcKHYYFC4i8jGHtGvqvuczyaaCTB_hpqbIF-Nkw/edit
+
+Make sure you make a .env file with the contents of passwords.txt
 
 ## How to use the product
 
