@@ -54,7 +54,6 @@
             </a>
         </div>
     </nav>
-    <!-- <br><br><br> -->
     <br>
     <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -115,8 +114,6 @@
     </div>
   </div>
   <br>
-
-  <!-- <h1 class="text-center">Select Scenario</h1> -->
   <div class="row">
     <% scenarios.forEach(scenario => { %>
       <%- include('template/scenarioCard', {
@@ -130,48 +127,7 @@
   </div>
 </div>
 
-<!-- Old Page info pop-up Modal -->
-<!-- <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0">Learn about the Interpersonal Helper</h2>
-        <ul class="d-grid gap-4 my-5 list-unstyled small">
-          <li class="d-flex gap-4">
-             
-            <div>
-              <h5 class="mb-0">How to Use</h5>
-              <ul>
-                <li>Select one of the many scenarios you can play to practice actions and a good speaking tone when interacting with other people.</li>
-              </ul>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-              
-            <div>
-              <h5 class="mb-0">To Keep in Mind</h5>
-              <ul>
-                <li>Not everyone may act or speak in the way the situations are set up but theyre widely accepted way to approach a given scenario.</li>
-              </ul>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-              
-            <div>
-              <h5 class="mb-0">Benefits</h5>
-              <ul>
-                <li>Gain confidence in taking action and talking in social scenarios to hopefully relay this in real life.</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- Page info pop-up Modal -->
+<!-- Page info pop-up Modal (Bootstrap template) -->
 <div class="modal fade" id="modalFAQ" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
