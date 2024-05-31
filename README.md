@@ -72,8 +72,6 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
     /scenari6.json
 
 /webApp
-/public (folder)
-/views (folder)
     /public
             /css
                 /addHabit.css
