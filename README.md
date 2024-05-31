@@ -58,5 +58,19 @@ API keys:
 ## Running the Project
 (Describe how to run your project after setting up the development environment)
 
-## More details to come
-TBA
+## Credots, References, and Licenses
+
+## AI services and products
+
+
+## Contact information 
+Jeremy Testa:
+- 
+Jonathan Hilde:
+- cyconiexo@gmail.com
+Nathan Hilde:
+ - nathan.hilde1@gmail.com
+Maksim Sadreev:
+- msadreev@my.bcit.ca
+Radmir Garipov:
+- radmirgaripovrss@gmail.com
