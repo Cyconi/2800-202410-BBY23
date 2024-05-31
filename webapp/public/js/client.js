@@ -4,7 +4,7 @@
  * The timer modal is configured to reset upon being hidden.
  */
 function checkTimer() {
-    fetch('/calculate', { method: 'POST' })
+    fetch('/calculateTimeLeft', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
