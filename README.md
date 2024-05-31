@@ -60,6 +60,19 @@ API keys:
 ## Credots, References, and Licenses
 
 ## AI services and products
+Maksim Sadreev:
+I utilized AI to enhance various aspects of the codebase.
+Specifically, AI was employed to:
+1. ChatGPT generated six unique scenarios designed to help users practice and improve their social interaction skills.
+2. ChatGPT also created six corresponding JSON files for these scenarios, ensuring that the game can easily parse and utilize the content.
+3. ChatGPT assisted in creating several functions, such as:
+   - toggleCard function in select_scenario.ejs, studyGuide.ejs, and studyPage.ejs
+   - showQuestion function in game.js
+4. ChatGPT helped in understanding how to read each JSON file synchronously and parse the JSON content of each file in interpersonal.js.
+Nathan Hilde:
+I used Copilot and ChatGPT to create base templates for EJS files.
+Jonathan Hilde:
+Jeremy Testa:
 
 
 ## Contact information 
