@@ -10,10 +10,13 @@ Team Members:
 - Maksim Sadreev
 - Radmir Garipov
 
+
 ## Project Description
 We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology advances, we become more isolated, lose vital social skills, and feel lonelier. That’s where Better U comes in—a self-improvement app designed to help you become the person you want to be, the better version of you! Our app includes an interpersonal skills trainer to enhance your social interactions, a habit tracker and hobby finder to develop new interests, and a study section to optimize learning.
 
+
 ## Technologies used
+
 ### Frontend
 - HTML
 - EJS
@@ -218,10 +221,15 @@ https://docs.google.com/spreadsheets/d/1NEOkIcKHYYFC4i8jGHtGvqvuczyaaCTB_hpqbIF-
 
 Make sure you make a .env file with the contents of passwords.txt
 
-## How to use the product
+
+## How to Use the Product
+- **Navigation**: Use the sidebar menu by clicking the '☰' to move between different sections of the app.
+- **'?' Button**: Click the '?' button at the top of each sections index page for help and additional information about that section.
+- **Interaction**: We have informative feedback for various actions to prevent errors, permit easy reversal of actions and keep users in control.
 
 
 ## Credits, References, and Licenses
+
 ### Credits
 This project was developed by the following team members:
 - **Jeremy Testa**: Full-Stack Developer
