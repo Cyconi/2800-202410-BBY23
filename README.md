@@ -275,7 +275,11 @@ Specifically:
 5. ChatGPT wrote habitGraph.js as we did not know how to add a graph into our project. The code has been commented by us.
 
 Nathan Hilde:
-I used Copilot and ChatGPT to create base templates for EJS files.
+I utilized AI technologies, specifically Copilot and ChatGPT, to enhance various aspects of the codebase. 
+Specifically:
+1. **Copilot** was particularly useful for bug fixing. It provided valuable insights and solutions when I encountered issues in the code, significantly speeding up the debugging process.
+2. **Copilot** also assisted in generating the base look for some of our applications pages. I used these initial designs as a starting point, and then further customized them to create a unique and user-friendly interface.
+3. **Copilot** and **ChatGPT** provided valuable assistance in writing the JavaScript needed to control the behavior of Bootstrap modals. This included code for triggering the modals, handling form submissions, and managing modal events.
 
 Jonathan Hilde:
 
