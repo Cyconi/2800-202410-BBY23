@@ -47,6 +47,7 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
 
 
 ## Listing of File Contents of folder
+```
 /modules
     /chat.js
     /chatRoomSchema.js
@@ -198,7 +199,7 @@ We are BBY – 23, Radmir, Nathan, Jeremy, Jonathan, and Maksim. As technology a
 /package/lock.json
 /package.json
 /README.md
-
+```
 
 ## How to install or run the project
 What does the developer need to install
