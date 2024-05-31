@@ -6,7 +6,6 @@ const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
-const User = require("./modules/user.js");
 const Timer = require('./modules/timerSchema.js');
 const Habit = require('./modules/habitSchema');
 

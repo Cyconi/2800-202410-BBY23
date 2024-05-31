@@ -54,7 +54,6 @@
             </a>
         </div>
     </nav>
-    <!-- <br><br><br> -->
     <div class="offcanvas offcanvas-start sidebarBg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <form class="hug-left" action='/habit/habitQuestion' method='POST'>
@@ -100,44 +99,8 @@
 
 <!-- Manual Header End  -->
 
-
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        overflow: hidden; /* Prevent scrolling */
-    }
-    .full-height {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(to right, #00c99e 50%, #186fc6 50%);
-    }
-    .side {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        color: white;
-        height: 100%;
-    }
-    .button {
-        border: none;
-        background: none;
-        color: white;
-        font-size: 1.5em;
-        cursor: pointer;
-    }
-    .button img {
-        display: block;
-        margin: 0 auto 10px;
-        width: 200px;
-        height: auto;
-    }
-</style>
 <link rel="stylesheet" href="css/background.css">
+<link rel="stylesheet" href="css/habitIndex.css">
 
 <div class="container-fluid full-height">
     <div class="row w-100 h-100">
@@ -160,50 +123,7 @@
     </div>
 </div>
 
-<!-- Old Page info pop-up Modal -->
-<!-- <div class="modal modal-sheet position-fixed p-4 py-md-5" tabindex="-1" role="dialog" id="modalFAQ">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content rounded-4 shadow">
-        <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0">Learn about the Habit Tracker</h2>
-          <ul class="d-grid gap-4 my-5 list-unstyled small">
-            <li class="d-flex gap-4">
-
-              <div>
-                <h5 class="mb-0">How to Start</h5>
-                <ul>
-                <li>Are you trying to form a new habit? Log it in the Good Habits.</li>
-               <li>Are you breaking negative old habits? Log it in the Bad Habits.</li>
-              </ul>
-              </div>
-            </li>
-            <li class="d-flex gap-4">
-
-              <div>
-                <h5 class="mb-0">Consistency</h5>
-                <ul>
-                <li>The key to really seeing your progress is being consistent with your entries through the MCQ's</li>
-                <li>Make sure to add well worded questions for your habits so you can answer well and your graph will be more accurate.</li>
-                </ul>
-              </div>
-            </li>
-            <li class="d-flex gap-4">
-
-              <div>
-                <h5 class="mb-0">Self Honesty</h5>
-                <ul>
-                  <li>Answer the MCQ honestly to ensure precise results for the habits you're tracking.</li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Page info pop-up Modal -->
+  <!-- Page info pop-up Modal (Bootstrap template) -->
   <div class="modal fade" id="modalFAQ" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
@@ -214,7 +134,6 @@
         <div class="modal-body">
             <ul class="d-grid gap-4 list-unstyled small">
                 <li class="d-flex gap-4">
-    
                   <div>
                     <h5 class="mb-0">How to Start</h5>
                     <ul>
@@ -224,7 +143,6 @@
                   </div>
                 </li>
                 <li class="d-flex gap-4">
-    
                   <div>
                     <h5 class="mb-0">Consistency</h5>
                     <ul>
@@ -234,7 +152,6 @@
                   </div>
                 </li>
                 <li class="d-flex gap-4">
-    
                   <div>
                     <h5 class="mb-0">Self Honesty</h5>
                     <ul>

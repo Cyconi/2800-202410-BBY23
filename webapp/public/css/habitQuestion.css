@@ -1,0 +1,10 @@
+
+.custom-button {
+    font-size: 24px; /* Adjust as needed */
+    padding: 10px 20px; /* Adjust as needed */
+}
+ 
+.btn:active {
+    transform: scale(0.9); /* Makes the button slightly smaller when clicked */
+    background-color: #00000000 !important; /* Change the color when clicked */
+}

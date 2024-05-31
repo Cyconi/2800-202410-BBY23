@@ -75,3 +75,10 @@ h1 {
     margin: 0 auto;
     padding: 20px; 
 }
+
+.card.expanded .studycard {
+    display: block;
+}
+.card-header {
+    cursor: pointer;
+}

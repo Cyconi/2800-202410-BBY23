@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Updates the scenario completion status on the server and displays a success message.
      */
     function showCompletionModal() {
+        //Fetches if the user has ever completed this scenario. If not, we mark it as completed.
         fetch('/interpersonal/completed', {
             method: 'POST',
             headers: {
@@ -186,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Error updating scenario completion status:', error);
         });
+        //after the fetch show the modal that you've completed it.
         completionImage.innerHTML = '<img src="img/success-icon.png" alt="Completion Image" class="img-fluid">';
         completionModal.show();
         document.getElementById('profileButton').onclick = () => window.location.href = '/home1';

@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteForms.forEach(form => {
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
-
+                //Gets the value to delete a certain habit.
                 const habitID = form.querySelector('input[name="habitID"]').value;
                 const habitGood = form.querySelector('input[name="habitGood"]').value;
-
+                //Deletes the habit in the database.
                 fetch('/habit/deleteHabit', {
                     method: 'POST',
                     headers: {
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        //Shows a modal for successful deletion.
                         const modalElement = document.getElementById('modalDelete');
                         if (modalElement) {
                             const modal = new bootstrap.Modal(modalElement);
@@ -64,17 +65,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const editForms = document.querySelectorAll('.edit-form');
-
+    //pops up an edit modal when the user presses a edit button.
     if (editForms.length > 0) {
         editForms.forEach(form => {
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
-
+                //gets the values of the habits.
                 const habitID = form.querySelector('input[name="habitID"]').value;
                 const habitGood = form.querySelector('input[name="habitGood"]').value;
                 const habitName = form.querySelector('input[name="habitName"]').value;
                 const habitQuestion = form.querySelector('input[name="habitQuestion"]').value;
-
+                //Actually edits the habit in the database.
                 fetch('/habit/editHabit', {
                     method: 'POST',
                     headers: {
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-button');
-
+    //Simply add a edit button for each habit.
     if (editButtons.length > 0) {
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
