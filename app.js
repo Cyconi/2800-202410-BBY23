@@ -132,10 +132,7 @@ app.post('/checkHabitNotification', ensureAuthNoRed, async (req, res) => {
         } else {
             res.json({ success: false, notify: false });
         }
-    } catch (error) {
-       
-        res.json({ success: false });
-    }
+    } catch (Error){};
 });
 
 
@@ -209,19 +206,16 @@ app.post('/updateFAQ', async (req, res)=> {
  * 
  * This post checks the user's timer and updates its status if the timer has elapsed.
  * 
- * @route POST /calculate
+ * @route POST /calculateTimeLeft
  * @returns {Object} 200 - JSON response indicating the success status of the calculation operation.
  * @returns {Object} 500 - JSON response with success: false if there is an error.
  */
-app.post('/calculate', async (req, res) => {
+app.post('/calculateTimeLeft', async (req, res) => {
     try {
         const timer = await Timer.findOne({email: req.user.email});
         if (timer) {
-            console.log(!timer.isPaused);
             if (!timer.isPaused) {
                 const elapsed = Date.now() - timer.timeNow;
-                console.log("elapsed = " + elapsed);
-                console.log("timer = " + timer.timer);
                 if (elapsed >= timer.timer) {
                     timer.isPaused = true;
                     timer.timer = 0;

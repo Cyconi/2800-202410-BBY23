@@ -58,6 +58,7 @@
   </form>
 </div>
 <% } else { %>
+<div class="container mt-4">
   <div style="display: flex; justify-content: center;">
     <div class="card bg-dark text-white" style="display: inline-block;">
         <h2 class="text-center" style="margin: 10px;">
@@ -108,6 +109,7 @@
     <button type="submit" class="btn btn-primary">Add a Habit</button>
   </form>
 </div>
+
 <% } %>
 
 <!-- Habit Consistency Graph (ChatGPT)-->
@@ -217,10 +219,10 @@
   </script>
 
 <script>
-  //Gives habitC.js the variable goodOrBad.
+  //Gives ClientSideHabit.js the variable goodOrBad.
   var goodOrBad = <%= good %>;
 </script>
-<script src="/js/habitC.js"></script>
+<script src="/js/ClientSideHabit.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
