@@ -5,7 +5,7 @@
 Team Name: BBY-23
 Team Members: 
 - Jeremy Testa
-- Jonathan Hilde
+- Athen Hill
 - Nathan Hilde
 - Maksim Sadreev
 - Radmir Garipov
@@ -281,7 +281,7 @@ Specifically:
 2. **Copilot** also assisted in generating the base look for some of our applications pages. I used these initial designs as a starting point, and then further customized them to create a unique and user-friendly interface.
 3. **Copilot** and **ChatGPT** provided valuable assistance in writing the JavaScript needed to control the behavior of Bootstrap modals. This included code for triggering the modals, handling form submissions, and managing modal events.
 
-Jonathan Hilde: 
+Athen Hill: 
 In the development of our project, I’ve utilized two AI tools, Copilot and Phot.AI, which have been instrumental in enhancing various aspects of our work.
 
 Debugging: Copilot’s ability to analyze code has been invaluable for debugging, allowing for quick and efficient problem-solving.
@@ -299,7 +299,7 @@ All console logs written by chat have been removed.
 
 ## Contact information 
 Jeremy Testa: jeremy_testa@hotmail.com
-Jonathan Hilde: cyconiexo@gmail.com
+Athen Hill: cyconiexo@gmail.com
 Nathan Hilde: nathan.hilde1@gmail.com
 Maksim Sadreev: msadreev@my.bcit.ca
 Radmir Garipov: radmirgaripovrss@gmail.com
