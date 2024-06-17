@@ -225,7 +225,7 @@ Make sure you make a .env file with the contents of passwords.txt
 ### Credits
 This project was developed by the following team members:
 - **Jeremy Testa**: Full-Stack Developer
-- **Jonathan Hilde**: Backend Developer
+- **Athen Hill**: Backend Developer
 - **Nathan Hilde**: Frontend Developer and Designer
 - **Maksim Sadreev**: Frontend Developer and Designer
 - **Radmir Garipov**: Backend Developer 
